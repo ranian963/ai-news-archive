@@ -1,0 +1,110 @@
+(() => {
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+
+  function initFilters() {
+    const grid = document.querySelector("[data-news-grid]");
+    if (!grid) return;
+    const buttons = [...document.querySelectorAll("[data-filter]")];
+    const input = document.querySelector("[data-search-input]");
+    const empty = document.querySelector("[data-empty]");
+    const count = document.querySelector("[data-result-count]");
+    const requested = new URLSearchParams(location.search).get("type");
+    let selected = ["weekly", "brief"].includes(requested) ? requested : "all";
+
+    const apply = () => {
+      const query = input.value.trim().toLocaleLowerCase("ko");
+      let visible = 0;
+      for (const item of grid.children) {
+        const typeMatch = selected === "all" || item.dataset.type === selected;
+        const textMatch = !query || item.dataset.search.includes(query);
+        item.hidden = !(typeMatch && textMatch);
+        if (!item.hidden) visible += 1;
+      }
+      count.textContent = `${visible}개`;
+      empty.hidden = visible !== 0;
+    };
+
+    for (const button of buttons) {
+      button.setAttribute("aria-pressed", String(button.dataset.filter === selected));
+      button.addEventListener("click", () => {
+        selected = button.dataset.filter;
+        for (const candidate of buttons) {
+          candidate.setAttribute("aria-pressed", String(candidate === button));
+        }
+        const url = new URL(location.href);
+        if (selected === "all") url.searchParams.delete("type");
+        else url.searchParams.set("type", selected);
+        history.replaceState(null, "", url);
+        apply();
+      });
+    }
+    input.addEventListener("input", apply);
+    apply();
+  }
+
+  function initCarousel() {
+    const root = document.querySelector("[data-carousel]");
+    if (!root) return;
+    const track = root.querySelector("[data-track]");
+    const slides = [...track.children];
+    const previous = root.querySelector("[data-previous-card]");
+    const next = root.querySelector("[data-next-card]");
+    const position = root.querySelector("[data-position]");
+    const pagination = root.querySelector("[data-pagination]");
+    let current = 0;
+    let raf = 0;
+
+    const update = (index) => {
+      current = Math.max(0, Math.min(slides.length - 1, index));
+      previous.disabled = current === 0;
+      next.disabled = current === slides.length - 1;
+      position.textContent = `${current + 1} / ${slides.length}`;
+      [...pagination.children].forEach((button, buttonIndex) => {
+        button.toggleAttribute("aria-current", buttonIndex === current);
+      });
+    };
+
+    const moveTo = (index) => {
+      update(index);
+      track.scrollTo({
+        left: track.clientWidth * current,
+        behavior: reducedMotion.matches ? "auto" : "smooth"
+      });
+    };
+
+    slides.forEach((_, index) => {
+      const button = document.createElement("button");
+      button.className = "page-dot";
+      button.type = "button";
+      button.setAttribute("aria-label", `${index + 1}번째 카드로 이동`);
+      button.addEventListener("click", () => moveTo(index));
+      pagination.append(button);
+    });
+
+    previous.addEventListener("click", () => moveTo(current - 1));
+    next.addEventListener("click", () => moveTo(current + 1));
+    track.addEventListener("scroll", () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        if (track.clientWidth) update(Math.round(track.scrollLeft / track.clientWidth));
+      });
+    }, { passive: true });
+
+    window.addEventListener("keydown", (event) => {
+      const target = event.target;
+      const isTyping = target instanceof HTMLElement &&
+        (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName));
+      if (isTyping || event.altKey || event.ctrlKey || event.metaKey) return;
+      if (!["ArrowLeft", "ArrowRight", " ", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      if (event.key === "ArrowLeft") moveTo(current - 1);
+      if (event.key === "ArrowRight" || event.key === " ") moveTo(current + 1);
+      if (event.key === "Home") moveTo(0);
+      if (event.key === "End") moveTo(slides.length - 1);
+    });
+    update(0);
+  }
+
+  initFilters();
+  initCarousel();
+})();
