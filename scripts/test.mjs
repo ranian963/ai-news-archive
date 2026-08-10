@@ -53,6 +53,18 @@ for (const item of newsItems) {
   if (!detailHtml.includes("data-copy-link") || !detailHtml.includes(expectedUrl)) {
     failures.push(`뉴스 공유 버튼 또는 고유 주소 누락: ${item.id}`);
   }
+  const readerIndex = detailHtml.indexOf('class="reader-stage"');
+  const carouselIndex = detailHtml.indexOf('class="carousel"');
+  const headingIndex = detailHtml.indexOf('id="news-title"');
+  if (!detailHtml.includes('<body class="detail-page">') || readerIndex < 0) {
+    failures.push(`이미지 우선 뉴스 화면 누락: ${item.id}`);
+  }
+  if (carouselIndex < readerIndex || headingIndex < carouselIndex) {
+    failures.push(`첫 카드가 뉴스 설명보다 먼저 나오지 않음: ${item.id}`);
+  }
+  if (!detailHtml.includes('class="reader-toolbar"') || !detailHtml.includes('class="carousel__readout"')) {
+    failures.push(`뉴스 뷰어 도구줄 또는 이동 안내 누락: ${item.id}`);
+  }
   const firstCardSrcset = `srcset="../../../assets/${item.imageStem}/cover.webp 720w, ../../../assets/${item.imageStem}/01.webp 1080w"`;
   if (!detailHtml.includes(firstCardSrcset)) {
     failures.push(`첫 카드 반응형 이미지 누락: ${item.id}`);

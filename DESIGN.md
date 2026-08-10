@@ -38,7 +38,7 @@ Primary stack: `Apple SD Gothic Neo`, `Pretendard`, `Noto Sans KR`, system sans-
 | Level | Token | Size | Weight | Line height | Usage |
 |---|---|---:|---:|---:|---|
 | Display | `--type-display` | `clamp(2.25rem, 6vw, 4.5rem)` | 800 | 1.04 | Archive title |
-| Page title | `--type-title` | `clamp(1.75rem, 4vw, 3rem)` | 800 | 1.15 | News title |
+| Page title | `--type-title` | `clamp(1.75rem, 3vw, 2rem)` | 800 | 1.15 | News title |
 | Section | `--type-section` | `clamp(1.35rem, 2.5vw, 1.75rem)` | 750 | 1.25 | Section title |
 | Card title | `--type-card` | `clamp(1.1rem, 2vw, 1.35rem)` | 750 | 1.35 | Archive tile title |
 | Lead | `--type-lead` | `clamp(1rem, 1.8vw, 1.15rem)` | 450 | 1.75 | Page introduction |
@@ -46,7 +46,7 @@ Primary stack: `Apple SD Gothic Neo`, `Pretendard`, `Noto Sans KR`, system sans-
 | Small | `--type-small` | `0.875rem` | 500 | 1.55 | Metadata |
 | Label | `--type-label` | `0.75rem` | 750 | 1.4 | Category labels |
 
-Korean phrases may not break inside a word. Use balanced wrapping for headings and `word-break: keep-all`.
+Korean phrases may not break inside a word. Use balanced wrapping for archive headings, `text-wrap: pretty` for news titles, and `word-break: keep-all` throughout.
 
 ## 4. Spacing & Layout
 
@@ -66,7 +66,9 @@ Base unit: 4px.
 | `--space-16` | 64px |
 | `--space-20` | 80px |
 
-Maximum archive width is 1184px. News text width is 760px; the card viewer width is 760px. Mobile and tablet gutters are 16px; the maximum width creates wider outer margins on large screens. The home grid is one column through 640px, two columns through 900px, and three columns above 900px.
+Maximum archive width is 1184px. Mobile and tablet gutters are 16px; the maximum width creates wider outer margins on large screens. The home grid is one column through 640px, two columns through 900px, and three columns above 900px.
+
+The detail page starts with a viewport-aware Reader Stage. Its toolbar, card, controls, and direct selectors fit within the initial dynamic viewport on common portrait mobile, tablet, and desktop screens. The card is at most 680px wide and may shrink according to viewport height. On screens wider than 960px, the card sits beside a 320–360px news summary. Below that width, the card comes first and the summary follows it. The document remains the only vertical scroll owner; the carousel track and selector rail own horizontal movement only.
 
 ## 5. Components
 
@@ -90,10 +92,17 @@ Maximum archive width is 1184px. News text width is 760px; the card viewer width
 - Motion: image translates upward 4px on hover; reduced-motion removes the translation.
 
 ### Card Viewer
-- Structure: instruction text, scroll-snap track, slide figures, previous/next buttons, page counter, direct selectors.
+- Structure: compact toolbar, scroll-snap track, slide figures, previous/next buttons, page counter, keyboard hint, direct selector rail.
 - States: first, middle, last, dragging, focus, reduced motion.
 - Accessibility: swipe, ArrowLeft, ArrowRight, Space, Home, End; live counter; 44px controls; no control overlays the card image.
-- Motion: native smooth scroll with snap; reduced-motion uses immediate scroll.
+- Motion: native swipe and scroll use snap; direct controls move immediately so artwork, counter, and selector stay in sync.
+
+### Reader Stage
+- Structure: archive back-link, category/date/card count, share action, Card Viewer, and news summary.
+- Responsive order: desktop pairs the viewer with the summary; mobile and tablet show the complete first card before the title and summary.
+- Height rule: the first card must be visible without scrolling on common portrait viewports. The image width responds to both container width and dynamic viewport height.
+- Accessibility: one document scroll owner; no sticky or fixed element may cover card artwork; every toolbar control is at least 44px.
+- Surface: a restrained paper field and one pastel index strip support the image without imitating the artwork.
 
 ### News Navigation
 - Structure: previous news, archive link, next news.
@@ -113,7 +122,7 @@ Maximum archive width is 1184px. News text width is 760px; the card viewer width
 
 ### Share Button
 - Structure: copy icon, short label, and the canonical URL stored in `data-copy-url`.
-- Placement: below a news summary on archive tiles and detail headers; never over card artwork.
+- Placement: below a news summary on archive tiles and in the detail Reader Stage toolbar; never over card artwork.
 - States: idle, copied, failed, focus.
 - Accessibility: semantic button with a 44px minimum target; status text uses a polite live region.
 - Motion: label and icon state change without layout movement; reduced motion requires no alternate treatment.
@@ -124,7 +133,7 @@ Maximum archive width is 1184px. News text width is 760px; the card viewer width
 |---|---:|---|---|
 | `--motion-micro` | 120ms | ease-out | Button press |
 | `--motion-standard` | 180ms | cubic-bezier(0.22, 1, 0.36, 1) | Hover and filter state |
-| `--motion-scroll` | native smooth scroll | browser | Card movement |
+| `--motion-scroll` | native scroll | browser | Swipe and track movement |
 
 Only `transform`, `opacity`, background-color, and color transition. The viewer tracks pointer/touch through native horizontal scroll and scroll snap. No autoplay. `prefers-reduced-motion: reduce` disables smooth scroll and decorative movement.
 

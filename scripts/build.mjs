@@ -1,4 +1,4 @@
-import { cp, mkdir, writeFile } from "node:fs/promises";
+import { cp, mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { labels, newsItems } from "../src/news-data.mjs";
@@ -6,6 +6,11 @@ import { labels, newsItems } from "../src/news-data.mjs";
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const output = resolve(root, "docs");
 const siteUrl = "https://ranian963.github.io/ai-news-archive/";
+const inlineStyles = (await readFile(resolve(root, "src/styles.css"), "utf8"))
+  .replace(/\/\*[\s\S]*?\*\//g, "")
+  .replace(/\s+/g, " ")
+  .replace(/\s*([{}:;,])\s*/g, "$1")
+  .trim();
 
 const escapeHtml = (value) => String(value)
   .replaceAll("&", "&amp;")
@@ -13,7 +18,17 @@ const escapeHtml = (value) => String(value)
   .replaceAll(">", "&gt;")
   .replaceAll('"', "&quot;");
 
-const pageShell = ({ title, description, canonical, cssPath, scriptPath, body, socialImage, preloadImage, preloadImageSrcset = "", preloadImageSizes = "" }) => `<!doctype html>
+const keepInlinePhrases = ["Qwen3.8-Max", "Solar Pro 4", "ARC-AGI-3", "가격 인하", "바탕으로 한 정리"];
+
+function inlineText(value) {
+  let html = escapeHtml(value);
+  for (const phrase of keepInlinePhrases) {
+    html = html.replaceAll(phrase, `<span class="keep-inline">${phrase}</span>`);
+  }
+  return html;
+}
+
+const pageShell = ({ title, description, canonical, cssPath, scriptPath, body, bodyClass = "", socialImage, preloadImage, preloadImageSrcset = "", preloadImageSizes = "" }) => `<!doctype html>
 <html lang="ko">
 <head>
   <meta charset="utf-8">
@@ -31,10 +46,10 @@ const pageShell = ({ title, description, canonical, cssPath, scriptPath, body, s
   <meta name="twitter:card" content="summary_large_image">
   ${preloadImage ? `<link rel="preload" as="image" href="${preloadImage}"${preloadImageSrcset ? ` imagesrcset="${preloadImageSrcset}" imagesizes="${preloadImageSizes}"` : ""} fetchpriority="high">` : ""}
   <link rel="icon" href="${cssPath.startsWith("../../../") ? "../../../" : ""}favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="${cssPath}">
+  <style>${inlineStyles}</style>
   <script src="${scriptPath}" defer></script>
 </head>
-<body>
+<body${bodyClass ? ` class="${bodyClass}"` : ""}>
   <a class="skip-link" href="#main">본문으로 이동</a>
   ${header(cssPath.startsWith("../../../") ? "../../../" : "")}
   ${body}
@@ -82,8 +97,8 @@ function tile(item, base = "", heading = "h2", eager = false) {
       <img class="news-tile__image" src="${coverHref(item, base)}" srcset="${coverHref(item, base)} 720w, ${imageHref(item, 1, base)} 1080w" sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 900px) 50vw, 380px" width="720" height="900" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} alt="${escapeHtml(item.coverAlt)}">
     </a>
     <div class="news-tile__meta">${category(item)}<time datetime="${item.published}">${item.displayDate}</time></div>
-    <${heading}><a href="${itemHref(item, base)}">${escapeHtml(item.title)}</a></${heading}>
-    <p class="news-tile__summary">${escapeHtml(item.summary)}</p>
+    <${heading}><a href="${itemHref(item, base)}">${inlineText(item.title)}</a></${heading}>
+    <p class="news-tile__summary">${inlineText(item.summary)}</p>
     <div class="tags" aria-label="주제">${tagHtml}</div>
     ${shareButton(item, "share-button--tile")}
   </article>`;
@@ -91,6 +106,7 @@ function tile(item, base = "", heading = "h2", eager = false) {
 
 function homeHtml() {
   const items = [...newsItems].reverse();
+  const featured = items[0];
   const body = `<main id="main" class="archive-main">
     <section class="archive-intro" aria-labelledby="archive-title">
       <p class="eyebrow">AI NEWS ARCHIVE</p>
@@ -122,8 +138,10 @@ function homeHtml() {
     canonical: siteUrl,
     cssPath: "styles.css",
     scriptPath: "app.js",
-    socialImage: `${siteUrl}assets/openai-huggingface-incident/01.webp`,
-    preloadImage: "assets/openai-huggingface-incident/cover.webp",
+    socialImage: `${siteUrl}assets/${featured.imageStem}/01.webp`,
+    preloadImage: coverHref(featured),
+    preloadImageSrcset: `${coverHref(featured)} 720w, ${imageHref(featured, 1)} 1080w`,
+    preloadImageSizes: "(max-width: 640px) calc(100vw - 32px), (max-width: 900px) 50vw, 380px",
     body
   });
 }
@@ -157,30 +175,37 @@ function detailHtml(item, index) {
   const relatedHtml = related.map((relatedItem) => `<article class="related-card">
     <a href="${itemHref(relatedItem, base)}">
       <img data-deferred-image data-src="${coverHref(relatedItem, base)}" data-srcset="${coverHref(relatedItem, base)} 720w, ${imageHref(relatedItem, 1, base)} 1080w" sizes="(max-width: 640px) 112px, 300px" width="720" height="900" loading="lazy" decoding="async" alt="${escapeHtml(relatedItem.coverAlt)}">
-      <h3>${escapeHtml(relatedItem.title)}</h3>
+      <h3>${inlineText(relatedItem.title)}</h3>
     </a>
   </article>`).join("");
-  const previousHtml = previous ? `<a class="news-navigation__link" href="${itemHref(previous, base)}"><span class="news-navigation__label">이전 뉴스</span><span class="news-navigation__title">${escapeHtml(previous.title)}</span></a>` : `<span></span>`;
-  const nextHtml = next ? `<a class="news-navigation__link news-navigation__link--next" href="${itemHref(next, base)}"><span class="news-navigation__label">다음 뉴스</span><span class="news-navigation__title">${escapeHtml(next.title)}</span></a>` : `<span></span>`;
-  const sourceHtml = item.sources.map(([label, url]) => `<li><a href="${escapeHtml(url)}" target="_blank" rel="noreferrer">${escapeHtml(label)}</a></li>`).join("");
+  const previousHtml = previous ? `<a class="news-navigation__link" href="${itemHref(previous, base)}"><span class="news-navigation__label">이전 뉴스</span><span class="news-navigation__title">${inlineText(previous.title)}</span></a>` : `<span></span>`;
+  const nextHtml = next ? `<a class="news-navigation__link news-navigation__link--next" href="${itemHref(next, base)}"><span class="news-navigation__label">다음 뉴스</span><span class="news-navigation__title">${inlineText(next.title)}</span></a>` : `<span></span>`;
+  const sourceHtml = item.sources.map(([label, url]) => `<li><a href="${escapeHtml(url)}" target="_blank" rel="noreferrer"><span class="source-list__label">${inlineText(label)}</span></a></li>`).join("");
   const body = `<main id="main" class="detail-main">
-    <nav class="breadcrumb" aria-label="현재 위치"><a href="${base}">뉴스 아카이브</a> / ${labels[item.type]}</nav>
-    <header class="detail-header">
-      <div class="detail-header__meta">${category(item)}<time datetime="${item.published}">${item.displayDate}</time><span>${item.cardCount}장</span></div>
-      <h1>${escapeHtml(item.title)}</h1>
-      <p class="detail-header__summary">${escapeHtml(item.summary)}</p>
-      <div class="tags" aria-label="주제">${item.tags.slice(1).map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}</div>
-      ${shareButton(item, "share-button--detail")}
-    </header>
-    <section class="carousel" data-carousel aria-label="${escapeHtml(item.title)} 카드뉴스">
-      <p class="carousel__instructions" id="carousel-instructions">좌우로 밀거나 방향키·Space·Home·End 키로 이동할 수 있습니다.</p>
-      <div class="carousel__track" data-track role="group" aria-roledescription="캐러셀" aria-describedby="carousel-instructions" tabindex="0">${slides}</div>
-      <div class="carousel__controls">
-        <button class="nav-button" type="button" data-previous-card aria-label="이전 카드"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>이전</span></button>
-        <p class="carousel__position" data-position aria-live="polite" aria-atomic="true">1 / ${item.cardCount}</p>
-        <button class="nav-button" type="button" data-next-card aria-label="다음 카드"><span>다음</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <section class="reader-stage" aria-labelledby="news-title">
+      <div class="reader-toolbar">
+        <a class="reader-toolbar__back" href="${base}" aria-label="뉴스 목록으로 돌아가기"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>뉴스 목록</span></a>
+        <p class="reader-toolbar__status"><span>${labels[item.type]}</span><span aria-hidden="true">·</span><time datetime="${item.published}">${item.displayDate}</time><span aria-hidden="true">·</span><span>${item.cardCount}장</span></p>
+        ${shareButton(item, "share-button--detail")}
       </div>
-      <div class="pagination" data-pagination aria-label="카드 바로 가기"></div>
+      <div class="reader-layout">
+        <section class="carousel" data-carousel aria-label="${escapeHtml(item.title)} 카드뉴스">
+          <p class="sr-only" id="carousel-instructions">좌우로 밀거나 방향키, Space, Home, End 키로 이동할 수 있습니다.</p>
+          <div class="carousel__track" data-track role="group" aria-roledescription="캐러셀" aria-describedby="carousel-instructions" tabindex="0">${slides}</div>
+          <div class="carousel__controls">
+            <button class="nav-button" type="button" data-previous-card aria-label="이전 카드"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>이전</span></button>
+            <div class="carousel__readout"><p class="carousel__position" data-position aria-live="polite" aria-atomic="true">1 / ${item.cardCount}</p><span>스와이프 · 방향키 · Space</span></div>
+            <button class="nav-button" type="button" data-next-card aria-label="다음 카드"><span>다음</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+          <div class="pagination" data-pagination aria-label="카드 바로 가기"></div>
+        </section>
+        <header class="detail-header">
+          <div class="detail-header__meta">${category(item)}<time datetime="${item.published}">${item.displayDate}</time><span>${item.cardCount}장</span></div>
+          <h1 id="news-title">${inlineText(item.title)}</h1>
+          <p class="detail-header__summary">${inlineText(item.summary)}</p>
+          <div class="tags" aria-label="주제">${item.tags.slice(1).map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}</div>
+        </header>
+      </div>
     </section>
     <section class="detail-section" aria-labelledby="sources-title"><h2 id="sources-title">참고한 자료</h2><ul class="source-list">${sourceHtml}</ul></section>
     <nav class="detail-section news-navigation" aria-label="다른 뉴스">${previousHtml}<a class="news-navigation__home" href="${base}">전체 뉴스 보기</a>${nextHtml}</nav>
@@ -197,6 +222,7 @@ function detailHtml(item, index) {
     preloadImage: coverHref(item, base),
     preloadImageSrcset: `${coverHref(item, base)} 720w, ${imageHref(item, 1, base)} 1080w`,
     preloadImageSizes: "(max-width: 792px) calc(100vw - 32px), 760px",
+    bodyClass: "detail-page",
     body
   });
 }

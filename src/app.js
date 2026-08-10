@@ -78,24 +78,45 @@
     const pagination = root.querySelector("[data-pagination]");
     let current = 0;
     let raf = 0;
+    let programmaticTarget = null;
 
     const update = (index) => {
       current = Math.max(0, Math.min(slides.length - 1, index));
       previous.disabled = current === 0;
       next.disabled = current === slides.length - 1;
       position.textContent = `${current + 1} / ${slides.length}`;
+      slides.forEach((slide, slideIndex) => {
+        slide.setAttribute("aria-hidden", String(slideIndex !== current));
+      });
       [...pagination.children].forEach((button, buttonIndex) => {
         button.toggleAttribute("aria-current", buttonIndex === current);
       });
+      const activeButton = pagination.children[current];
+      if (activeButton instanceof HTMLElement) {
+        pagination.scrollTo({
+          left: activeButton.offsetLeft - (pagination.clientWidth - activeButton.offsetWidth) / 2,
+          behavior: reducedMotion.matches ? "auto" : "smooth"
+        });
+      }
     };
 
     const moveTo = (index) => {
-      update(index);
+      const target = Math.max(0, Math.min(slides.length - 1, index));
+      programmaticTarget = target;
+      update(target);
       loadDeferredImage(slides[current].querySelector("[data-deferred-image]"));
       track.scrollTo({
         left: track.clientWidth * current,
-        behavior: reducedMotion.matches ? "auto" : "smooth"
+        behavior: "auto"
       });
+      requestAnimationFrame(() => {
+        programmaticTarget = null;
+        if (track.clientWidth) update(Math.round(track.scrollLeft / track.clientWidth));
+      });
+    };
+
+    const releaseProgrammaticTarget = () => {
+      programmaticTarget = null;
     };
 
     slides.forEach((_, index) => {
@@ -110,17 +131,26 @@
     previous.addEventListener("click", () => moveTo(current - 1));
     next.addEventListener("click", () => moveTo(current + 1));
     track.addEventListener("scroll", () => {
+      if (programmaticTarget !== null) return;
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
         if (track.clientWidth) update(Math.round(track.scrollLeft / track.clientWidth));
       });
     }, { passive: true });
+    track.addEventListener("scrollend", () => {
+      releaseProgrammaticTarget();
+      if (track.clientWidth) update(Math.round(track.scrollLeft / track.clientWidth));
+    });
+    track.addEventListener("pointerdown", releaseProgrammaticTarget, { passive: true });
+    track.addEventListener("wheel", releaseProgrammaticTarget, { passive: true });
 
     window.addEventListener("keydown", (event) => {
       const target = event.target;
       const isTyping = target instanceof HTMLElement &&
         (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName));
-      if (isTyping || event.altKey || event.ctrlKey || event.metaKey) return;
+      const isInteractive = target instanceof Element &&
+        target.closest("a, button, input, textarea, select, [role='button'], [contenteditable='true']");
+      if (isTyping || isInteractive || event.altKey || event.ctrlKey || event.metaKey) return;
       if (!["ArrowLeft", "ArrowRight", " ", "Home", "End"].includes(event.key)) return;
       event.preventDefault();
       if (event.key === "ArrowLeft") moveTo(current - 1);
