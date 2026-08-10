@@ -42,12 +42,30 @@ const homeShareButtons = [...homeHtml.matchAll(/data-copy-link/g)];
 if (homeShareButtons.length !== newsItems.length) {
   failures.push(`홈 공유 버튼 ${newsItems.length}개 예상, ${homeShareButtons.length}개 확인`);
 }
+for (const item of newsItems) {
+  const expectedUrl = `data-copy-url="https://ranian963.github.io/ai-news-archive/${item.path}"`;
+  if (!homeHtml.includes(expectedUrl)) failures.push(`홈 공유 주소 누락: ${item.id}`);
+}
 
 for (const item of newsItems) {
   const detailHtml = await readFile(resolve(docs, item.path, "index.html"), "utf8");
   const expectedUrl = `data-copy-url="https://ranian963.github.io/ai-news-archive/${item.path}"`;
   if (!detailHtml.includes("data-copy-link") || !detailHtml.includes(expectedUrl)) {
     failures.push(`뉴스 공유 버튼 또는 고유 주소 누락: ${item.id}`);
+  }
+  const firstCardSrcset = `srcset="../../../assets/${item.imageStem}/cover.webp 720w, ../../../assets/${item.imageStem}/01.webp 1080w"`;
+  if (!detailHtml.includes(firstCardSrcset)) {
+    failures.push(`첫 카드 반응형 이미지 누락: ${item.id}`);
+  }
+  const matchingPreload = `href="../../../assets/${item.imageStem}/cover.webp" imagesrcset="../../../assets/${item.imageStem}/cover.webp 720w, ../../../assets/${item.imageStem}/01.webp 1080w" imagesizes="(max-width: 792px) calc(100vw - 32px), 760px" fetchpriority="high"`;
+  if (!detailHtml.includes(matchingPreload)) failures.push(`첫 카드 preload 설정 불일치: ${item.id}`);
+  const lowPriorityCards = [...detailHtml.matchAll(/fetchpriority="low"/g)].length;
+  if (lowPriorityCards !== item.cardCount - 1) {
+    failures.push(`${item.id}: 후속 카드 낮은 우선순위 ${item.cardCount - 1}개 예상, ${lowPriorityCards}개 확인`);
+  }
+  const deferredCards = [...detailHtml.matchAll(/data-deferred-image data-src="\.\.\/\.\.\/\.\.\/assets\//g)].length;
+  if (deferredCards < item.cardCount - 1) {
+    failures.push(`${item.id}: 후속 카드 지연 로딩 ${item.cardCount - 1}개 이상 예상, ${deferredCards}개 확인`);
   }
 }
 

@@ -1,6 +1,31 @@
 (() => {
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 
+  function loadDeferredImage(image) {
+    if (!(image instanceof HTMLImageElement) || !image.dataset.src) return;
+    image.src = image.dataset.src;
+    if (image.dataset.srcset) image.srcset = image.dataset.srcset;
+    delete image.dataset.src;
+    delete image.dataset.srcset;
+    delete image.dataset.deferredImage;
+  }
+
+  function initDeferredImages() {
+    const images = [...document.querySelectorAll("[data-deferred-image]")];
+    if (!("IntersectionObserver" in window)) {
+      images.forEach(loadDeferredImage);
+      return;
+    }
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        loadDeferredImage(entry.target);
+        observer.unobserve(entry.target);
+      }
+    }, { rootMargin: "240px 80px" });
+    images.forEach((image) => observer.observe(image));
+  }
+
   function initFilters() {
     const grid = document.querySelector("[data-news-grid]");
     if (!grid) return;
@@ -66,6 +91,7 @@
 
     const moveTo = (index) => {
       update(index);
+      loadDeferredImage(slides[current].querySelector("[data-deferred-image]"));
       track.scrollTo({
         left: track.clientWidth * current,
         behavior: reducedMotion.matches ? "auto" : "smooth"
@@ -130,5 +156,6 @@
 
   initFilters();
   initCarousel();
+  initDeferredImages();
   initShareButtons();
 })();

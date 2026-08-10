@@ -13,7 +13,7 @@ const escapeHtml = (value) => String(value)
   .replaceAll(">", "&gt;")
   .replaceAll('"', "&quot;");
 
-const pageShell = ({ title, description, canonical, cssPath, scriptPath, body, socialImage, preloadImage }) => `<!doctype html>
+const pageShell = ({ title, description, canonical, cssPath, scriptPath, body, socialImage, preloadImage, preloadImageSrcset = "", preloadImageSizes = "" }) => `<!doctype html>
 <html lang="ko">
 <head>
   <meta charset="utf-8">
@@ -29,7 +29,7 @@ const pageShell = ({ title, description, canonical, cssPath, scriptPath, body, s
   <meta property="og:url" content="${canonical}">
   <meta property="og:image" content="${socialImage}">
   <meta name="twitter:card" content="summary_large_image">
-  ${preloadImage ? `<link rel="preload" as="image" href="${preloadImage}" fetchpriority="high">` : ""}
+  ${preloadImage ? `<link rel="preload" as="image" href="${preloadImage}"${preloadImageSrcset ? ` imagesrcset="${preloadImageSrcset}" imagesizes="${preloadImageSizes}"` : ""} fetchpriority="high">` : ""}
   <link rel="icon" href="${cssPath.startsWith("../../../") ? "../../../" : ""}favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="${cssPath}">
   <script src="${scriptPath}" defer></script>
@@ -148,13 +148,15 @@ function detailHtml(item, index) {
   const slides = Array.from({ length: item.cardCount }, (_, cardIndex) => {
     const number = cardIndex + 1;
     const alt = number === 1 ? item.coverAlt : `${item.title} 카드뉴스 ${number}번째 장, 전체 ${item.cardCount}장`;
+    const responsiveSource = number === 1 ? ` srcset="${coverHref(item, base)} 720w, ${imageHref(item, 1, base)} 1080w" sizes="(max-width: 792px) calc(100vw - 32px), 760px"` : "";
+    const source = number === 1 ? `src="${imageHref(item, number, base)}"` : `data-deferred-image data-src="${imageHref(item, number, base)}"`;
     return `<figure class="slide" aria-label="${number}번째 카드, 전체 ${item.cardCount}장">
-      <img src="${imageHref(item, number, base)}" width="1080" height="1350" ${number === 1 ? 'fetchpriority="high"' : 'loading="lazy"'} alt="${escapeHtml(alt)}">
+      <img ${source}${responsiveSource} width="1080" height="1350" ${number === 1 ? 'fetchpriority="high"' : 'loading="lazy" fetchpriority="low" decoding="async"'} alt="${escapeHtml(alt)}">
     </figure>`;
   }).join("");
   const relatedHtml = related.map((relatedItem) => `<article class="related-card">
     <a href="${itemHref(relatedItem, base)}">
-      <img src="${coverHref(relatedItem, base)}" srcset="${coverHref(relatedItem, base)} 720w, ${imageHref(relatedItem, 1, base)} 1080w" sizes="(max-width: 640px) 112px, 300px" width="720" height="900" loading="lazy" alt="${escapeHtml(relatedItem.coverAlt)}">
+      <img data-deferred-image data-src="${coverHref(relatedItem, base)}" data-srcset="${coverHref(relatedItem, base)} 720w, ${imageHref(relatedItem, 1, base)} 1080w" sizes="(max-width: 640px) 112px, 300px" width="720" height="900" loading="lazy" decoding="async" alt="${escapeHtml(relatedItem.coverAlt)}">
       <h3>${escapeHtml(relatedItem.title)}</h3>
     </a>
   </article>`).join("");
@@ -192,7 +194,9 @@ function detailHtml(item, index) {
     cssPath: `${base}styles.css`,
     scriptPath: `${base}app.js`,
     socialImage: `${siteUrl}assets/${item.imageStem}/01.webp`,
-    preloadImage: imageHref(item, 1, base),
+    preloadImage: coverHref(item, base),
+    preloadImageSrcset: `${coverHref(item, base)} 720w, ${imageHref(item, 1, base)} 1080w`,
+    preloadImageSizes: "(max-width: 792px) calc(100vw - 32px), 760px",
     body
   });
 }

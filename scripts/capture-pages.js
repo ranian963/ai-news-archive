@@ -23,14 +23,15 @@ async (page) => {
       await page.locator("img").first().waitFor({ state: "visible" });
       await page.evaluate(async () => {
         for (const image of document.images) {
+          if (image.dataset.src) image.src = image.dataset.src;
+          if (image.dataset.srcset) image.srcset = image.dataset.srcset;
           image.loading = "eager";
-          image.src = image.currentSrc || image.src;
         }
         await document.fonts.ready;
         await Promise.all([...document.images].map((image) => image.decode().catch(() => null)));
       });
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
-      const filename = `output/playwright/${viewport}-${name}.png`;
+      const filename = `output/playwright/share-${viewport}-${name}.png`;
       await page.screenshot({ path: filename, fullPage: true });
       results.push({ viewport, name, overflow, filename });
     }
