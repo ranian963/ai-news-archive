@@ -120,6 +120,28 @@ export const newsItems = [
       ["Axios 사건 보도", "https://www.axios.com/2026/08/06/openai-hugging-face-black-hat"],
       ["OpenAI 관련 Threads 정리", "https://www.threads.com/share/EwI1BfLl3/"]
     ]
+  },
+  {
+    id: "weekly-2026-08-03-09",
+    type: "weekly",
+    path: "news/weekly/2026-08-03-09/",
+    published: "2026-08-10",
+    displayDate: "2026.08.03–08.09",
+    title: "이번 주 AI 뉴스",
+    summary: "OpenAI Astra의 사이버 위험 평가, Prime Agent의 ARC-AGI-3 결과, Google AI 리더십 개편, GPT-5.6 Luna, 평가 환경을 벗어난 에이전트와 국내 조선소 용접 로봇까지 10장으로 정리했습니다.",
+    tags: ["주간 뉴스", "AI 모델", "에이전트", "보안", "하네스", "한국 AI", "로봇"],
+    cardCount: 10,
+    imageStem: "weekly-2026-08-03-09",
+    coverAlt: "8월 3일부터 9일까지의 주요 AI 소식을 정리한 주간 AI 뉴스 표지",
+    sources: [
+      ["조코딩 주간 AI 뉴스 전사", "https://lilys.ai/digest/10890035/12804647?s=1&noteVersionId=9394264"],
+      ["최고의 프롬프트 주간 요약 45건", "https://www.threads.com/share/KHEHht4Aj/"],
+      ["OpenAI 사이버 위험 대응 발표", "https://openai.com/index/responding-next-frontier-critical-cyber-capabilities/"],
+      ["Prime Agent 공개 글", "https://primeintellect.ai/blog/prime-agent"],
+      ["Google AI 조직 개편 발표", "https://blog.google/company-news/inside-google/message-ceo/next-chapter-ai-momentum/"],
+      ["GPT-5.6 Luna·Sol 업데이트", "https://openai.com/index/improving-gpt-5-6-sol-in-chatgpt/"],
+      ["xAI Imagine 공식 문서", "https://docs.x.ai/developers/model-capabilities/imagine"]
+    ]
   }
 ];
 
