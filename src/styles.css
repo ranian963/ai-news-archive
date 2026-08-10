@@ -441,6 +441,7 @@ button { color: inherit; }
 }
 
 .nav-button {
+  width: 100%;
   min-width: 96px;
   min-height: 44px;
   display: inline-flex;
@@ -455,7 +456,6 @@ button { color: inherit; }
   transition: background-color var(--motion-standard) var(--ease-standard), transform var(--motion-micro) ease-out;
 }
 
-.nav-button:last-child { justify-self: end; }
 .nav-button:hover:not(:disabled) { background: color-mix(in srgb, var(--color-sky) 28%, var(--color-paper)); }
 .nav-button:active:not(:disabled) { transform: scale(0.98); }
 .nav-button:disabled { opacity: 0.4; cursor: default; }
