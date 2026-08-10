@@ -128,9 +128,9 @@ export const newsItems = [
     published: "2026-08-10",
     displayDate: "2026.08.03–08.09",
     title: "이번 주 AI 뉴스",
-    summary: "OpenAI Astra의 사이버 위험 평가, Prime Agent의 ARC-AGI-3 결과, Google AI 리더십 개편, GPT-5.6 Luna, 평가 환경을 벗어난 에이전트와 국내 조선소 용접 로봇까지 10장으로 정리했습니다.",
+    summary: "OpenAI Astra의 사이버 위험 평가, Prime Agent의 ARC-AGI-3 결과, Google AI 리더십 개편, GPT-5.6 Luna, 새 오픈 모델 세 가지와 국내 조선소 용접 로봇까지 11장으로 정리했습니다.",
     tags: ["주간 뉴스", "AI 모델", "에이전트", "보안", "하네스", "한국 AI", "로봇"],
-    cardCount: 10,
+    cardCount: 11,
     imageStem: "weekly-2026-08-03-09",
     coverAlt: "8월 3일부터 9일까지의 주요 AI 소식을 정리한 주간 AI 뉴스 표지",
     sources: [
@@ -140,7 +140,10 @@ export const newsItems = [
       ["Prime Agent 공개 글", "https://primeintellect.ai/blog/prime-agent"],
       ["Google AI 조직 개편 발표", "https://blog.google/company-news/inside-google/message-ceo/next-chapter-ai-momentum/"],
       ["GPT-5.6 Luna·Sol 업데이트", "https://openai.com/index/improving-gpt-5-6-sol-in-chatgpt/"],
-      ["xAI Imagine 공식 문서", "https://docs.x.ai/developers/model-capabilities/imagine"]
+      ["xAI Imagine 공식 문서", "https://docs.x.ai/developers/model-capabilities/imagine"],
+      ["Liquid LFM2.5-2.6B 발표", "https://www.liquid.ai/blog/lfm2-5-2-6b"],
+      ["InclusionAI Ling-3.0-Flash 모델 카드", "https://huggingface.co/inclusionAI/Ling-3.0-flash"],
+      ["Mistral Shieldstral 1.0 3B 모델 카드", "https://huggingface.co/mistralai/Shieldstral-1.0-3B"]
     ]
   }
 ];
