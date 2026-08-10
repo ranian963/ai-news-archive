@@ -37,6 +37,20 @@ for (const htmlFile of htmlFiles) {
   }
 }
 
+const homeHtml = await readFile(resolve(docs, "index.html"), "utf8");
+const homeShareButtons = [...homeHtml.matchAll(/data-copy-link/g)];
+if (homeShareButtons.length !== newsItems.length) {
+  failures.push(`홈 공유 버튼 ${newsItems.length}개 예상, ${homeShareButtons.length}개 확인`);
+}
+
+for (const item of newsItems) {
+  const detailHtml = await readFile(resolve(docs, item.path, "index.html"), "utf8");
+  const expectedUrl = `data-copy-url="https://ranian963.github.io/ai-news-archive/${item.path}"`;
+  if (!detailHtml.includes("data-copy-link") || !detailHtml.includes(expectedUrl)) {
+    failures.push(`뉴스 공유 버튼 또는 고유 주소 누락: ${item.id}`);
+  }
+}
+
 if (failures.length) {
   console.error(failures.join("\n"));
   process.exit(1);

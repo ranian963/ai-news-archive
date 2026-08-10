@@ -48,7 +48,7 @@ const header = (base) => `<header class="site-header">
     <nav class="site-nav" aria-label="주요 메뉴">
       <a href="${base}?type=weekly#news-list-title">주간 뉴스</a>
       <a href="${base}?type=brief#news-list-title">짧막 뉴스</a>
-      <a href="${base}">전체 보기</a>
+      <a href="${base}">전체 뉴스 보기</a>
     </nav>
   </div>
 </header>`;
@@ -64,6 +64,16 @@ const category = (item) => `<span class="category-label${item.type === "weekly" 
 const itemHref = (item, base = "") => `${base}${item.path}`;
 const imageHref = (item, index, base = "") => `${base}assets/${item.imageStem}/${String(index).padStart(2, "0")}.webp`;
 const coverHref = (item, base = "") => `${base}assets/${item.imageStem}/cover.webp`;
+const canonicalHref = (item) => `${siteUrl}${item.path}`;
+
+function shareButton(item, variant = "") {
+  const modifier = variant ? ` ${variant}` : "";
+  return `<button class="share-button${modifier}" type="button" data-copy-link data-copy-url="${canonicalHref(item)}">
+    <svg class="share-button__icon share-button__icon--copy" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    <svg class="share-button__icon share-button__icon--check" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span data-copy-label aria-live="polite">링크 복사</span><span class="sr-only">: ${escapeHtml(item.title)}</span>
+  </button>`;
+}
 
 function tile(item, base = "", heading = "h2", eager = false) {
   const tagHtml = item.tags.slice(1, 4).map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("");
@@ -75,6 +85,7 @@ function tile(item, base = "", heading = "h2", eager = false) {
     <${heading}><a href="${itemHref(item, base)}">${escapeHtml(item.title)}</a></${heading}>
     <p class="news-tile__summary">${escapeHtml(item.summary)}</p>
     <div class="tags" aria-label="주제">${tagHtml}</div>
+    ${shareButton(item, "share-button--tile")}
   </article>`;
 }
 
@@ -147,8 +158,8 @@ function detailHtml(item, index) {
       <h3>${escapeHtml(relatedItem.title)}</h3>
     </a>
   </article>`).join("");
-  const previousHtml = previous ? `<a class="news-navigation__link" href="${itemHref(previous, base)}" aria-label="이전 뉴스: ${escapeHtml(previous.title)}"><span class="news-navigation__label">이전 뉴스</span><span class="news-navigation__title">${escapeHtml(previous.title)}</span></a>` : `<span></span>`;
-  const nextHtml = next ? `<a class="news-navigation__link news-navigation__link--next" href="${itemHref(next, base)}" aria-label="다음 뉴스: ${escapeHtml(next.title)}"><span class="news-navigation__label">다음 뉴스</span><span class="news-navigation__title">${escapeHtml(next.title)}</span></a>` : `<span></span>`;
+  const previousHtml = previous ? `<a class="news-navigation__link" href="${itemHref(previous, base)}"><span class="news-navigation__label">이전 뉴스</span><span class="news-navigation__title">${escapeHtml(previous.title)}</span></a>` : `<span></span>`;
+  const nextHtml = next ? `<a class="news-navigation__link news-navigation__link--next" href="${itemHref(next, base)}"><span class="news-navigation__label">다음 뉴스</span><span class="news-navigation__title">${escapeHtml(next.title)}</span></a>` : `<span></span>`;
   const sourceHtml = item.sources.map(([label, url]) => `<li><a href="${escapeHtml(url)}" target="_blank" rel="noreferrer">${escapeHtml(label)}</a></li>`).join("");
   const body = `<main id="main" class="detail-main">
     <nav class="breadcrumb" aria-label="현재 위치"><a href="${base}">뉴스 아카이브</a> / ${labels[item.type]}</nav>
@@ -157,6 +168,7 @@ function detailHtml(item, index) {
       <h1>${escapeHtml(item.title)}</h1>
       <p class="detail-header__summary">${escapeHtml(item.summary)}</p>
       <div class="tags" aria-label="주제">${item.tags.slice(1).map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}</div>
+      ${shareButton(item, "share-button--detail")}
     </header>
     <section class="carousel" data-carousel aria-label="${escapeHtml(item.title)} 카드뉴스">
       <p class="carousel__instructions" id="carousel-instructions">좌우로 밀거나 방향키·Space·Home·End 키로 이동할 수 있습니다.</p>
@@ -172,7 +184,7 @@ function detailHtml(item, index) {
     <nav class="detail-section news-navigation" aria-label="다른 뉴스">${previousHtml}<a class="news-navigation__home" href="${base}">전체 뉴스 보기</a>${nextHtml}</nav>
     ${related.length ? `<section class="detail-section" aria-labelledby="related-title"><h2 id="related-title">함께 볼 뉴스</h2><div class="related-grid">${relatedHtml}</div></section>` : ""}
   </main>`;
-  const canonical = `${siteUrl}${item.path}`;
+  const canonical = canonicalHref(item);
   return pageShell({
     title: `${item.title} · AI Trend Note`,
     description: item.summary,

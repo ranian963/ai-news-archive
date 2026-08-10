@@ -105,6 +105,30 @@
     update(0);
   }
 
+  function initShareButtons() {
+    for (const button of document.querySelectorAll("[data-copy-link]")) {
+      const label = button.querySelector("[data-copy-label]");
+      let resetTimer = 0;
+
+      button.addEventListener("click", async () => {
+        clearTimeout(resetTimer);
+        try {
+          await navigator.clipboard.writeText(button.dataset.copyUrl);
+          button.dataset.copyState = "copied";
+          label.textContent = "복사됨";
+        } catch {
+          button.dataset.copyState = "failed";
+          label.textContent = "복사 실패";
+        }
+        resetTimer = window.setTimeout(() => {
+          delete button.dataset.copyState;
+          label.textContent = "링크 복사";
+        }, 1800);
+      });
+    }
+  }
+
   initFilters();
   initCarousel();
+  initShareButtons();
 })();

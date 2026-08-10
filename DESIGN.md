@@ -4,7 +4,7 @@
 
 - Concrete references: the seven approved card-news covers in the workspace are the visual contract. The archive borrows their warm paper, charcoal type, pale coral, sky, butter, mint, and lilac accents without reproducing card artwork in the surrounding UI.
 - Style reference: `minimalist-skill.md` for an editorial, low-chrome reading surface. The card image remains the main object.
-- Interaction reference: beui.dev `cylinder-carousel` source was reviewed for drag, arrow-key navigation, snap behavior, and reduced-motion handling. The archive uses the mechanism in a flat single-card viewer rather than the cylinder treatment.
+- Interaction references: beui.dev `cylinder-carousel` source was reviewed for drag, arrow-key navigation, snap behavior, and reduced-motion handling. The archive uses the mechanism in a flat single-card viewer rather than the cylinder treatment. The `action-swap` source was reviewed for copy-button idle and completed states; this archive keeps the response restrained and swaps only the label and icon.
 - Imagen and lazyweb were skipped because approved card art already provides a concrete visual reference.
 
 ## 1. Atmosphere & Identity
@@ -110,6 +110,13 @@ Maximum archive width is 1184px. News text width is 760px; the card viewer width
 - Structure: heading and external links.
 - States: default, hover, focus.
 - Accessibility: links include the source name; external target is stated visually.
+
+### Share Button
+- Structure: copy icon, short label, and the canonical URL stored in `data-copy-url`.
+- Placement: below a news summary on archive tiles and detail headers; never over card artwork.
+- States: idle, copied, failed, focus.
+- Accessibility: semantic button with a 44px minimum target; status text uses a polite live region.
+- Motion: label and icon state change without layout movement; reduced motion requires no alternate treatment.
 
 ## 6. Motion & Interaction
 

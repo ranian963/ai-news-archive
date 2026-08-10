@@ -82,6 +82,15 @@ button { color: inherit; }
 
 .skip-link:focus { transform: translateY(0); }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 .site-header {
   border-bottom: 1px solid var(--color-line);
   background: var(--color-paper);
@@ -286,6 +295,35 @@ button { color: inherit; }
 
 .tags { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); }
 .tag { padding: var(--space-1) var(--space-2); border: 1px solid var(--color-line); border-radius: 999px; color: var(--color-muted); font-size: var(--type-label); }
+
+.share-button {
+  min-width: 116px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding-inline: var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-small);
+  color: var(--color-ink);
+  background: var(--color-paper);
+  font-size: var(--type-small);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color var(--motion-standard) var(--ease-standard), color var(--motion-standard) var(--ease-standard), transform var(--motion-micro) ease-out;
+}
+
+.share-button:hover { background: color-mix(in srgb, var(--color-sky) 32%, var(--color-paper)); }
+.share-button:active { transform: scale(0.98); }
+.share-button[data-copy-state="copied"] { background: color-mix(in srgb, var(--color-mint) 52%, var(--color-paper)); }
+.share-button[data-copy-state="failed"] { color: var(--color-muted); }
+.share-button__icon { width: 18px; height: 18px; flex: none; }
+.share-button__icon--check { display: none; }
+.share-button[data-copy-state="copied"] .share-button__icon--copy { display: none; }
+.share-button[data-copy-state="copied"] .share-button__icon--check { display: block; }
+.share-button--tile { margin-top: var(--space-4); }
+.share-button--detail { margin-top: var(--space-5); }
 
 .empty-state { padding: var(--space-12) var(--space-4); text-align: center; color: var(--color-muted); background: var(--color-paper); }
 
