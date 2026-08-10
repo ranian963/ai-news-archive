@@ -63,12 +63,13 @@ const footer = (base) => `<footer class="site-footer">
 const category = (item) => `<span class="category-label${item.type === "weekly" ? " category-label--weekly" : ""}">${labels[item.type]}</span>`;
 const itemHref = (item, base = "") => `${base}${item.path}`;
 const imageHref = (item, index, base = "") => `${base}assets/${item.imageStem}/${String(index).padStart(2, "0")}.webp`;
+const coverHref = (item, base = "") => `${base}assets/${item.imageStem}/cover.webp`;
 
 function tile(item, base = "", heading = "h2", eager = false) {
   const tagHtml = item.tags.slice(1, 4).map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("");
   return `<article class="news-tile" data-type="${item.type}" data-search="${escapeHtml(`${item.title} ${item.summary} ${item.tags.join(" ")}`.toLocaleLowerCase("ko"))}">
     <a class="news-tile__image-link" href="${itemHref(item, base)}">
-      <img class="news-tile__image" src="${imageHref(item, 1, base)}" width="1080" height="1350" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} alt="${escapeHtml(item.coverAlt)}">
+      <img class="news-tile__image" src="${coverHref(item, base)}" srcset="${coverHref(item, base)} 720w, ${imageHref(item, 1, base)} 1080w" sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 900px) 50vw, 380px" width="720" height="900" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} alt="${escapeHtml(item.coverAlt)}">
     </a>
     <div class="news-tile__meta">${category(item)}<time datetime="${item.published}">${item.displayDate}</time></div>
     <${heading}><a href="${itemHref(item, base)}">${escapeHtml(item.title)}</a></${heading}>
@@ -111,7 +112,7 @@ function homeHtml() {
     cssPath: "styles.css",
     scriptPath: "app.js",
     socialImage: `${siteUrl}assets/openai-huggingface-incident/01.webp`,
-    preloadImage: "assets/openai-huggingface-incident/01.webp",
+    preloadImage: "assets/openai-huggingface-incident/cover.webp",
     body
   });
 }
@@ -142,7 +143,7 @@ function detailHtml(item, index) {
   }).join("");
   const relatedHtml = related.map((relatedItem) => `<article class="related-card">
     <a href="${itemHref(relatedItem, base)}">
-      <img src="${imageHref(relatedItem, 1, base)}" width="1080" height="1350" loading="lazy" alt="${escapeHtml(relatedItem.coverAlt)}">
+      <img src="${coverHref(relatedItem, base)}" srcset="${coverHref(relatedItem, base)} 720w, ${imageHref(relatedItem, 1, base)} 1080w" sizes="(max-width: 640px) 112px, 300px" width="720" height="900" loading="lazy" alt="${escapeHtml(relatedItem.coverAlt)}">
       <h3>${escapeHtml(relatedItem.title)}</h3>
     </a>
   </article>`).join("");

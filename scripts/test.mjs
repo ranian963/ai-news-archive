@@ -15,7 +15,7 @@ async function assertFile(path, message) {
 for (const item of newsItems) {
   await assertFile(resolve(docs, item.path, "index.html"), `뉴스 페이지 누락 (${item.id})`);
   const assetDir = resolve(docs, "assets", item.imageStem);
-  const assets = (await readdir(assetDir)).filter((file) => extname(file) === ".webp");
+  const assets = (await readdir(assetDir)).filter((file) => /^\d{2}\.webp$/.test(file));
   if (assets.length !== item.cardCount) {
     failures.push(`${item.id}: 카드 ${item.cardCount}장 예상, ${assets.length}장 확인`);
   }
