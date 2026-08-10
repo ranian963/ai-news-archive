@@ -66,7 +66,7 @@ Base unit: 4px.
 | `--space-16` | 64px |
 | `--space-20` | 80px |
 
-Maximum archive width is 1184px. News text width is 760px; the card viewer width is 760px. Mobile gutters are 16px, tablet 24px, desktop 32px. The home grid is one column below 640px, two columns from 640px, and three from 1024px.
+Maximum archive width is 1184px. News text width is 760px; the card viewer width is 760px. Mobile and tablet gutters are 16px; the maximum width creates wider outer margins on large screens. The home grid is one column through 640px, two columns through 900px, and three columns above 900px.
 
 ## 5. Components
 

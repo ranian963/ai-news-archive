@@ -13,7 +13,7 @@ const escapeHtml = (value) => String(value)
   .replaceAll(">", "&gt;")
   .replaceAll('"', "&quot;");
 
-const pageShell = ({ title, description, canonical, cssPath, scriptPath, body, socialImage }) => `<!doctype html>
+const pageShell = ({ title, description, canonical, cssPath, scriptPath, body, socialImage, preloadImage }) => `<!doctype html>
 <html lang="ko">
 <head>
   <meta charset="utf-8">
@@ -29,6 +29,7 @@ const pageShell = ({ title, description, canonical, cssPath, scriptPath, body, s
   <meta property="og:url" content="${canonical}">
   <meta property="og:image" content="${socialImage}">
   <meta name="twitter:card" content="summary_large_image">
+  ${preloadImage ? `<link rel="preload" as="image" href="${preloadImage}" fetchpriority="high">` : ""}
   <link rel="icon" href="${cssPath.startsWith("../../../") ? "../../../" : ""}favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="${cssPath}">
   <script src="${scriptPath}" defer></script>
@@ -63,11 +64,11 @@ const category = (item) => `<span class="category-label${item.type === "weekly" 
 const itemHref = (item, base = "") => `${base}${item.path}`;
 const imageHref = (item, index, base = "") => `${base}assets/${item.imageStem}/${String(index).padStart(2, "0")}.webp`;
 
-function tile(item, base = "", heading = "h2") {
+function tile(item, base = "", heading = "h2", eager = false) {
   const tagHtml = item.tags.slice(1, 4).map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("");
   return `<article class="news-tile" data-type="${item.type}" data-search="${escapeHtml(`${item.title} ${item.summary} ${item.tags.join(" ")}`.toLocaleLowerCase("ko"))}">
     <a class="news-tile__image-link" href="${itemHref(item, base)}">
-      <img class="news-tile__image" src="${imageHref(item, 1, base)}" width="1080" height="1350" loading="lazy" alt="${escapeHtml(item.coverAlt)}">
+      <img class="news-tile__image" src="${imageHref(item, 1, base)}" width="1080" height="1350" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} alt="${escapeHtml(item.coverAlt)}">
     </a>
     <div class="news-tile__meta">${category(item)}<time datetime="${item.published}">${item.displayDate}</time></div>
     <${heading}><a href="${itemHref(item, base)}">${escapeHtml(item.title)}</a></${heading}>
@@ -99,7 +100,7 @@ function homeHtml() {
         </div>
       </div>
       <p class="result-line"><span>최신 뉴스부터 표시</span><strong data-result-count>${items.length}개</strong></p>
-      <div class="news-grid" data-news-grid>${items.map((item) => tile(item)).join("")}</div>
+      <div class="news-grid" data-news-grid>${items.map((item, index) => tile(item, "", "h2", index === 0)).join("")}</div>
       <p class="empty-state" data-empty hidden>검색 조건에 맞는 뉴스가 없습니다.</p>
     </section>
   </main>`;
@@ -110,6 +111,7 @@ function homeHtml() {
     cssPath: "styles.css",
     scriptPath: "app.js",
     socialImage: `${siteUrl}assets/openai-huggingface-incident/01.webp`,
+    preloadImage: "assets/openai-huggingface-incident/01.webp",
     body
   });
 }
@@ -177,6 +179,7 @@ function detailHtml(item, index) {
     cssPath: `${base}styles.css`,
     scriptPath: `${base}app.js`,
     socialImage: `${siteUrl}assets/${item.imageStem}/01.webp`,
+    preloadImage: imageHref(item, 1, base),
     body
   });
 }
