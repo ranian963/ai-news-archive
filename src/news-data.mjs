@@ -8,30 +8,86 @@ function sourceType(label) {
   return "참고";
 }
 
-const sharedWatercolors = {
-  security: "../editorial-watercolor/security-v1.webp",
-  models: "../editorial-watercolor/models-v1.webp",
-  research: "../editorial-watercolor/research-v1.webp",
-  coding: "../editorial-watercolor/coding-v1.webp",
-  media: "../editorial-watercolor/media-v1.webp",
-  robotics: "../editorial-watercolor/robotics-v1.webp",
-  productivity: "../editorial-watercolor/productivity-v1.webp"
+const editorialScenes = {
+  weekly: "../editorial-scenes-v2/weekly-roundup.webp",
+  model: "../editorial-scenes-v2/frontier-model.webp",
+  math: "../editorial-scenes-v2/math-research.webp",
+  security: "../editorial-scenes-v2/security-access.webp",
+  attack: "../editorial-scenes-v2/attack-path.webp",
+  defense: "../editorial-scenes-v2/incident-analysis.webp",
+  coding: "../editorial-scenes-v2/code-rewrite.webp",
+  harness: "../editorial-scenes-v2/agent-harness.webp",
+  infrastructure: "../editorial-scenes-v2/ai-infrastructure.webp",
+  media: "../editorial-scenes-v2/video-image.webp",
+  voice: "../editorial-scenes-v2/voice-transcription.webp",
+  pricing: "../editorial-scenes-v2/model-pricing.webp",
+  benchmark: "../editorial-scenes-v2/model-benchmark.webp",
+  openWeight: "../editorial-scenes-v2/open-weights.webp",
+  moe: "../editorial-scenes-v2/moe-architecture.webp",
+  longContext: "../editorial-scenes-v2/long-context.webp",
+  selfHosting: "../editorial-scenes-v2/self-hosting.webp",
+  office: "../editorial-scenes-v2/office-suite.webp",
+  docs: "../editorial-scenes-v2/document-editing.webp",
+  sheets: "../editorial-scenes-v2/spreadsheet-analysis.webp",
+  slides: "../editorial-scenes-v2/presentation-editing.webp",
+  pdf: "../editorial-scenes-v2/pdf-pages.webp",
+  assistant: "../editorial-scenes-v2/office-ai-panel.webp",
+  license: "../editorial-scenes-v2/open-source-license.webp",
+  compatibility: "../editorial-scenes-v2/compatibility-testing.webp",
+  organization: "../editorial-scenes-v2/ai-organization.webp",
+  tokens: "../editorial-scenes-v2/token-latency.webp",
+  koreanModel: "../editorial-scenes-v2/korean-model.webp",
+  industrialRobot: "../editorial-scenes-v2/industrial-robot.webp",
+  agentEvaluation: "../editorial-scenes-v2/agent-evaluation.webp",
+  walletSecurity: "../editorial-scenes-v2/wallet-security.webp",
+  longRunningCode: "../editorial-scenes-v2/long-running-code.webp",
+  robotics: "../editorial-scenes-v2/robotics-lab.webp"
 };
 
-function watercolorFor(card) {
+const robotSceneFiles = new Set([editorialScenes.industrialRobot, editorialScenes.robotics]);
+
+export function isRobotScene(background) {
+  return robotSceneFiles.has(background);
+}
+
+function editorialSceneFor(card) {
   const subject = `${card.eyebrow} ${card.title}`;
-  if (/INCIDENT|SECURITY|BLACK HAT|침해|취약점|통제|방어|공격|위험/.test(subject)) return sharedWatercolors.security;
-  if (/SCIENCE|MATH|수학|난제|연구|증명/.test(subject)) return sharedWatercolors.research;
-  if (/ENGINEERING|HARNESS|AGENT|WORKFLOW|REWRITE|Bun|코딩|워크플로|에이전트/.test(subject)) return sharedWatercolors.coding;
-  if (/VIDEO|IMAGE|VOICE|영상|이미지|음성/.test(subject)) return sharedWatercolors.media;
-  if (/ROBOT|INFRA|로봇|조선소|인프라/.test(subject)) return sharedWatercolors.robotics;
-  if (/GENOFFICE|DOCS|SHEETS|SLIDES|PDF|AI PANEL|LICENSE|ALPHA|OFFICE|오피스|편집/.test(subject)) return sharedWatercolors.productivity;
-  return sharedWatercolors.models;
+  if (/WEEKLY AI BRIEF/.test(subject)) return editorialScenes.weekly;
+  if (/SHEETS|XLSX|스프레드시트|수식·차트/.test(subject)) return editorialScenes.sheets;
+  if (/SLIDES|PPTX|프레젠테이션|발표/.test(subject)) return editorialScenes.slides;
+  if (/PDF/.test(subject)) return editorialScenes.pdf;
+  if (/AI PANEL|AI 패널/.test(subject)) return editorialScenes.assistant;
+  if (/LICENSE|라이선스|Apache|ee 폴더/.test(subject)) return editorialScenes.license;
+  if (/ALPHA|호환|확인할 항목|실무 사용 전/.test(subject)) return editorialScenes.compatibility;
+  if (/DOCS|DOCX|문단 단위|문서 편집/.test(subject)) return editorialScenes.docs;
+  if (/GENOFFICE|OFFICE|오피스/.test(subject)) return editorialScenes.office;
+  if (/VOICE|음성|전사|자막/.test(subject)) return editorialScenes.voice;
+  if (/VIDEO|IMAGE|영상|이미지|Grok Imagine|Seedance/.test(subject)) return editorialScenes.media;
+  if (/API PRICE|가격|PRICE|TOKEN & TIME|토큰과 시간/.test(subject)) return /TOKEN & TIME|토큰과 시간/.test(subject) ? editorialScenes.tokens : editorialScenes.pricing;
+  if (/BENCHMARK|INDEX|EVIDENCE|성능표|점수|ARC-AGI/.test(subject)) return /ARC-AGI/.test(subject) ? editorialScenes.agentEvaluation : editorialScenes.benchmark;
+  if (/ATTACK PATH|침투 경로|공격 경로|통로|자격증명|정답이 밖|과제를 못 풀자/.test(subject)) return editorialScenes.attack;
+  if (/DEFENSE|발견과 조사|방어|이벤트|조사|움직였다|나흘 반/.test(subject)) return editorialScenes.defense;
+  if (/MATH|SCIENCE|수학|난제|증명/.test(subject)) return editorialScenes.math;
+  if (/OPEN WEIGHT|OPEN WEIGHTS|오픈웨이트|가중치 공개/.test(subject)) return editorialScenes.openWeight;
+  if (/SELF-HOSTING|직접 운영/.test(subject)) return editorialScenes.selfHosting;
+  if (/LONG-RUN|장기 에이전트|장시간 코딩|Muse Code/.test(subject)) return editorialScenes.longRunningCode;
+  if (/2\.4T|95B|124B|MoE|활성 5\.1B/.test(subject)) return editorialScenes.moe;
+  if (/LONG CONTEXT|512K|128K 출력|긴 문서/.test(subject)) return editorialScenes.longContext;
+  if (/조직|리더십|Google AI|Jeff Dean/.test(subject)) return editorialScenes.organization;
+  if (/WALLET|Coldcard|지갑|난수/.test(subject)) return editorialScenes.walletSecurity;
+  if (/INCIDENT|SECURITY|BLACK HAT|침해|취약점|통제|위험|GitHub|Artifactory|Hugging Face/.test(subject)) return editorialScenes.security;
+  if (/HARNESS|WORKFLOW|워크플로|하네스|경쟁 단위/.test(subject)) return editorialScenes.harness;
+  if (/REWRITE|WHY RUST|ENGINEERING|Bun|Zig|Rust|코딩/.test(subject)) return editorialScenes.coding;
+  if (/INFRA|인프라|NVIDIA|AMD|공급망/.test(subject)) return editorialScenes.infrastructure;
+  if (/ROBOTICS|로봇|조선소|용접/.test(subject)) return /조선소|용접/.test(subject) ? editorialScenes.industrialRobot : editorialScenes.robotics;
+  if (/KOREA · MODEL|독파모|한국 AI|국산 AI/.test(subject)) return editorialScenes.koreanModel;
+  if (/AGENT|에이전트/.test(subject)) return editorialScenes.harness;
+  return editorialScenes.model;
 }
 
 function editorialDetails(cards, sources) {
   return Object.fromEntries(cards.map((card, index) => [index + 1, {
-    background: watercolorFor(card),
+    background: editorialSceneFor(card),
     category: card.eyebrow,
     theme: card.theme,
     variant: index === 0 ? "cover" : undefined,
@@ -52,7 +108,7 @@ const solarPro4Sources = [
 
 const solarPro4Details = {
   1: {
-    background: "watercolor-cover-v2.webp",
+    background: editorialScenes.koreanModel,
     category: "한국 · AI 모델",
     theme: "coral",
     variant: "cover",
@@ -65,7 +121,7 @@ const solarPro4Details = {
     sources: solarPro4Sources
   },
   2: {
-    background: "watercolor-context-v2.webp",
+    background: editorialScenes.longContext,
     category: "모델 사양",
     theme: "sky",
     eyebrow: "MODEL SPECS",
@@ -77,7 +133,7 @@ const solarPro4Details = {
     sources: [["공식", "Upstage 모델 문서", "https://console.upstage.ai/docs/models/solar-pro-4"], ["분석", "Artificial Analysis", "https://artificialanalysis.ai/articles/upstage-solar-pro-4"]]
   },
   3: {
-    background: "watercolor-price-v2.webp",
+    background: editorialScenes.pricing,
     category: "API 가격",
     theme: "butter",
     eyebrow: "API PRICE",
@@ -89,7 +145,7 @@ const solarPro4Details = {
     sources: [["공식", "Upstage 출시 블로그", "https://www.upstage.ai/blog/en/solar-pro-4"], ["분석", "Artificial Analysis", "https://artificialanalysis.ai/articles/upstage-solar-pro-4"]]
   },
   4: {
-    background: "watercolor-benchmark-v2.webp",
+    background: editorialScenes.benchmark,
     category: "공식 성능표",
     theme: "mint",
     eyebrow: "OFFICIAL BENCHMARKS",
@@ -101,7 +157,7 @@ const solarPro4Details = {
     sources: [["공식", "Upstage 출시 블로그", "https://www.upstage.ai/blog/en/solar-pro-4"]]
   },
   5: {
-    background: "watercolor-practical-v2.webp",
+    background: editorialScenes.agentEvaluation,
     category: "외부 실무 실험",
     theme: "lilac",
     eyebrow: "PRACTICAL TEST",
@@ -113,7 +169,7 @@ const solarPro4Details = {
     sources: [["참고", "기존 Solar Pro 4 실무 실험 정리", "https://lilys.ai/digest/10655096/12484911?s=1&noteVersionId=9064509"], ["공식", "Upstage 모델 문서", "https://console.upstage.ai/docs/models/solar-pro-4"]]
   },
   6: {
-    background: "watercolor-family-v2.webp",
+    background: editorialScenes.selfHosting,
     category: "Solar 모델 선택",
     theme: "coral",
     eyebrow: "SOLAR FAMILY",
@@ -125,7 +181,7 @@ const solarPro4Details = {
     sources: [["공식", "Upstage 출시 블로그", "https://www.upstage.ai/blog/en/solar-pro-4"], ["체험", "SolarChat", "https://solar-chat.upstage.ai/"]]
   },
   7: {
-    background: "watercolor-benchmark-v2.webp",
+    background: editorialScenes.benchmark,
     category: "독립 벤치마크",
     theme: "sky",
     variant: "chart",
@@ -294,7 +350,7 @@ export const newsItems = [
     coverAlt: "8월 3일부터 9일까지의 주요 AI 소식을 정리한 주간 AI 뉴스 표지",
     cardDetails: {
       1: {
-        background: "../editorial-watercolor/models-v1.webp",
+        background: editorialScenes.weekly,
         category: "주간 요약",
         theme: "coral",
         variant: "cover",
@@ -313,7 +369,7 @@ export const newsItems = [
         ]
       },
       2: {
-        background: "../editorial-watercolor/security-v1.webp",
+        background: editorialScenes.security,
         category: "글로벌 · 사이버",
         theme: "lilac",
         eyebrow: "GLOBAL · CYBER",
@@ -331,7 +387,7 @@ export const newsItems = [
         ]
       },
       3: {
-        background: "../editorial-watercolor/coding-v1.webp",
+        background: editorialScenes.agentEvaluation,
         category: "글로벌 · 하네스",
         theme: "sky",
         eyebrow: "GLOBAL · HARNESS",
@@ -349,7 +405,7 @@ export const newsItems = [
         ]
       },
       4: {
-        background: "../editorial-watercolor/research-v1.webp",
+        background: editorialScenes.organization,
         category: "글로벌 · Google",
         theme: "mint",
         eyebrow: "GLOBAL · GOOGLE",
@@ -367,7 +423,7 @@ export const newsItems = [
         ]
       },
       5: {
-        background: "../editorial-watercolor/models-v1.webp",
+        background: editorialScenes.model,
         category: "글로벌 · 모델",
         theme: "butter",
         eyebrow: "GLOBAL · MODEL",
@@ -385,7 +441,7 @@ export const newsItems = [
         ]
       },
       6: {
-        background: "../editorial-watercolor/security-v1.webp",
+        background: editorialScenes.attack,
         category: "글로벌 · 에이전트",
         theme: "coral",
         eyebrow: "GLOBAL · AGENT",
@@ -403,7 +459,7 @@ export const newsItems = [
         ]
       },
       7: {
-        background: "../editorial-watercolor/coding-v1.webp",
+        background: editorialScenes.longRunningCode,
         category: "글로벌 · Meta",
         theme: "lilac",
         eyebrow: "GLOBAL · META",
@@ -421,7 +477,7 @@ export const newsItems = [
         ]
       },
       8: {
-        background: "../editorial-watercolor/security-v1.webp",
+        background: editorialScenes.walletSecurity,
         category: "글로벌 · 보안",
         theme: "sky",
         eyebrow: "GLOBAL · SECURITY",
@@ -439,7 +495,7 @@ export const newsItems = [
         ]
       },
       9: {
-        background: "../editorial-watercolor/media-v1.webp",
+        background: editorialScenes.media,
         category: "글로벌 · xAI",
         theme: "mint",
         eyebrow: "GLOBAL · XAI",
@@ -457,7 +513,7 @@ export const newsItems = [
         ]
       },
       10: {
-        background: "../editorial-watercolor/models-v1.webp",
+        background: editorialScenes.openWeight,
         category: "글로벌 오픈 모델",
         theme: "butter",
         variant: "model-list",
@@ -482,7 +538,7 @@ export const newsItems = [
         ]
       },
       11: {
-        background: "../editorial-watercolor/robotics-v1.webp",
+        background: editorialScenes.industrialRobot,
         category: "한국 · 로봇",
         theme: "coral",
         eyebrow: "KOREA · ROBOTICS",

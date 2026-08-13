@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { access, readFile, readdir } from "node:fs/promises";
 import { dirname, extname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { newsItems } from "../src/news-data.mjs";
+import { isRobotScene, newsItems } from "../src/news-data.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const docs = resolve(root, "docs");
@@ -84,6 +84,12 @@ for (const item of newsItems) {
   }
   if ([...detailHtml.matchAll(/class="card-frame card-frame--live-copy card-frame--art-(?:original|wash) card-frame--watercolor-editorial"/g)].length !== item.cardCount) {
     failures.push(`${item.id}: 카드별 수채화 편집 레이아웃 누락`);
+  }
+  const nonRobotBackgrounds = Object.values(item.cardDetails)
+    .filter((detail) => !/ROBOT|로봇|조선소|용접/.test(`${detail.eyebrow} ${detail.title}`))
+    .map((detail) => detail.background);
+  if (nonRobotBackgrounds.some(isRobotScene)) {
+    failures.push(`${item.id}: 로봇 소식이 아닌 카드에 로봇 배경이 연결됐습니다`);
   }
 
   if (item.id === "solar-pro-4") {
