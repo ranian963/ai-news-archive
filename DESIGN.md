@@ -66,6 +66,8 @@ Base unit: 4px.
 | `--space-16` | 64px |
 | `--space-20` | 80px |
 
+Card composition tokens use container-query units so the exported 4:5 sheet and the responsive viewer share one geometry: `--card-copy-panel-height` is 86cqw for a standard story, `--card-copy-panel-height-compact` is 102cqw, and `--card-footer-mask-height` is 8cqw.
+
 Maximum archive width is 1184px. Mobile and tablet gutters are 16px; the maximum width creates wider outer margins on large screens. The home grid is one column through 640px, two columns through 900px, and three columns above 900px.
 
 The detail page starts with a viewport-aware Reader Stage. Its toolbar, card, controls, and direct selectors fit within the initial dynamic viewport on common portrait mobile, tablet, and desktop screens. The card is at most 680px wide and may shrink according to viewport height. On screens wider than 960px, the card sits beside a 320–360px news summary. Below that width, the card comes first and the summary follows it. The document remains the only vertical scroll owner; the carousel track and selector rail own horizontal movement only.
@@ -79,14 +81,14 @@ The detail page starts with a viewport-aware Reader Stage. Its toolbar, card, co
 - Motion: color and underline opacity only.
 
 ### Filter Bar
-- Structure: three filter buttons and a labelled search field.
+- Structure: four filter buttons and a labelled search field. `모델 소식`은 새로 공개되거나 출시된 AI 모델 하나를 중심으로 다룬 기사에만 사용한다. 모델이 일부 언급되더라도 제품·사건·보안 분석이 중심이면 `짧막 뉴스`에 둔다.
 - States: default, hover, selected, focus, empty result.
 - Accessibility: pressed state via `aria-pressed`; search has a visible label; 44px targets.
 - Motion: selected background fades over the standard duration.
 
 ### Archive Tile
 - Structure: 4:5 cover image, category/date, title, summary, tags, link.
-- Variants: weekly, brief.
+- Variants: weekly, brief, model. Existing URLs remain unchanged when an older brief is reclassified as model news.
 - States: default, hover, focus.
 - Accessibility: one descriptive link per tile; image has exact dimensions and informative alt text.
 - Motion: image translates upward 4px on hover; reduced-motion removes the translation.
@@ -97,12 +99,31 @@ The detail page starts with a viewport-aware Reader Stage. Its toolbar, card, co
 - Accessibility: swipe, ArrowLeft, ArrowRight, Space, Home, End; live counter; 44px controls; no control overlays the card image.
 - Motion: native swipe and scroll use snap; direct controls move immediately so artwork, counter, and selector stay in sync.
 
+### Editorial Card Overlay
+- Structure: the approved artwork remains the background layer. A warm translucent upper paper panel carries eyebrow, title, short body copy, and one closing label as live HTML text; the lower and right artwork windows keep the original illustration, logo, or diagram visible. A strongly blurred, low-opacity crop from the lower illustration sits inside the paper so color and shape remain faintly visible without reviving the old raster copy.
+- Typography: model and product names use the primary sans stack at 800 weight; specifications sit one step below; explanations use the smallest readable card size. Thin rules and spacing separate multiple items.
+- Variants: cover and standard story use an `84cqw` paper width. Compact, model-list, and evidence-chart cards retain `92cqw` so dense copy stays readable. All variants share the same paper opacity, blur, border, radius, and shadow tokens.
+- Accessibility: meaningful card copy stays selectable and readable by assistive technology. Decorative background artwork uses an empty alt when the same information is present in the live text layer.
+- Export: the browser composition remains the source of truth and can be captured at 1080×1350 for messenger or image sharing.
+- Archive rule: every archived detail card uses the same live text layer over a text-free watercolor background. Seven shared subjects—security, models, research, coding, media, robotics, and productivity—may repeat when the news topic matches, while article-list thumbnails keep their original cover art. The source background must never contain readable copy. The content-led warm-paper panel leaves the right and lower watercolor visible and uses one restrained accent color per card.
+- Evidence chart variant: one cited chart or document excerpt may sit inside the paper panel with a visible source caption. The media uses `object-fit: contain`, keeps its original aspect ratio, and never replaces the card title or written explanation.
+- Solar Pro 4 detail: the last card places the full supplied Artificial Analysis chart inside the paper at its original wide aspect ratio; a pair of cropped bars is not an acceptable substitute. On a small screen, the chart is followed by readable `Solar Pro 4 42점` and `Solar Pro 3 14점` labels.
+
 ### Reader Stage
 - Structure: archive back-link, category/date/card count, share action, Card Viewer, and news summary.
 - Responsive order: desktop pairs the viewer with the summary; mobile and tablet show the complete first card before the title and summary.
 - Height rule: the first card must be visible without scrolling on common portrait viewports. The image width responds to both container width and dynamic viewport height.
 - Accessibility: one document scroll owner; no sticky or fixed element may cover card artwork; every toolbar control is at least 44px.
 - Surface: a restrained paper field and one pastel index strip support the image without imitating the artwork.
+
+### Card Detail Panel
+- Structure: active card number/category, active card title, one short explanatory paragraph, up to two compact key points, and one to three card-specific source links.
+- Fallback: cards without authored details continue to show the news-level title, summary, and tags.
+- States: default news summary and active-card detail; content changes with the Card Viewer position.
+- Hierarchy: typography, spacing, and hairline dividers do the grouping. Source type badges share one restrained treatment; the panel does not repeat the card artwork's multiple pastel colors.
+- Accessibility: the panel is a polite live region, preserves the page heading id when content changes, and keeps external link purpose visible.
+- Responsive order: desktop keeps the panel beside the card; mobile and tablet place it after the complete card viewer.
+- Height rule: on desktop the complete panel must fit inside the Reader Stage's initial viewport. It uses compact source rows and never pushes its final link below the visible stage.
 
 ### News Navigation
 - Structure: previous news, archive link, next news.

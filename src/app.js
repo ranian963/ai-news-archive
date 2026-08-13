@@ -34,7 +34,7 @@
     const empty = document.querySelector("[data-empty]");
     const count = document.querySelector("[data-result-count]");
     const requested = new URLSearchParams(location.search).get("type");
-    let selected = ["weekly", "brief"].includes(requested) ? requested : "all";
+    let selected = ["weekly", "model", "brief"].includes(requested) ? requested : "all";
 
     const apply = () => {
       const query = input.value.trim().toLocaleLowerCase("ko");
@@ -76,6 +76,14 @@
     const next = root.querySelector("[data-next-card]");
     const position = root.querySelector("[data-position]");
     const pagination = root.querySelector("[data-pagination]");
+    const detailRegion = document.querySelector("[data-card-detail-region]");
+    const defaultDetail = document.createElement("template");
+    if (detailRegion) {
+      defaultDetail.innerHTML = detailRegion.innerHTML;
+      detailRegion.dataset.detailKey = "default";
+    }
+    const detailTemplates = new Map([...document.querySelectorAll("template[data-card-detail-index]")]
+      .map((template) => [Number(template.dataset.cardDetailIndex), template]));
     let current = 0;
     let raf = 0;
     let programmaticTarget = null;
@@ -86,7 +94,9 @@
       next.disabled = current === slides.length - 1;
       position.textContent = `${current + 1} / ${slides.length}`;
       slides.forEach((slide, slideIndex) => {
-        slide.setAttribute("aria-hidden", String(slideIndex !== current));
+        const inactive = slideIndex !== current;
+        slide.setAttribute("aria-hidden", String(inactive));
+        slide.toggleAttribute("inert", inactive);
       });
       [...pagination.children].forEach((button, buttonIndex) => {
         button.toggleAttribute("aria-current", buttonIndex === current);
@@ -97,6 +107,14 @@
           left: activeButton.offsetLeft - (pagination.clientWidth - activeButton.offsetWidth) / 2,
           behavior: reducedMotion.matches ? "auto" : "smooth"
         });
+      }
+      if (detailRegion) {
+        const detailTemplate = detailTemplates.get(current);
+        const detailKey = detailTemplate ? String(current) : "default";
+        if (detailRegion.dataset.detailKey !== detailKey) {
+          detailRegion.replaceChildren((detailTemplate ?? defaultDetail).content.cloneNode(true));
+          detailRegion.dataset.detailKey = detailKey;
+        }
       }
     };
 
@@ -159,6 +177,22 @@
       if (event.key === "End") moveTo(slides.length - 1);
     });
     update(0);
+    if ("ResizeObserver" in window) {
+      let previousWidth = track.clientWidth;
+      const resizeObserver = new ResizeObserver(() => {
+        const width = track.clientWidth;
+        if (!width || width === previousWidth) return;
+        previousWidth = width;
+        const target = current;
+        programmaticTarget = target;
+        track.scrollTo({ left: width * target, behavior: "auto" });
+        requestAnimationFrame(() => {
+          programmaticTarget = null;
+          update(target);
+        });
+      });
+      resizeObserver.observe(track);
+    }
   }
 
   function initShareButtons() {
