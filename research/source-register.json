@@ -1,0 +1,781 @@
+[
+  {
+    "newsId": "ai-agent-deep-dive",
+    "label": "Bun 공식 전환 기록",
+    "url": "https://bun.com/blog/bun-in-rust",
+    "kind": "official",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      1,
+      6,
+      7,
+      8,
+      9,
+      10
+    ]
+  },
+  {
+    "newsId": "ai-agent-deep-dive",
+    "label": "Bun Rust 전환 PR",
+    "url": "https://github.com/oven-sh/bun/pull/30412",
+    "kind": "repository-or-model-card",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      6,
+      8,
+      9
+    ]
+  },
+  {
+    "newsId": "ai-agent-deep-dive",
+    "label": "OpenAI와 Hugging Face 공개 자료를 바탕으로 한 정리",
+    "url": "https://huggingface.co/blog",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": []
+  },
+  {
+    "newsId": "ai-agent-deep-dive",
+    "label": "Hugging Face 사고 보고서",
+    "url": "https://huggingface.co/blog/security-incident-july-2026",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "newsId": "ai-agent-deep-dive",
+    "label": "OpenAI 사고 보고서",
+    "url": "https://openai.com/index/hugging-face-model-evaluation-security-incident/",
+    "kind": "official",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      2,
+      3,
+      4,
+      5,
+      10
+    ]
+  },
+  {
+    "newsId": "genoffice",
+    "label": "AI Wire 소개",
+    "url": "https://aiwire.kr/case/genspark-genoffice",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      1,
+      5,
+      6,
+      7
+    ]
+  },
+  {
+    "newsId": "genoffice",
+    "label": "GenOffice GitHub 저장소",
+    "url": "https://github.com/genspark-ai/genoffice",
+    "kind": "repository-or-model-card",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      8,
+      9,
+      10
+    ]
+  },
+  {
+    "newsId": "genoffice",
+    "label": "GenOffice 공식 페이지",
+    "url": "https://www.genspark.ai/genoffice",
+    "kind": "official",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      7,
+      8,
+      10
+    ]
+  },
+  {
+    "newsId": "openai-huggingface-incident",
+    "label": "Hugging Face 기술 분석",
+    "url": "https://huggingface.co/blog/agent-intrusion-technical-timeline",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      9,
+      10
+    ]
+  },
+  {
+    "newsId": "openai-huggingface-incident",
+    "label": "OpenAI 직원 Black Hat 발표 영상",
+    "url": "https://lilys.ai/digest/10858726/12763231?s=1&noteVersionId=9351871",
+    "kind": "transcript",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      1,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      11
+    ]
+  },
+  {
+    "newsId": "openai-huggingface-incident",
+    "label": "OpenAI와 Hugging Face 공식 대응",
+    "url": "https://openai.com/index/hugging-face-model-evaluation-security-incident/",
+    "kind": "official",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      12
+    ]
+  },
+  {
+    "newsId": "openai-huggingface-incident",
+    "label": "Black Hat 발표와 Axios 보도",
+    "url": "https://www.axios.com/2026/08/06/openai-hugging-face-black-hat",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      2
+    ]
+  },
+  {
+    "newsId": "openai-huggingface-incident",
+    "label": "OpenAI 관련 Threads 정리",
+    "url": "https://www.threads.com/share/EwI1BfLl3/",
+    "kind": "threads",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": []
+  },
+  {
+    "newsId": "qwen-3-8-max",
+    "label": "Artificial Analysis Agentic Index",
+    "url": "https://artificialanalysis.ai/?intelligence=agentic-index#intelligence",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      3
+    ]
+  },
+  {
+    "newsId": "qwen-3-8-max",
+    "label": "Artificial Analysis Qwen 분석",
+    "url": "https://artificialanalysis.ai/models/qwen3-8-max",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      9
+    ]
+  },
+  {
+    "newsId": "qwen-3-8-max",
+    "label": "Qwen Hugging Face",
+    "url": "https://huggingface.co/Qwen",
+    "kind": "repository-or-model-card",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      2,
+      7,
+      8
+    ]
+  },
+  {
+    "newsId": "qwen-3-8-max",
+    "label": "GeekNews 정리",
+    "url": "https://news.hada.io/topic?id=32216",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      1,
+      4,
+      6,
+      8,
+      9
+    ]
+  },
+  {
+    "newsId": "qwen-3-8-max",
+    "label": "Qwen3.8 공식 발표",
+    "url": "https://qwen.ai/blog?id=qwen3.8",
+    "kind": "official",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  {
+    "newsId": "solar-pro-4",
+    "label": "Artificial Analysis",
+    "url": "https://artificialanalysis.ai/articles/upstage-solar-pro-4",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      1,
+      2,
+      3,
+      7
+    ]
+  },
+  {
+    "newsId": "solar-pro-4",
+    "label": "Upstage 모델 문서",
+    "url": "https://console.upstage.ai/docs/models/solar-pro-4",
+    "kind": "official",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      1,
+      2,
+      5
+    ]
+  },
+  {
+    "newsId": "solar-pro-4",
+    "label": "기존 Solar Pro 4 실무 실험 정리",
+    "url": "https://lilys.ai/digest/10655096/12484911?s=1&noteVersionId=9064509",
+    "kind": "transcript",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      5
+    ]
+  },
+  {
+    "newsId": "solar-pro-4",
+    "label": "OpenRouter Solar Pro 4",
+    "url": "https://openrouter.ai/upstage/solar-pro4",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": []
+  },
+  {
+    "newsId": "solar-pro-4",
+    "label": "SolarChat",
+    "url": "https://solar-chat.upstage.ai/",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      6
+    ]
+  },
+  {
+    "newsId": "solar-pro-4",
+    "label": "Upstage 출시 블로그",
+    "url": "https://www.upstage.ai/blog/en/solar-pro-4",
+    "kind": "official",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      1,
+      3,
+      4,
+      6,
+      7
+    ]
+  },
+  {
+    "newsId": "weekly-2026-07-20-26",
+    "label": "Motif-3 독립 평가",
+    "url": "https://artificialanalysis.ai/models/motif-0714",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      8
+    ]
+  },
+  {
+    "newsId": "weekly-2026-07-20-26",
+    "label": "NVIDIA 한국 파트너십 발표",
+    "url": "https://blogs.nvidia.com/blog/ai-summit-korea-partners-and-nvidia/",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      7
+    ]
+  },
+  {
+    "newsId": "weekly-2026-07-20-26",
+    "label": "Cursor 에이전트 스웜 실험",
+    "url": "https://cursor.com/ko/blog/agent-swarm-model-economics",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      6
+    ]
+  },
+  {
+    "newsId": "weekly-2026-07-20-26",
+    "label": "야코비안 반례 설명",
+    "url": "https://jacobianconjectures.com/jacobian/note/",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      4
+    ]
+  },
+  {
+    "newsId": "weekly-2026-07-20-26",
+    "label": "OpenAI 사고 보고서",
+    "url": "https://openai.com/index/hugging-face-model-evaluation-security-incident/",
+    "kind": "official",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      3
+    ]
+  },
+  {
+    "newsId": "weekly-2026-07-20-26",
+    "label": "Anthropic Claude Opus 5 발표",
+    "url": "https://www.anthropic.com/news/claude-opus-5",
+    "kind": "official",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      2
+    ]
+  },
+  {
+    "newsId": "weekly-2026-07-20-26",
+    "label": "Nature Kimi K3 소개",
+    "url": "https://www.nature.com/articles/d41586-026-02281-2",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      5
+    ]
+  },
+  {
+    "newsId": "weekly-2026-07-20-26",
+    "label": "Threads 주간 정리",
+    "url": "https://www.threads.com/@choi.openai/post/DbQdpqSj1LC",
+    "kind": "threads",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      1
+    ]
+  },
+  {
+    "newsId": "weekly-2026-07-20-26",
+    "label": "Upstage Solar Open 2 발표",
+    "url": "https://www.upstage.ai/blog/ko/solar-open-2",
+    "kind": "official",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      8
+    ]
+  },
+  {
+    "newsId": "weekly-2026-07-20-26",
+    "label": "조코딩 주간 AI 뉴스",
+    "url": "https://youtu.be/-CDz4HTz5Iw",
+    "kind": "video",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      1
+    ]
+  },
+  {
+    "newsId": "weekly-2026-07-20-26",
+    "label": "조코딩 영상 23분 31초",
+    "url": "https://youtu.be/-CDz4HTz5Iw?t=1411",
+    "kind": "video",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      3
+    ]
+  },
+  {
+    "newsId": "weekly-2026-07-20-26",
+    "label": "조코딩 영상 37분 52초",
+    "url": "https://youtu.be/-CDz4HTz5Iw?t=2272",
+    "kind": "video",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      5
+    ]
+  },
+  {
+    "newsId": "weekly-2026-07-20-26",
+    "label": "조코딩 영상 1시간 21분 42초",
+    "url": "https://youtu.be/-CDz4HTz5Iw?t=4902",
+    "kind": "video",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      7
+    ]
+  },
+  {
+    "newsId": "weekly-2026-07-20-26",
+    "label": "조코딩 영상 13분 24초",
+    "url": "https://youtu.be/-CDz4HTz5Iw?t=804",
+    "kind": "video",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      6
+    ]
+  },
+  {
+    "newsId": "weekly-2026-07-20-26",
+    "label": "조코딩 영상 1분 36초",
+    "url": "https://youtu.be/-CDz4HTz5Iw?t=96",
+    "kind": "video",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      2
+    ]
+  },
+  {
+    "newsId": "weekly-2026-07-20-26",
+    "label": "Lean 4 독립 검증",
+    "url": "https://zenodo.org/records/21514514",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      4
+    ]
+  },
+  {
+    "newsId": "weekly-2026-07-27-08-02",
+    "label": "사이클 이중 덮개 증명 해설",
+    "url": "https://arxiv.org/abs/2607.16356",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      11
+    ]
+  },
+  {
+    "newsId": "weekly-2026-07-27-08-02",
+    "label": "NVIDIA 한국 파트너십 발표",
+    "url": "https://blogs.nvidia.com/blog/ai-summit-korea-partners-and-nvidia/",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      8
+    ]
+  },
+  {
+    "newsId": "weekly-2026-07-27-08-02",
+    "label": "OpenAI 수학 연구 자료",
+    "url": "https://cdn.openai.com/pdf/ten-proofs-oai.pdf",
+    "kind": "official",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      2,
+      11
+    ]
+  },
+  {
+    "newsId": "weekly-2026-07-27-08-02",
+    "label": "Google DeepMind 로보틱스",
+    "url": "https://deepmind.google/discover/blog/gemini-robotics-brings-ai-into-the-physical-world/",
+    "kind": "official",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      10
+    ]
+  },
+  {
+    "newsId": "weekly-2026-07-27-08-02",
+    "label": "Dreamina 공식 서비스",
+    "url": "https://dreamina.capcut.com/",
+    "kind": "official",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      9
+    ]
+  },
+  {
+    "newsId": "weekly-2026-07-27-08-02",
+    "label": "DeepSeek 공식 모델 페이지",
+    "url": "https://huggingface.co/deepseek-ai",
+    "kind": "repository-or-model-card",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      4
+    ]
+  },
+  {
+    "newsId": "weekly-2026-07-27-08-02",
+    "label": "조코딩 주간 AI 뉴스 전사",
+    "url": "https://lilys.ai/digest/10708089/12552445?s=1&noteVersionId=9134574",
+    "kind": "transcript",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      1,
+      3,
+      9,
+      10
+    ]
+  },
+  {
+    "newsId": "weekly-2026-07-27-08-02",
+    "label": "OpenAI 연구 자료",
+    "url": "https://openai.com/research/",
+    "kind": "official",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      6
+    ]
+  },
+  {
+    "newsId": "weekly-2026-07-27-08-02",
+    "label": "Anthropic 공식 뉴스",
+    "url": "https://www.anthropic.com/news",
+    "kind": "official",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      5
+    ]
+  },
+  {
+    "newsId": "weekly-2026-07-27-08-02",
+    "label": "주간 뉴스 Threads 원문",
+    "url": "https://www.threads.com/share/BBQ_z0_RRt/",
+    "kind": "threads",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      1,
+      3,
+      4,
+      5,
+      6,
+      8
+    ]
+  },
+  {
+    "newsId": "weekly-2026-07-27-08-02",
+    "label": "독파모 2차 모델 정리",
+    "url": "https://www.threads.com/share/GEMkPpZDX/",
+    "kind": "threads",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      7
+    ]
+  },
+  {
+    "newsId": "weekly-2026-07-27-08-02",
+    "label": "야코비안 반례 독립 검증",
+    "url": "https://zenodo.org/records/21514514",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      2
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-03-09",
+    "label": "Google AI 조직 개편 발표",
+    "url": "https://blog.google/company-news/inside-google/message-ceo/next-chapter-ai-momentum/",
+    "kind": "official",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      4
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-03-09",
+    "label": "xAI Imagine 문서",
+    "url": "https://docs.x.ai/developers/model-capabilities/imagine",
+    "kind": "official",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      9
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-03-09",
+    "label": "Ling",
+    "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash",
+    "kind": "repository-or-model-card",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      10
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-03-09",
+    "label": "Shieldstral",
+    "url": "https://huggingface.co/mistralai/Shieldstral-1.0-3B",
+    "kind": "repository-or-model-card",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      10
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-03-09",
+    "label": "OpenAI 직원 Black Hat 발표",
+    "url": "https://lilys.ai/digest/10858726/12763231?s=1&noteVersionId=9351871",
+    "kind": "transcript",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      6
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-03-09",
+    "label": "조코딩 주간 AI 뉴스",
+    "url": "https://lilys.ai/digest/10890035/12804647?s=1&noteVersionId=9394264",
+    "kind": "transcript",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      8,
+      9,
+      11
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-03-09",
+    "label": "GPT-5.6 Luna·Sol 업데이트",
+    "url": "https://openai.com/index/improving-gpt-5-6-sol-in-chatgpt/",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      5
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-03-09",
+    "label": "OpenAI 사이버 위험 대응",
+    "url": "https://openai.com/index/responding-next-frontier-critical-cyber-capabilities/",
+    "kind": "official",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      2
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-03-09",
+    "label": "Prime Agent 공개 글",
+    "url": "https://primeintellect.ai/blog/prime-agent",
+    "kind": "official",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      3
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-03-09",
+    "label": "허깅페이스 침투 사건 정리",
+    "url": "https://ranian963.github.io/ai-news-archive/news/brief/openai-huggingface-incident/",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      6
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-03-09",
+    "label": "Liquid",
+    "url": "https://www.liquid.ai/blog/lfm2-5-2-6b",
+    "kind": "official",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      10
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-03-09",
+    "label": "Threads 주간 요약",
+    "url": "https://www.threads.com/share/KHEHht4Aj/",
+    "kind": "threads",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      1,
+      7,
+      8,
+      11
+    ]
+  }
+]

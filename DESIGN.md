@@ -68,6 +68,8 @@ Base unit: 4px.
 
 Card composition tokens use container-query units so the exported 4:5 sheet and the responsive viewer share one geometry: `--card-copy-panel-height` is 86cqw for a standard story, `--card-copy-panel-height-compact` is 102cqw, and `--card-footer-mask-height` is 8cqw.
 
+The watercolor is atmosphere, not the subject. Editorial backgrounds use a pale, desaturated wash so the live copy and diagrams remain dominant. Diagrams use the card's single accent plus warm neutral lines; they never introduce a second semantic color system.
+
 Maximum archive width is 1184px. Mobile and tablet gutters are 16px; the maximum width creates wider outer margins on large screens. The home grid is one column through 640px, two columns through 900px, and three columns above 900px.
 
 The detail page starts with a viewport-aware Reader Stage. Its toolbar, card, controls, and direct selectors fit within the initial dynamic viewport on common portrait mobile, tablet, and desktop screens. The card is at most 680px wide and may shrink according to viewport height. On screens wider than 960px, the card sits beside a 320–360px news summary. Below that width, the card comes first and the summary follows it. The document remains the only vertical scroll owner; the carousel track and selector rail own horizontal movement only.
@@ -108,6 +110,14 @@ The detail page starts with a viewport-aware Reader Stage. Its toolbar, card, co
 - Archive rule: every archived detail card uses the same live text layer over a text-free watercolor background. Backgrounds follow the card's actual subject: model architecture, pricing, benchmark, mathematics, attack path, investigation, coding workflow, infrastructure, video, office document type, licensing, or robotics. A small subject library may repeat only when the visual meaning is genuinely the same; robot imagery appears only on robotics stories. Article-list thumbnails keep their original cover art. The source background must never contain readable copy. The content-led warm-paper panel leaves the right and lower watercolor visible and uses one restrained accent color per card.
 - Evidence chart variant: one cited chart or document excerpt may sit inside the paper panel with a visible source caption. The media uses `object-fit: contain`, keeps its original aspect ratio, and never replaces the card title or written explanation.
 - Solar Pro 4 detail: the last card places the full supplied Artificial Analysis chart inside the paper at its original wide aspect ratio; a pair of cropped bars is not an acceptable substitute. On a small screen, the chart is followed by readable `Solar Pro 4 42점` and `Solar Pro 3 14점` labels.
+
+### Card Diagram
+- Purpose: replace repeated prose only when the information has a real relationship to show: before/after, sequence, timeline, comparison, hierarchy, scale, or measured values.
+- Variants: metric row, step flow, two-way comparison, timeline, progress bars, compact table, and risk scale.
+- Copy rule: a diagram card keeps at most one or two explanatory sentences below the visual. Full context remains in the adjacent Card Detail Panel.
+- Styling: one accent color, warm neutral rules, square-to-soft corners, no decorative icons, no rainbow legend, and no infographic dashboard chrome.
+- Accessibility: every value and relationship is live HTML in reading order. Color is supportive only; labels and values carry the meaning.
+- Restraint: narrative or caveat-heavy cards may remain prose. Do not force a diagram where it would hide uncertainty or imply a false comparison.
 
 ### Reader Stage
 - Structure: archive back-link, category/date/card count, share action, Card Viewer, and news summary.

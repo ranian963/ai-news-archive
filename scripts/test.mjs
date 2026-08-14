@@ -16,8 +16,8 @@ const originalArtRule = styles.match(/\.card-frame--art-original > img\s*\{([^}]
 const originalArtOpacity = Number(originalArtRule.match(/opacity:\s*([\d.]+)/)?.[1] ?? 0);
 const paperOpacity = Number(styles.match(/--card-copy-paper-opacity:\s*([\d.]+)%/)?.[1] ?? 100);
 const watercolorOpacity = Number(styles.match(/--card-copy-watercolor-opacity:\s*([\d.]+)/)?.[1] ?? 0);
-if (paperOpacity > 82 || watercolorOpacity < 0.24) {
-  failures.push("카드의 반투명 종이에서 수채화 색감이 충분히 보이지 않습니다");
+if (paperOpacity < 84 || paperOpacity > 92 || watercolorOpacity > 0.18) {
+  failures.push("카드 수채화가 도식과 글보다 진하거나 종이 질감이 사라졌습니다");
 }
 if (originalArtOpacity < 0.9 || /blur\(/.test(originalArtRule)) {
   failures.push("카드 바깥의 원본 일러스트가 흐리거나 지나치게 옅습니다");
@@ -65,6 +65,9 @@ for (const item of newsItems) {
     if (!detail.eyebrow || !detail.highlight || (!detail.cardBody && !detail.modelRows)) {
       failures.push(`${item.id} ${number}번 카드 텍스트 데이터 누락`);
     }
+    if (detail.visual && !detailHtml.includes(`card-visual--${detail.visual.type}`)) {
+      failures.push(`${item.id} ${number}번 카드 도식 누락`);
+    }
     if (!detailHtml.includes(`card-copy-title-${number}`) || !detailText.includes(detail.highlight)) {
       failures.push(`${item.id} ${number}번 카드의 실제 텍스트 레이어 누락`);
     }
@@ -97,6 +100,18 @@ for (const item of newsItems) {
       failures.push("solar-pro-4: 7번 카드에 Artificial Analysis 전체 그래프가 직접 들어가지 않았습니다");
     }
   }
+}
+
+const sourceRegister = JSON.parse(await readFile(resolve(root, "research", "source-register.json"), "utf8"));
+const registerPairs = sourceRegister.map((source) => `${source.newsId}|${source.url}`);
+if (!sourceRegister.length || sourceRegister.some((source) => !source.newsId || !/^https:\/\//.test(source.url) || !source.kind || !source.checkedAt || source.archiveStatus !== "link-only") || new Set(registerPairs).size !== registerPairs.length) {
+  failures.push("참고 자료 출처 대장이 불완전합니다");
+}
+if (sourceRegister.some((source) => /huggingface\.co\/blog(?:\/|$)/.test(source.url) && source.kind === "repository-or-model-card")) {
+  failures.push("Hugging Face 블로그를 모델 카드로 잘못 분류했습니다");
+}
+if (sourceRegister.some((source) => /artificialanalysis\.ai/.test(source.url) && source.kind !== "reference")) {
+  failures.push("Artificial Analysis 자료 분류가 잘못됐습니다");
 }
 
 const htmlFiles = [resolve(docs, "index.html"), ...newsItems.map((item) => resolve(docs, item.path, "index.html"))];

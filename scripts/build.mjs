@@ -14,6 +14,7 @@ const inlineStyles = (await readFile(resolve(root, "src/styles.css"), "utf8"))
   .replace(/\s+/g, " ")
   .replace(/\s*([{}:;,])\s*/g, "$1")
   .trim();
+const sourceCheckedAt = "2026-08-14";
 
 const escapeHtml = (value) => String(value)
   .replaceAll("&", "&amp;")
@@ -140,6 +141,30 @@ function cardDetailContent(number, detail) {
     <section class="card-detail__section" aria-labelledby="card-sources-title"><h2 id="card-sources-title">관련 링크</h2><ul class="card-detail__sources">${sources}</ul><a class="card-detail__all-sources" href="#sources-title">전체 참고자료 보기</a></section></div>`;
 }
 
+function cardVisualContent(visual) {
+  if (!visual) return "";
+  const simpleItems = visual.items ?? [];
+  if (visual.type === "metric" || visual.type === "compare" || visual.type === "risk") {
+    return `<div class="card-visual card-visual--${visual.type}" aria-label="주요 수치">${simpleItems.map(([label, value]) => `<span><small>${inlineText(label)}</small><strong>${inlineText(value)}</strong></span>`).join("")}</div>`;
+  }
+  if (visual.type === "flow") {
+    return `<ol class="card-visual card-visual--flow" aria-label="내용 흐름">${simpleItems.map((item) => `<li>${inlineText(item)}</li>`).join("")}</ol>`;
+  }
+  if (visual.type === "timeline") {
+    return `<ol class="card-visual card-visual--timeline" aria-label="주요 흐름">${simpleItems.map(([time, label]) => `<li><strong>${inlineText(time)}</strong><span>${inlineText(label)}</span></li>`).join("")}</ol>`;
+  }
+  if (visual.type === "bars") {
+    return `<div class="card-visual card-visual--bars" aria-label="수치 비교">${simpleItems.map(([label, value, display]) => `<span><small>${inlineText(label)}</small><i><b style="--bar-value:${Number(value)}%"></b></i><strong>${inlineText(display)}</strong></span>`).join("")}</div>`;
+  }
+  if (visual.type === "ranking") {
+    return `<ol class="card-visual card-visual--ranking" aria-label="순위 비교">${simpleItems.map(([rank, label, value]) => `<li><b>${inlineText(rank)}</b><span>${inlineText(label)}</span><strong>${inlineText(value)}</strong></li>`).join("")}</ol>`;
+  }
+  if (visual.type === "table") {
+    return `<div class="card-visual card-visual--table" role="table" aria-label="모델 비교"><div role="row">${visual.columns.map((column) => `<strong role="columnheader">${inlineText(column)}</strong>`).join("")}</div>${visual.rows.map((row) => `<div role="row">${row.map((cell) => `<span role="cell">${inlineText(cell)}</span>`).join("")}</div>`).join("")}</div>`;
+  }
+  return "";
+}
+
 function cardOverlayContent(item, number, detail) {
   if (!detail?.eyebrow) return "";
   const watercolorSource = cardBackgroundHref(item, number, "../../../");
@@ -149,6 +174,7 @@ function cardOverlayContent(item, number, detail) {
   const body = detail.cardBody?.length
     ? `<div class="card-copy__body">${detail.cardBody.map((line) => `<p>${inlineText(line)}</p>`).join("")}</div>`
     : "";
+  const visual = cardVisualContent(detail.visual);
   const models = detail.modelRows?.length
     ? `<div class="card-copy__models">${detail.modelRows.map(([name, specification, description]) => `<section class="card-copy__model"><h3>${inlineText(name)}</h3><p class="card-copy__specification">${inlineText(specification)}</p><p>${inlineText(description)}</p></section>`).join("")}</div>`
     : "";
@@ -164,7 +190,7 @@ function cardOverlayContent(item, number, detail) {
   return `<article class="card-copy${variant}" data-theme="${escapeHtml(detail.theme ?? "coral")}" aria-labelledby="card-copy-title-${number}">
     <div class="card-copy__panel">
       ${watercolor}<p class="card-copy__eyebrow">${escapeHtml(detail.eyebrow)}</p>
-      <h2 id="card-copy-title-${number}">${inlineText(detail.title)}</h2>${comparisonMedia || media}${body}${models}
+      <h2 id="card-copy-title-${number}">${inlineText(detail.title)}</h2>${comparisonMedia || media}${visual}${body}${models}
       <p class="card-copy__highlight">${inlineText(detail.highlight)}</p>
     </div>
   </article>${pageLabel}`;
@@ -237,6 +263,43 @@ function relatedItems(item) {
     .sort((a, b) => b.score - a.score || b.candidate.published.localeCompare(a.candidate.published))
     .slice(0, 3)
     .map(({ candidate }) => candidate);
+}
+
+function sourceKind(label, url) {
+  if (/lilys\.ai/.test(url)) return "transcript";
+  if (/threads\.com/.test(url)) return "threads";
+  if (/youtu(?:\.be|be\.com)/.test(url)) return "video";
+  if (/huggingface\.co\/blog(?:\/|$)/.test(url)) return "reference";
+  if (/github\.com/.test(url) || (/huggingface\.co/.test(url) && !/huggingface\.co\/blog(?:\/|$)/.test(url))) return "repository-or-model-card";
+  if (/artificialanalysis\.ai|news\.hada\.io|aiwire\.kr|axios\.com|nature\.com|arxiv\.org|zenodo\.org/.test(url)) return "reference";
+  if (/공식|Upstage|OpenAI|Google|xAI|Prime|Liquid|Mistral|InclusionAI|Anthropic/.test(label)) return "official";
+  return "reference";
+}
+
+function sourceRegister() {
+  const records = new Map();
+  for (const item of newsItems) {
+    const uses = [];
+    for (const [number, detail] of Object.entries(item.cardDetails ?? {})) {
+      for (const [, label, url] of detail.sources) uses.push({ label, url, card: Number(number) });
+    }
+    for (const [label, url] of item.sources) uses.push({ label, url, card: null });
+    for (const use of uses) {
+      const key = `${item.id}|${use.url}`;
+      const record = records.get(key) ?? {
+        newsId: item.id,
+        label: use.label,
+        url: use.url,
+        kind: sourceKind(use.label, use.url),
+        checkedAt: sourceCheckedAt,
+        archiveStatus: "link-only",
+        cards: []
+      };
+      if (use.card && !record.cards.includes(use.card)) record.cards.push(use.card);
+      records.set(key, record);
+    }
+  }
+  return [...records.values()].sort((a, b) => a.newsId.localeCompare(b.newsId) || a.url.localeCompare(b.url));
 }
 
 function detailHtml(item, index) {
@@ -329,4 +392,6 @@ for (const [index, item] of newsItems.entries()) {
 }
 
 await writeFile(resolve(output, "404.html"), `<!doctype html><meta charset="utf-8"><title>페이지를 찾을 수 없습니다</title><meta http-equiv="refresh" content="0; url=${siteUrl}"><a href="${siteUrl}">AI 뉴스 아카이브로 이동</a>`);
+await mkdir(resolve(root, "research"), { recursive: true });
+await writeFile(resolve(root, "research", "source-register.json"), `${JSON.stringify(sourceRegister(), null, 2)}\n`);
 console.log(`Built ${newsItems.length} news pages in ${output}`);

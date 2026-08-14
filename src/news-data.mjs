@@ -95,9 +95,66 @@ function editorialDetails(cards, sources) {
     title: card.title,
     cardBody: card.body,
     highlight: card.highlight,
+    visual: card.visual,
     summary: card.body.join(" "),
     sources: card.sources ?? sources[index].slice(0, 3).map(([label, url]) => [sourceType(label), label, url])
   }]));
+}
+
+function setCardVisuals(details, visuals) {
+  for (const [number, visual] of Object.entries(visuals)) details[number].visual = visual;
+  return details;
+}
+
+function cardVisuals({ weeklyJuly20, deepDive, weeklyJuly27, genoffice, qwen, incident }) {
+  setCardVisuals(weeklyJuly20, {
+    2: { type: "compare", items: [["입력", "$5"], ["출력", "$25"]] },
+    3: { type: "flow", items: ["샌드박스", "권한 상승", "운영 환경", "평가 답안"] },
+    4: { type: "flow", items: ["후보 생성", "반박", "Lean 4 검증"] },
+    8: { type: "metric", items: [["전체", "250B"], ["활성", "15B"], ["Context", "1M"]] }
+  });
+  setCardVisuals(deepDive, {
+    3: { type: "flow", items: ["SSRF", "권한 상승", "자격증명", "RCE"] },
+    4: { type: "compare", items: [["공격 기록", "17K+"], ["분석 모델", "GLM 5.2"]] },
+    6: { type: "metric", items: [["코드", "535K LOC"], ["기간", "11일"]] },
+    9: { type: "metric", items: [["CI", "100%"], ["회귀 수정", "19건"], ["비용", "$165K"]] }
+  });
+  setCardVisuals(weeklyJuly27, {
+    2: { type: "metric", items: [["연구 결과", "10건"], ["논문", "249쪽"], ["상태", "검토 중"]] },
+    3: { type: "bars", items: [["Luna", 80, "80% 인하"], ["Terra", 20, "20% 인하"]] },
+    4: { type: "metric", items: [["Context", "1M"], ["출력 가격", "$0.28"], ["AA 지수", "50"]] },
+    6: { type: "compare", items: [["변경 전", "13.3%"], ["변경 후", "38.3%"]] },
+    7: { type: "table", columns: ["모델", "전체/활성", "Context"], rows: [["K-EXAONE", "750B/37B", "256K"], ["A.X K2", "688B/33B", "256K"], ["Solar Open 2", "250B/15B", "1M"], ["Motif-3 Beta", "314.8B/≈13B", "256K"]] },
+    9: { type: "timeline", items: [["단일 생성", "30초"], ["롱비디오 베타", "180초"]] },
+    10: { type: "bars", items: [["기본", 49, "48.6%"], ["개선", 60, "60.0%"], ["원격 제어", 74, "74.0%"]] },
+    11: { type: "timeline", items: [["1939", "야코비안"], ["약 50년", "사이클 덮개"], ["2026", "AI 증명·반례"]] }
+  });
+  setCardVisuals(genoffice, {
+    2: { type: "flow", items: ["문단 읽기", "수정", "OOXML 보존"] },
+    5: { type: "compare", items: [["가능", "주석·양식·페이지"], ["불가", "본문 직접 편집"]] },
+    7: { type: "compare", items: [["Plus", "$24.99/월"], ["Pro", "$249.99/월"]] },
+    8: { type: "compare", items: [["지원", "DOCX·XLSX·PPTX"], ["제한", "VBA·Power Query"]] },
+    9: { type: "compare", items: [["핵심", "Apache 2.0"], ["ee/", "별도 계약"]] }
+  });
+  setCardVisuals(qwen, {
+    2: { type: "metric", items: [["전체", "2.4T"], ["활성", "95B"], ["BF16", "약 4.8TB"]] },
+    3: { type: "ranking", items: [["1", "Claude Opus 5", "59.2"], ["2", "Qwen3.8-Max", "58.4"], ["3", "GPT-5.6 Sol", "57.8"]] },
+    4: { type: "bars", items: [["PaperBench", 93, "93.0"], ["WideSearch", 82, "81.9"], ["SWE-bench Pro", 68, "67.7"], ["HLE", 44, "43.6"]] },
+    5: { type: "timeline", items: [["16일", "자율 개발"], ["125시간", "논문 재현"], ["24시간", "대회"]] },
+    6: { type: "compare", items: [["입력", "$2"], ["출력", "$6"], ["캐시 재사용", "$0.17"]] },
+    8: { type: "compare", items: [["Qwen 4bit", "≈1.2TB"], ["Kimi 4bit", "≈1.4TB"]] },
+    9: { type: "compare", items: [["Qwen", "150M · 67.6 tok/s"], ["Kimi", "130M · 38.7 tok/s"]] }
+  });
+  setCardVisuals(incident, {
+    2: { type: "timeline", items: [["5월 7일", "통신 시작"], ["7월", "침해 집중"], ["8월 5일", "Black Hat 공개"]] },
+    3: { type: "flow", items: ["풀 수 없는 과제", "온라인 정답 탐색", "Artifactory 점검"] },
+    5: { type: "flow", items: ["취약점", "자격증명", "역할 분담", "결과 공유"] },
+    6: { type: "flow", items: ["SSRF", "관리자 토큰", "RCE", "서비스 장애"] },
+    8: { type: "flow", items: ["유출 계정", "RCE", "호스트", "클러스터"] },
+    9: { type: "flow", items: ["악성 데이터셋", "Jinja2 주입", "클러스터 이동"] },
+    10: { type: "metric", items: [["행동", "17,600"], ["최다 하루", "7,677"], ["장치 등록", "181회"]] },
+    11: { type: "timeline", items: [["7월 19일", "OpenAI 탐지"], ["7월 20일", "사건 연결"], ["70억+", "로그 검토"]] }
+  });
 }
 
 const solarPro4Sources = [
@@ -570,6 +627,33 @@ export const newsItems = [
     ]
   }
 ];
+
+cardVisuals({
+  weeklyJuly20: newsItems[0].cardDetails,
+  deepDive: newsItems[1].cardDetails,
+  weeklyJuly27: newsItems[2].cardDetails,
+  genoffice: newsItems[3].cardDetails,
+  qwen: newsItems[5].cardDetails,
+  incident: newsItems[6].cardDetails
+});
+
+setCardVisuals(newsItems[4].cardDetails, {
+  2: { type: "compare", items: [["Context", "512K"], ["최대 출력", "128K"], ["언어", "한·영·일"]] },
+  3: { type: "compare", items: [["정가 입력", "$0.30"], ["정가 출력", "$1.20"], ["할인", "90%"]] },
+  4: { type: "bars", items: [["Terminal-Bench", 57, "57.0"], ["AA-LCR", 71, "71.0"], ["GPQA", 89, "89.0"], ["KMMLU-Pro", 79, "79.2"]] },
+  5: { type: "metric", items: [["반복 실행", "830회"], ["성격", "외부 실험"]] },
+  6: { type: "compare", items: [["Solar Open 2", "직접 운영"], ["Solar Pro 4", "상용 API"]] }
+});
+
+setCardVisuals(newsItems[7].cardDetails, {
+  2: { type: "risk", items: [["Astra", "Critical"], ["상태", "미공개 모델"]] },
+  3: { type: "compare", items: [["기본", "30.16%"], ["Prime Agent", "95.5%"]] },
+  5: { type: "compare", items: [["일반 대화", "Luna"], ["추론 작업", "Sol"]] },
+  7: { type: "timeline", items: [["Muse Code", "Beta"], ["Muse Spark", "1.2"], ["작업", "최대 3일"]] },
+  8: { type: "metric", items: [["탐지 시간", "8분"], ["대상", "Coldcard"]] },
+  9: { type: "ranking", items: [["1", "GPT Image 2", "1위"], ["2", "Grok Imagine", "생성 1320"], ["2", "Grok Imagine", "편집 1439"]] },
+  10: { type: "table", columns: ["모델", "규모", "쓰임"], rows: [["Liquid LFM2.5", "2.6B", "온디바이스"], ["Ling-3.0", "124B/5.1B", "범용 MoE"], ["Shieldstral", "3B", "안전 검사"]] }
+});
 
 export const labels = {
   all: "전체",
