@@ -68,6 +68,8 @@ Base unit: 4px.
 
 Card composition tokens use container-query units so the exported 4:5 sheet and the responsive viewer share one geometry: `--card-copy-panel-height` is 86cqw for a standard story, `--card-copy-panel-height-compact` is 102cqw, and `--card-footer-mask-height` is 8cqw.
 
+Category continuity uses the same pastel mapping already present in the archive: weekly is coral, brief is sky, and model is mint. Inside an article, that color appears only as a `3–5px` left index rule and the compact card-detail category badge. It never recolors the watercolor, diagrams, or main copy panel.
+
 The watercolor is atmosphere, not the subject. Editorial backgrounds use a pale, desaturated wash so the live copy and diagrams remain dominant. Diagrams use the card's single accent plus warm neutral lines; they never introduce a second semantic color system.
 
 Maximum archive width is 1184px. Mobile and tablet gutters are 16px; the maximum width creates wider outer margins on large screens. The home grid is one column through 640px, two columns through 900px, and three columns above 900px.
@@ -89,7 +91,7 @@ The detail page starts with a viewport-aware Reader Stage. Its toolbar, card, co
 - Motion: selected background fades over the standard duration.
 
 ### Archive Tile
-- Structure: 4:5 cover image, category/date, title, summary, tags, link.
+- Structure: 4:5 cover image, category/article publication date, title, summary, tags, link. Weekly coverage dates and model release dates belong in the cover or article body, not the archive metadata row.
 - Variants: weekly, brief, model. Existing URLs remain unchanged when an older brief is reclassified as model news.
 - States: default, hover, focus.
 - Accessibility: one descriptive link per tile; image has exact dimensions and informative alt text.
@@ -108,6 +110,7 @@ The detail page starts with a viewport-aware Reader Stage. Its toolbar, card, co
 - Accessibility: meaningful card copy stays selectable and readable by assistive technology. Decorative background artwork uses an empty alt when the same information is present in the live text layer.
 - Export: the browser composition remains the source of truth and can be captured at 1080×1350 for messenger or image sharing.
 - Archive rule: every archived detail card uses the same live text layer over a text-free watercolor background. Backgrounds follow the card's actual subject: model architecture, pricing, benchmark, mathematics, attack path, investigation, coding workflow, infrastructure, video, office document type, licensing, or robotics. A small subject library may repeat only when the visual meaning is genuinely the same; robot imagery appears only on robotics stories. Article-list thumbnails keep their original cover art. The source background must never contain readable copy. The content-led warm-paper panel leaves the right and lower watercolor visible and uses one restrained accent color per card.
+- Category continuity: the card frame carries one slim left index rule—coral for weekly, sky for brief, mint for model—and the adjacent Card Detail Panel repeats that color only in its card-number/category badge. This format marker remains outside the card's topic diagram color system.
 - Evidence chart variant: one cited chart or document excerpt may sit inside the paper panel with a visible source caption. The media uses `object-fit: contain`, keeps its original aspect ratio, and never replaces the card title or written explanation.
 - Solar Pro 4 detail: the last card places the full supplied Artificial Analysis chart inside the paper at its original wide aspect ratio; a pair of cropped bars is not an acceptable substitute. On a small screen, the chart is followed by readable `Solar Pro 4 42점` and `Solar Pro 3 14점` labels.
 
@@ -120,14 +123,16 @@ The detail page starts with a viewport-aware Reader Stage. Its toolbar, card, co
 - Restraint: narrative or caveat-heavy cards may remain prose. Do not force a diagram where it would hide uncertainty or imply a false comparison.
 
 ### Reader Stage
-- Structure: archive back-link, category/date/card count, share action, Card Viewer, and news summary.
+- Structure: archive back-link, a stable article identity, share action, Card Viewer, and card explanation. The identity combines a category badge, optional brand badge, short subject name, and article publication date. It never shows the card count; the carousel counter already provides that information.
+- Publication rule: the toolbar and archive tile always show the article publication date. A model document date, release date, or weekly coverage period stays in the cover and article copy.
+- Responsive identity: desktop keeps the identity on one restrained line. Mobile gives the identity a full-width second row below the back and share controls so the subject name is never ellipsized away.
 - Responsive order: desktop pairs the viewer with the summary; mobile and tablet show the complete first card before the title and summary.
 - Height rule: the first card must be visible without scrolling on common portrait viewports. The image width responds to both container width and dynamic viewport height.
 - Accessibility: one document scroll owner; no sticky or fixed element may cover card artwork; every toolbar control is at least 44px.
 - Surface: a restrained paper field and one pastel index strip support the image without imitating the artwork.
 
 ### Card Detail Panel
-- Structure: active card number/category, active card title, one short explanatory paragraph, up to two compact key points, and one to three card-specific source links.
+- Structure: active card number/category, one short explanatory paragraph, up to two compact key points, and one to three card-specific source links. The card title is not repeated because it is already visible on the artwork; the stable article identity remains in the toolbar.
 - Fallback: cards without authored details continue to show the news-level title, summary, and tags.
 - States: default news summary and active-card detail; content changes with the Card Viewer position.
 - Hierarchy: typography, spacing, and hairline dividers do the grouping. Source type badges share one restrained treatment; the panel does not repeat the card artwork's multiple pastel colors.

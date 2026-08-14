@@ -8,7 +8,8 @@ async (page) => {
     ["solar-pro-4", "/news/brief/solar-pro-4/"],
     ["qwen-3-8-max", "/news/brief/qwen-3-8-max/"],
     ["openai-huggingface-incident", "/news/brief/openai-huggingface-incident/"],
-    ["weekly-2026-08-03-09", "/news/weekly/2026-08-03-09/"]
+    ["weekly-2026-08-03-09", "/news/weekly/2026-08-03-09/"],
+    ["grok-4-6", "/news/brief/grok-4-6/"]
   ];
   const viewports = [
     ["mobile", 375, 812],
@@ -44,7 +45,7 @@ async (page) => {
       if (overflow.horizontal || overflow.scrollX !== 0) {
         throw new Error(`${viewport}/${name}: horizontal drift ${JSON.stringify(overflow)}`);
       }
-      const filename = `output/playwright/redesign-${viewport}-${name}.png`;
+      const filename = `output/playwright/article-identity-${viewport}-${name}.png`;
       await capturePage.screenshot({ path: filename, fullPage: true });
       await capturePage.close();
       results.push({ viewport, name, overflow, filename });

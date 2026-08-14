@@ -118,6 +118,67 @@
     ]
   },
   {
+    "newsId": "grok-4-6",
+    "label": "Artificial Analysis 리더보드",
+    "url": "https://artificialanalysis.ai/",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      3
+    ]
+  },
+  {
+    "newsId": "grok-4-6",
+    "label": "xAI Grok 4.6 모델 문서",
+    "url": "https://docs.x.ai/developers/models/grok-4.6",
+    "kind": "official",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      2,
+      6,
+      7
+    ]
+  },
+  {
+    "newsId": "grok-4-6",
+    "label": "xAI API 요금표",
+    "url": "https://docs.x.ai/developers/pricing",
+    "kind": "official",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      6
+    ]
+  },
+  {
+    "newsId": "grok-4-6",
+    "label": "GeekNews 정리",
+    "url": "https://news.hada.io/topic?id=32438",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      1
+    ]
+  },
+  {
+    "newsId": "grok-4-6",
+    "label": "xAI Grok 4.6 출시",
+    "url": "https://x.ai/news/grok-4-6",
+    "kind": "official",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      1,
+      3,
+      4,
+      5,
+      7
+    ]
+  },
+  {
     "newsId": "openai-huggingface-incident",
     "label": "Hugging Face 기술 분석",
     "url": "https://huggingface.co/blog/agent-intrusion-technical-timeline",

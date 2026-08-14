@@ -260,13 +260,158 @@ const solarPro4Details = {
   }
 };
 
+const grok46Sources = [
+  ["xAI 공식 출시", "https://x.ai/news/grok-4-6"],
+  ["xAI 공식 모델 문서", "https://docs.x.ai/developers/models/grok-4.6"],
+  ["xAI 공식 요금표", "https://docs.x.ai/developers/pricing"],
+  ["Artificial Analysis 리더보드", "https://artificialanalysis.ai/"],
+  ["GeekNews 정리", "https://news.hada.io/topic?id=32438"]
+];
+
+const grok46Details = {
+  1: {
+    background: editorialScenes.model,
+    category: "글로벌 AI 모델",
+    theme: "mint",
+    variant: "cover",
+    eyebrow: "XAI | MODEL RELEASE",
+    title: "xAI가 공개한 Grok 4.6",
+    cardBody: [
+      "xAI는 8월 12일 Grok 4.6을 출시했습니다.",
+      "장시간 이어지는 에이전트 작업과 코딩, 지식 업무에 맞춘 상용 모델입니다.",
+      "Cursor와 Grok Build, xAI API에서 바로 사용할 수 있습니다."
+    ],
+    highlight: "8월 12일 출시 | 장기 실행 에이전트와 코딩",
+    summary: "xAI는 2026년 8월 12일 Grok 4.6을 출시했습니다. Grok 4.5를 보완해 여러 단계가 필요한 조사, 코드 작업, 자료 분석과 앱 제작에 초점을 맞춘 모델입니다.",
+    points: [
+      ["먼저 제공된 곳", "출시와 함께 Cursor, Grok Build와 xAI API에 적용됐습니다."],
+      ["출시 혜택", "Cursor와 Grok Build는 출시 뒤 첫 일주일 동안 포함 사용량을 2배로 제공한다고 안내했습니다."]
+    ],
+    sources: [["공식", "xAI Grok 4.6 출시", "https://x.ai/news/grok-4-6"], ["참고", "GeekNews 정리", "https://news.hada.io/topic?id=32438"]]
+  },
+  2: {
+    background: editorialScenes.longContext,
+    category: "모델 사양",
+    theme: "sky",
+    eyebrow: "MODEL SPECS",
+    title: "500K 컨텍스트, 텍스트와 이미지 입력",
+    cardBody: [
+      "API 모델명은 grok-4.6입니다.",
+      "500K 컨텍스트와 텍스트, 이미지 입력을 지원합니다.",
+      "함수 호출, 구조화 출력과 조절 가능한 추론을 제공합니다."
+    ],
+    highlight: "500K context | Text, Image | configurable reasoning",
+    summary: "xAI 모델 문서에는 500K 컨텍스트, 텍스트와 이미지 입력, 함수 호출, 구조화 출력과 조절 가능한 추론이 기재돼 있습니다. 지식 기준일은 2026년 2월 1일입니다.",
+    points: [
+      ["공개된 정보", "API 모델명과 컨텍스트 길이, 입력 형식, 주요 API 기능이 공개됐습니다."],
+      ["공개되지 않은 정보", "최대 출력 길이와 파라미터 수, 세부 구조는 공식 문서에서 확인되지 않습니다."]
+    ],
+    sources: [["공식", "xAI Grok 4.6 모델 문서", "https://docs.x.ai/developers/models/grok-4.6"]]
+  },
+  3: {
+    background: editorialScenes.benchmark,
+    category: "종합 성능",
+    theme: "lilac",
+    eyebrow: "INTELLIGENCE INDEX",
+    title: "AA 지수 61점, 8월 14일 기준 공동 3위",
+    cardBody: [
+      "Grok 4.6 High는 Artificial Analysis 지수에서 61점을 기록했습니다.",
+      "8월 14일 기준 Opus 5 Max 63점, Fable 5 Max 62점 다음입니다.",
+      "GPT-5.6 Sol Max와 같은 점수이며 Grok 4.5 High보다 5점 올랐습니다."
+    ],
+    highlight: "Fable 5 Max 62 | Grok 4.6 High 61 | GPT-5.6 Sol Max 61",
+    summary: "Artificial Analysis Intelligence Index에서 Grok 4.6 High는 61점을 기록했습니다. 8월 14일 확인 기준 Opus 5 Max 63점, Fable 5 Max 62점 다음이며 GPT-5.6 Sol Max와 같은 점수입니다.",
+    points: [
+      ["지표 범위", "Artificial Analysis Intelligence Index는 9개 평가를 합친 종합 지수입니다."],
+      ["확인 시점", "순위는 새 모델과 재평가가 반영되면 달라질 수 있어 점수와 확인 시점을 함께 봐야 합니다."]
+    ],
+    sources: [["공식", "xAI Grok 4.6 출시", "https://x.ai/news/grok-4-6"], ["분석", "Artificial Analysis 리더보드", "https://artificialanalysis.ai/"]]
+  },
+  4: {
+    background: editorialScenes.coding,
+    category: "코딩 평가",
+    theme: "butter",
+    eyebrow: "CODING EVALS",
+    title: "코딩 평가는 항목마다 순위가 달랐습니다",
+    cardBody: [
+      "CursorBench는 69.9%로 GPT-5.6 Sol의 67.2%보다 높았습니다.",
+      "DeepSWE는 65.9%로 GPT-5.6 Sol의 73.0%보다 낮았습니다.",
+      "FrontierCode는 61.3%로 GPT-5.6 Sol의 60.6%와 비슷했습니다."
+    ],
+    highlight: "CursorBench 69.9% | DeepSWE 65.9% | FrontierCode 61.3%",
+    summary: "xAI의 공개 표에서 Grok 4.6은 CursorBench v3.2와 FrontierCode v1.1 Extended에서 GPT-5.6 Sol Max보다 높은 점수를 냈지만 DeepSWE v1.1에서는 7.1%p 낮았습니다.",
+    points: [
+      ["잘 나온 평가", "CursorBench v3.2는 69.9%, FrontierCode v1.1 Extended는 61.3%였습니다."],
+      ["낮았던 평가", "DeepSWE v1.1은 65.9%로 GPT-5.6 Sol Max 73.0%와 Fable 5 Max 70.0%보다 낮았습니다."]
+    ],
+    sources: [["공식", "xAI Grok 4.6 평가표", "https://x.ai/news/grok-4-6"]]
+  },
+  5: {
+    background: editorialScenes.harness,
+    category: "학습 방식",
+    theme: "coral",
+    eyebrow: "TRAINING",
+    title: "긴 작업을 처리하도록 후속 학습을 늘렸습니다",
+    cardBody: [
+      "Grok 4.5보다 긴 보충 학습을 진행했습니다.",
+      "Grok 4.5로 SFT 작업 경로를 다시 만들고 문제가 있는 결과를 걸렀습니다.",
+      "코딩과 지식 업무, 웹 개발 등에 에이전트 강화학습을 적용했습니다."
+    ],
+    highlight: "보충 학습 | SFT 재생성 | 에이전트 강화학습",
+    summary: "xAI는 보충 학습을 늘리고, Grok 4.5로 여러 추론 단계와 에이전트 환경의 SFT 작업 경로를 다시 만들었다고 설명했습니다. 이후 코딩과 지식 업무, 웹 개발, 커널 최적화 등에 에이전트 강화학습을 적용했습니다.",
+    points: [
+      ["달라진 학습", "모델 생성 데이터, 엔지니어링 데이터, 개선한 최적화 방식을 보충 학습에 사용했습니다."],
+      ["공개 범위", "학습 과정의 방향은 공개했지만 파라미터 수와 전체 학습량은 밝히지 않았습니다."]
+    ],
+    sources: [["공식", "xAI Grok 4.6 학습 설명", "https://x.ai/news/grok-4-6"]]
+  },
+  6: {
+    background: editorialScenes.pricing,
+    category: "API 요금",
+    theme: "mint",
+    eyebrow: "API PRICING",
+    title: "200K를 넘으면 전체 요청 단가가 2배가 됩니다",
+    cardBody: [
+      "기본 요금은 입력 $2, 캐시 입력 $0.50, 출력 $6입니다.",
+      "프롬프트가 200K 이상이면 $4, $1, $12로 올라갑니다.",
+      "빠른 처리 옵션은 모든 토큰 단가가 다시 2배입니다."
+    ],
+    highlight: "기본 $2 / $0.50 / $6 | 200K 이상 $4 / $1 / $12",
+    summary: "Grok 4.6의 1M 토큰당 기본 요금은 입력 2달러, 캐시 입력 0.50달러, 출력 6달러입니다. 프롬프트가 200K 토큰 이상이면 요청 전체에 입력 4달러, 캐시 입력 1달러, 출력 12달러가 적용됩니다.",
+    points: [
+      ["긴 요청", "200K를 넘긴 부분만 비싸지는 방식이 아니라 해당 요청의 모든 토큰에 긴 컨텍스트 요금이 붙습니다."],
+      ["빠른 처리", "xAI는 표준 모델보다 빠른 옵션을 제공하며 단가는 표준 요금의 2배입니다."]
+    ],
+    sources: [["공식", "xAI API 요금표", "https://docs.x.ai/developers/pricing"], ["공식", "xAI Grok 4.6 모델 문서", "https://docs.x.ai/developers/models/grok-4.6"]]
+  },
+  7: {
+    background: editorialScenes.selfHosting,
+    category: "제공 방식",
+    theme: "sky",
+    eyebrow: "AVAILABILITY",
+    title: "API로 제공되며 가중치는 공개되지 않았습니다",
+    cardBody: [
+      "Cursor, Grok Build와 xAI API에서 사용할 수 있습니다.",
+      "OpenRouter, Vercel, Cloudflare도 제공처에 포함됐습니다.",
+      "모델 가중치와 직접 운영용 라이선스는 공개되지 않았습니다."
+    ],
+    highlight: "비공개 가중치 | 상용 API와 파트너 서비스로 제공",
+    summary: "Grok 4.6은 xAI가 운영하는 상용 API와 Cursor, Grok Build, OpenRouter, Vercel, Cloudflare에서 제공됩니다. 모델 가중치와 직접 운영용 라이선스는 공개되지 않아 로컬이나 사내 서버에 내려받아 실행하는 모델은 아닙니다.",
+    points: [
+      ["직접 운영", "가중치 파일이 없으므로 필요한 GPU 메모리나 자체 서버 구성도 공개 자료로 계산할 수 없습니다."],
+      ["확인할 제한", "파라미터 수와 최대 출력 길이도 공식 문서에 없으므로 추정치를 사양처럼 받아들이지 않는 편이 안전합니다."]
+    ],
+    sources: [["공식", "xAI Grok 4.6 모델 문서", "https://docs.x.ai/developers/models/grok-4.6"], ["공식", "xAI Grok 4.6 출시", "https://x.ai/news/grok-4-6"]]
+  }
+};
+
 export const newsItems = [
   {
     id: "weekly-2026-07-20-26",
     type: "weekly",
     path: "news/weekly/2026-07-20-26/",
+    identity: { title: "에이전트가 경계를 넘은 주" },
     published: "2026-07-27",
-    displayDate: "2026.07.20–07.26",
     title: "에이전트가 경계를 넘은 주",
     summary: "Claude Opus 5, AI 수학 연구, Kimi K3, 에이전트 하네스와 한국 AI 인프라까지 한 주의 주요 소식을 8장에 정리했습니다.",
     tags: ["주간 뉴스", "AI 모델", "에이전트", "수학", "한국 AI"],
@@ -283,8 +428,8 @@ export const newsItems = [
     id: "ai-agent-deep-dive",
     type: "brief",
     path: "news/brief/ai-agent-deep-dive/",
+    identity: { title: "AI 에이전트 통제" },
     published: "2026-07-29",
-    displayDate: "2026.07.29",
     title: "능력은 커졌고 통제는 복잡해졌다",
     summary: "AI 에이전트의 Hugging Face 침입과 Bun의 대규모 Rust 전환을 함께 살펴봅니다. 같은 장기 실행 능력이 사고와 성과로 갈린 과정을 10장에 담았습니다.",
     tags: ["짧막 뉴스", "에이전트", "보안", "Claude Code", "개발"],
@@ -300,8 +445,8 @@ export const newsItems = [
     id: "weekly-2026-07-27-08-02",
     type: "weekly",
     path: "news/weekly/2026-07-27-08-02/",
+    identity: { title: "2026.07.27–08.02" },
     published: "2026-08-03",
-    displayDate: "2026.07.27–08.02",
     title: "이번 주 AI 뉴스",
     summary: "OpenAI의 장기 미해결 수학 문제 연구, GPT-5.6 가격 인하, DeepSeek V4-Flash, 독파모, Seedance 2.5와 Gemini Robotics 2까지 11장으로 정리했습니다.",
     tags: ["주간 뉴스", "AI 모델", "수학", "오픈웨이트", "한국 AI", "로봇"],
@@ -318,8 +463,8 @@ export const newsItems = [
     id: "genoffice",
     type: "brief",
     path: "news/brief/genoffice/",
+    identity: { brand: "Genspark", title: "GenOffice" },
     published: "2026-08-04",
-    displayDate: "2026.08.04",
     title: "Genspark가 공개한 GenOffice 데스크톱 오피스",
     summary: "Docs, Sheets, Slides, PDF 편집 범위와 AI 패널, MS Office 호환 범위, Apache 2.0과 ee 폴더의 별도 라이선스를 코드와 문서 기준으로 정리했습니다.",
     tags: ["짧막 뉴스", "AI 오피스", "오픈소스", "에이전트", "생산성"],
@@ -337,8 +482,8 @@ export const newsItems = [
     id: "solar-pro-4",
     type: "model",
     path: "news/brief/solar-pro-4/",
-    published: "2026-08-06",
-    displayDate: "2026.08.06",
+    identity: { brand: "Upstage", title: "Solar Pro 4" },
+    published: "2026-08-11",
     title: "업스테이지가 공개한 Solar Pro 4",
     summary: "512K 컨텍스트, 최대 128K 출력, 에이전트 벤치마크와 API 가격을 공식 자료와 독립 분석으로 나눠 살펴봅니다.",
     tags: ["모델 소식", "AI 모델", "한국 AI", "업스테이지", "LLM"],
@@ -358,8 +503,8 @@ export const newsItems = [
     id: "qwen-3-8-max",
     type: "model",
     path: "news/brief/qwen-3-8-max/",
+    identity: { brand: "Alibaba", title: "Qwen3.8-Max" },
     published: "2026-08-07",
-    displayDate: "2026.08.07",
     title: "알리바바가 정식 공개한 Qwen3.8-Max",
     summary: "2.4T MoE 구조와 실제 메모리 요구량, 잠시 1위에 오른 Agentic Index, 공식 성능표와 API 가격, 오픈웨이트 공개 계획을 9장으로 살펴봅니다.",
     tags: ["모델 소식", "AI 모델", "중국 AI", "오픈웨이트", "에이전트"],
@@ -377,8 +522,8 @@ export const newsItems = [
     id: "openai-huggingface-incident",
     type: "brief",
     path: "news/brief/openai-huggingface-incident/",
+    identity: { brand: "OpenAI · HF", title: "평가 환경 침투 사건" },
     published: "2026-08-09",
-    displayDate: "2026.08.09",
     title: "평가 중이던 AI가 허깅페이스까지 침투했다",
     summary: "OpenAI 직원들이 Black Hat USA 2026에서 공개한 두 달간의 경위를 따라갑니다. 평가 과제, 공유 저장소, 취약점 연결, Hugging Face 침해와 이후 조치를 12장에 담았습니다.",
     tags: ["짧막 뉴스", "에이전트", "보안", "OpenAI", "Hugging Face"],
@@ -397,8 +542,8 @@ export const newsItems = [
     id: "weekly-2026-08-03-09",
     type: "weekly",
     path: "news/weekly/2026-08-03-09/",
+    identity: { title: "2026.08.03–08.09" },
     published: "2026-08-10",
-    displayDate: "2026.08.03–08.09",
     title: "이번 주 AI 뉴스",
     summary: "OpenAI Astra의 사이버 위험 평가, Prime Agent의 ARC-AGI-3 결과, Google AI 리더십 개편, GPT-5.6 Luna, 새 오픈 모델 세 가지와 국내 조선소 용접 로봇까지 11장으로 정리했습니다.",
     tags: ["주간 뉴스", "AI 모델", "에이전트", "보안", "하네스", "한국 AI", "로봇"],
@@ -625,6 +770,21 @@ export const newsItems = [
       ["InclusionAI Ling-3.0-Flash 모델 카드", "https://huggingface.co/inclusionAI/Ling-3.0-flash"],
       ["Mistral Shieldstral 1.0 3B 모델 카드", "https://huggingface.co/mistralai/Shieldstral-1.0-3B"]
     ]
+  },
+  {
+    id: "grok-4-6",
+    type: "model",
+    path: "news/brief/grok-4-6/",
+    identity: { brand: "xAI", title: "Grok 4.6" },
+    published: "2026-08-14",
+    title: "xAI가 공개한 Grok 4.6",
+    summary: "8월 12일 출시된 Grok 4.6의 500K 컨텍스트와 API 기능, 공식 성능표, 코딩 평가, 요금과 비공개 가중치 범위를 7장으로 정리했습니다.",
+    tags: ["모델 소식", "AI 모델", "xAI", "Grok", "에이전트", "코딩"],
+    cardCount: 7,
+    imageStem: "grok-4-6",
+    coverAlt: "xAI가 공개한 Grok 4.6 모델 카드뉴스 표지",
+    cardDetails: grok46Details,
+    sources: grok46Sources
   }
 ];
 
@@ -653,6 +813,16 @@ setCardVisuals(newsItems[7].cardDetails, {
   8: { type: "metric", items: [["탐지 시간", "8분"], ["대상", "Coldcard"]] },
   9: { type: "ranking", items: [["1", "GPT Image 2", "1위"], ["2", "Grok Imagine", "생성 1320"], ["2", "Grok Imagine", "편집 1439"]] },
   10: { type: "table", columns: ["모델", "규모", "쓰임"], rows: [["Liquid LFM2.5", "2.6B", "온디바이스"], ["Ling-3.0", "124B/5.1B", "범용 MoE"], ["Shieldstral", "3B", "안전 검사"]] }
+});
+
+const grok46Item = newsItems.find((item) => item.id === "grok-4-6");
+setCardVisuals(grok46Item.cardDetails, {
+  2: { type: "metric", items: [["Context", "500K"], ["Input", "Text, Image"], ["Reasoning", "조절 가능"]] },
+  3: { type: "ranking", items: [["1", "Opus 5 Max", "63"], ["2", "Fable 5 Max", "62"], ["3", "Grok 4.6 High", "61"], ["3", "GPT-5.6 Sol Max", "61"]] },
+  4: { type: "table", columns: ["평가", "Grok 4.6", "GPT-5.6 Sol"], rows: [["CursorBench", "69.9%", "67.2%"], ["DeepSWE", "65.9%", "73.0%"], ["FrontierCode", "61.3%", "60.6%"]] },
+  5: { type: "flow", items: ["보충 학습", "SFT 재생성", "에이전트 강화학습"] },
+  6: { type: "compare", items: [["기본 입력", "$2"], ["기본 캐시", "$0.50"], ["기본 출력", "$6"]] },
+  7: { type: "compare", items: [["제공", "상용 API"], ["가중치", "비공개"], ["직접 운영", "공개 경로 없음"]] }
 });
 
 export const labels = {

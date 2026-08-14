@@ -38,6 +38,7 @@ for (const item of newsItems) {
 }
 
 for (const item of newsItems) {
+  if (!item.identity?.title) failures.push(`${item.id}: 상단 기사 이름 누락`);
   if (Object.keys(item.cardDetails ?? {}).length !== item.cardCount) {
     failures.push(`${item.id}: 카드별 상세 정보 누락`);
     continue;
@@ -136,13 +137,13 @@ const modelItems = newsItems.filter((item) => item.type === "model");
 if (!homeHtml.includes('data-filter="model"') || !homeHtml.includes("모델 소식")) {
   failures.push("모델 소식 필터 또는 이름 누락");
 }
-if (modelItems.length !== 2 || !modelItems.some((item) => item.id === "solar-pro-4") || !modelItems.some((item) => item.id === "qwen-3-8-max")) {
+if (modelItems.length !== 3 || !modelItems.some((item) => item.id === "solar-pro-4") || !modelItems.some((item) => item.id === "qwen-3-8-max") || !modelItems.some((item) => item.id === "grok-4-6")) {
   failures.push("기존 모델 출시 기사 분류 누락");
 }
 const modelTiles = [...homeHtml.matchAll(/data-type="model"/g)].length;
 if (modelTiles !== modelItems.length) failures.push(`모델 소식 타일 ${modelItems.length}개 예상, ${modelTiles}개 확인`);
 if (!homeHtml.includes('href="?type=model#news-list-title">모델 소식</a>')) failures.push("모바일에서도 사용할 모델 소식 메뉴 누락");
-if (!homeHtml.includes("공개한 <span class=\"keep-inline\">Qwen3.8-Max</span>") || !homeHtml.includes("공개한 <span class=\"keep-inline\">Solar Pro 4</span>")) {
+if (!homeHtml.includes("공개한 <span class=\"keep-inline\">Qwen3.8-Max</span>") || !homeHtml.includes("공개한 <span class=\"keep-inline\">Solar Pro 4</span>") || !homeHtml.includes("공개한 <span class=\"keep-inline\">Grok 4.6</span>")) {
   failures.push("한국어 제목과 모델명 사이 공백 누락");
 }
 const homeShareButtons = [...homeHtml.matchAll(/data-copy-link/g)];
@@ -160,17 +161,24 @@ for (const item of newsItems) {
   if (!detailHtml.includes("data-copy-link") || !detailHtml.includes(expectedUrl)) {
     failures.push(`뉴스 공유 버튼 또는 고유 주소 누락: ${item.id}`);
   }
-  const readerIndex = detailHtml.indexOf('class="reader-stage"');
+  const readerIndex = detailHtml.indexOf('class="reader-stage reader-stage--');
   const carouselIndex = detailHtml.indexOf('class="carousel"');
-  const headingIndex = detailHtml.indexOf('id="news-title"');
-  if (!detailHtml.includes('<body class="detail-page">') || readerIndex < 0) {
+  const identityIndex = detailHtml.indexOf('class="reader-toolbar__identity"');
+  const headingCount = [...detailHtml.matchAll(/<h1\b/g)].length;
+  if (!detailHtml.includes('<body class="detail-page">') || !detailHtml.includes(`class="reader-stage reader-stage--${item.type}"`) || readerIndex < 0) {
     failures.push(`이미지 우선 뉴스 화면 누락: ${item.id}`);
   }
-  if (carouselIndex < readerIndex || headingIndex < carouselIndex) {
-    failures.push(`첫 카드가 뉴스 설명보다 먼저 나오지 않음: ${item.id}`);
+  if (identityIndex < readerIndex || carouselIndex < identityIndex) {
+    failures.push(`상단 기사 이름과 첫 카드 순서가 잘못됨: ${item.id}`);
   }
-  if (!detailHtml.includes('class="reader-toolbar"') || !detailHtml.includes('class="carousel__readout"')) {
+  if (!detailHtml.includes('class="reader-toolbar"') || !detailHtml.includes('class="reader-toolbar__title"') || !detailHtml.includes('class="carousel__readout"')) {
     failures.push(`뉴스 뷰어 도구줄 또는 이동 안내 누락: ${item.id}`);
+  }
+  if (headingCount !== 1) failures.push(`${item.id}: 페이지 제목이 우측 패널에서 중복됨`);
+  const toolbarHtml = detailHtml.slice(detailHtml.indexOf('<div class="reader-toolbar">'), detailHtml.indexOf('<div class="reader-layout">'));
+  const publishedLabel = `${item.published.replaceAll("-", ".")}</time><span>발행</span>`;
+  if (!toolbarHtml.includes(publishedLabel) || toolbarHtml.includes(`${item.cardCount}장`)) {
+    failures.push(`${item.id}: 상단 발행일 또는 카드 수 표기가 잘못됨`);
   }
   const firstBackground = item.cardDetails?.[1]?.background;
   if (firstBackground) {
@@ -191,6 +199,9 @@ for (const item of newsItems) {
     failures.push(`${item.id}: 후속 카드 지연 로딩 ${item.cardCount - 1}개 이상 예상, ${deferredCards}개 확인`);
   }
 }
+
+const solarItem = newsItems.find((item) => item.id === "solar-pro-4");
+if (solarItem?.published !== "2026-08-11") failures.push("Solar Pro 4 기사 발행일이 8월 11일로 반영되지 않음");
 
 if (failures.length) {
   console.error(failures.join("\n"));

@@ -36,6 +36,8 @@ const keepInlinePhrases = [
   "Muse Spark 1.2",
   "GPT Image 2",
   "Grok Imagine Image 2.0",
+  "Grok 4.6",
+  "8월 14일",
   "DeepSeek V4-Flash",
   "Gemini Robotics 2",
   "Seedance 2.5",
@@ -113,6 +115,18 @@ const cardBackgroundHref = (item, index, base = "") => {
   return background ? `${base}assets/${item.imageStem}/${background}` : imageHref(item, index, base);
 };
 const canonicalHref = (item) => `${siteUrl}${item.path}`;
+const publicationDate = (item) => item.published.replaceAll("-", ".");
+
+function readerIdentity(item) {
+  const brand = item.identity?.brand
+    ? `<span class="reader-toolbar__brand">${inlineText(item.identity.brand)}</span>`
+    : "";
+  return `<div class="reader-toolbar__identity">
+    <span class="reader-toolbar__category reader-toolbar__category--${item.type}">${labels[item.type]}</span>
+    ${brand}<h1 id="news-title" class="reader-toolbar__title">${inlineText(item.identity?.title ?? item.title)}</h1>
+    <p class="reader-toolbar__published"><time datetime="${item.published}">${publicationDate(item)}</time><span>발행</span></p>
+  </div>`;
+}
 
 function shareButton(item, variant = "") {
   const modifier = variant ? ` ${variant}` : "";
@@ -124,8 +138,7 @@ function shareButton(item, variant = "") {
 }
 
 function newsDetailContent(item) {
-  return `<div class="detail-header__meta">${category(item)}<time datetime="${item.published}">${item.displayDate}</time><span>${item.cardCount}장</span></div>
-    <h1 id="news-title">${inlineText(item.title)}</h1>
+  return `<div class="detail-header__meta">${category(item)}<time datetime="${item.published}">${publicationDate(item)} 발행</time></div>
     <p class="detail-header__summary">${inlineText(item.summary)}</p>
     <div class="tags" aria-label="주제">${item.tags.slice(1).map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}</div>`;
 }
@@ -135,9 +148,8 @@ function cardDetailContent(number, detail) {
   const sources = detail.sources.map(([type, label, url]) => `<li><a href="${escapeHtml(url)}" target="_blank" rel="noreferrer"><span class="card-detail__source-type">${escapeHtml(type)}</span><span>${inlineText(label)}</span><span class="card-detail__external">새 창</span></a></li>`).join("");
   const modifier = detail.modelRows ? " card-detail--dense" : "";
   const pointsSection = points ? `<section class="card-detail__section" aria-labelledby="card-points-title"><h2 id="card-points-title">카드에서 볼 내용</h2><ul class="card-detail__points">${points}</ul></section>` : "";
-  return `<div class="card-detail${modifier}"><p class="card-detail__category">${number} · ${escapeHtml(detail.category)}</p>
-    <h1 id="news-title">${inlineText(detail.title)}</h1>
-    <p class="detail-header__summary">${inlineText(detail.summary)}</p>${pointsSection}
+  return `<div class="card-detail${modifier}"><p class="detail-header__summary">${inlineText(detail.summary)}</p>
+    <p class="card-detail__category">${number} · ${escapeHtml(detail.category)}</p>${pointsSection}
     <section class="card-detail__section" aria-labelledby="card-sources-title"><h2 id="card-sources-title">관련 링크</h2><ul class="card-detail__sources">${sources}</ul><a class="card-detail__all-sources" href="#sources-title">전체 참고자료 보기</a></section></div>`;
 }
 
@@ -202,7 +214,7 @@ function tile(item, base = "", heading = "h2", eager = false) {
     <a class="news-tile__image-link" href="${itemHref(item, base)}">
       <img class="news-tile__image" src="${coverHref(item, base)}" srcset="${coverHref(item, base)} 720w, ${imageHref(item, 1, base)} 1080w" sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 900px) 50vw, 380px" width="720" height="900" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} alt="${escapeHtml(item.coverAlt)}">
     </a>
-    <div class="news-tile__meta">${category(item)}<time datetime="${item.published}">${item.displayDate}</time></div>
+    <div class="news-tile__meta">${category(item)}<time datetime="${item.published}">${publicationDate(item)} 발행</time></div>
     <${heading}><a href="${itemHref(item, base)}">${inlineText(item.title)}</a></${heading}>
     <p class="news-tile__summary">${inlineText(item.summary)}</p>
     <div class="tags" aria-label="주제">${tagHtml}</div>
@@ -210,8 +222,10 @@ function tile(item, base = "", heading = "h2", eager = false) {
   </article>`;
 }
 
+const chronologicalNewsItems = [...newsItems].sort((a, b) => a.published.localeCompare(b.published));
+
 function homeHtml() {
-  const items = [...newsItems].reverse();
+  const items = [...chronologicalNewsItems].reverse();
   const featured = items[0];
   const body = `<main id="main" class="archive-main">
     <section class="archive-intro" aria-labelledby="archive-title">
@@ -302,10 +316,11 @@ function sourceRegister() {
   return [...records.values()].sort((a, b) => a.newsId.localeCompare(b.newsId) || a.url.localeCompare(b.url));
 }
 
-function detailHtml(item, index) {
+function detailHtml(item) {
   const base = "../../../";
-  const previous = newsItems[index - 1];
-  const next = newsItems[index + 1];
+  const index = chronologicalNewsItems.findIndex((candidate) => candidate.id === item.id);
+  const previous = chronologicalNewsItems[index - 1];
+  const next = chronologicalNewsItems[index + 1];
   const related = relatedItems(item);
   const slides = Array.from({ length: item.cardCount }, (_, cardIndex) => {
     const number = cardIndex + 1;
@@ -337,10 +352,10 @@ function detailHtml(item, index) {
   const sourceHtml = item.sources.map(([label, url]) => `<li><a href="${escapeHtml(url)}" target="_blank" rel="noreferrer"><span class="source-list__label">${inlineText(label)}</span></a></li>`).join("");
   const cardDetailTemplates = Object.entries(item.cardDetails ?? {}).map(([number, detail]) => `<template data-card-detail-index="${Number(number) - 1}">${cardDetailContent(number, detail)}</template>`).join("");
   const body = `<main id="main" class="detail-main">
-    <section class="reader-stage" aria-labelledby="news-title">
+    <section class="reader-stage reader-stage--${item.type}" aria-labelledby="news-title">
       <div class="reader-toolbar">
         <a class="reader-toolbar__back" href="${base}" aria-label="뉴스 목록으로 돌아가기"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>뉴스 목록</span></a>
-        <p class="reader-toolbar__status"><span>${labels[item.type]}</span><span aria-hidden="true">·</span><time datetime="${item.published}">${item.displayDate}</time><span aria-hidden="true">·</span><span>${item.cardCount}장</span></p>
+        ${readerIdentity(item)}
         ${shareButton(item, "share-button--detail")}
       </div>
       <div class="reader-layout">
@@ -354,7 +369,7 @@ function detailHtml(item, index) {
           </div>
           <div class="pagination" data-pagination aria-label="카드 바로 가기"></div>
         </section>
-        <header class="detail-header" data-card-detail-region aria-live="polite">${newsDetailContent(item)}</header>${cardDetailTemplates ? `
+        <aside class="detail-header" data-card-detail-region aria-label="현재 카드 설명" aria-live="polite">${newsDetailContent(item)}</aside>${cardDetailTemplates ? `
         ${cardDetailTemplates}` : ""}
       </div>
     </section>
@@ -385,10 +400,10 @@ await cp(resolve(root, "src/favicon.svg"), resolve(output, "favicon.svg"));
 await writeFile(resolve(output, ".nojekyll"), "");
 await writeFile(resolve(output, "index.html"), homeHtml());
 
-for (const [index, item] of newsItems.entries()) {
+for (const item of newsItems) {
   const target = resolve(output, item.path, "index.html");
   await mkdir(dirname(target), { recursive: true });
-  await writeFile(target, detailHtml(item, index));
+  await writeFile(target, detailHtml(item));
 }
 
 await writeFile(resolve(output, "404.html"), `<!doctype html><meta charset="utf-8"><title>페이지를 찾을 수 없습니다</title><meta http-equiv="refresh" content="0; url=${siteUrl}"><a href="${siteUrl}">AI 뉴스 아카이브로 이동</a>`);
