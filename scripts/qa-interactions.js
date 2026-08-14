@@ -8,7 +8,21 @@ async (page) => {
     ["qwen-3-8-max", "/news/brief/qwen-3-8-max/"],
     ["openai-huggingface-incident", "/news/brief/openai-huggingface-incident/"],
     ["weekly-2026-08-03-09", "/news/weekly/2026-08-03-09/"],
-    ["grok-4-6", "/news/brief/grok-4-6/"]
+    ["grok-4-6", "/news/brief/grok-4-6/"],
+    ["kimi-k3", "/news/brief/kimi-k3/"],
+    ["claude-opus-5", "/news/brief/claude-opus-5/"],
+    ["deepseek-v4-flash-0731", "/news/brief/deepseek-v4-flash-0731/"],
+    ["muse-spark-1-2", "/news/brief/muse-spark-1-2/"],
+    ["gpt-5-6-cyber", "/news/brief/gpt-5-6-cyber/"],
+    ["muse-glimmer-30b", "/news/brief/muse-glimmer-30b/"],
+    ["nemotron-3-5-lightning", "/news/brief/nemotron-3-5-lightning/"],
+    ["gemini-3-7-flash", "/news/brief/gemini-3-7-flash/"],
+    ["deepseek-v4-pro-0813", "/news/brief/deepseek-v4-pro-0813/"],
+    ["dokpamo-second-round", "/news/brief/dokpamo-second-round/"],
+    ["k-exaone-2", "/news/brief/k-exaone-2/"],
+    ["ax-k2", "/news/brief/ax-k2/"],
+    ["solar-open-2", "/news/brief/solar-open-2/"],
+    ["motif-3", "/news/brief/motif-3/"]
   ];
   const results = [];
 

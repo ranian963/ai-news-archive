@@ -6,6 +6,7 @@ import { isRobotScene, newsItems } from "../src/news-data.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const docs = resolve(root, "docs");
+const siteUrl = "https://ranian963.github.io/ai-news-archive/";
 const failures = [];
 
 const appSource = await readFile(resolve(root, "src", "app.js"), "utf8");
@@ -32,8 +33,10 @@ for (const item of newsItems) {
   await assertFile(resolve(docs, item.path, "index.html"), `뉴스 페이지 누락 (${item.id})`);
   const assetDir = resolve(docs, "assets", item.imageStem);
   const assets = (await readdir(assetDir)).filter((file) => /^\d{2}\.webp$/.test(file));
-  if (assets.length !== item.cardCount) {
-    failures.push(`${item.id}: 카드 ${item.cardCount}장 예상, ${assets.length}장 확인`);
+  const expectedAssets = Array.from({ length: item.cardCount }, (_, index) => `${String(index + 1).padStart(2, "0")}.webp`);
+  const missingAssets = expectedAssets.filter((file) => !assets.includes(file));
+  if (missingAssets.length) {
+    failures.push(`${item.id}: 카드 이미지 누락 (${missingAssets.join(", ")})`);
   }
 }
 
@@ -73,7 +76,7 @@ for (const item of newsItems) {
       failures.push(`${item.id} ${number}번 카드의 실제 텍스트 레이어 누락`);
     }
     for (const [, label, url] of detail.sources) {
-      const renderedUrl = url.replaceAll("&", "&amp;");
+      const renderedUrl = (url.startsWith(siteUrl) ? `../../../${url.slice(siteUrl.length)}` : url).replaceAll("&", "&amp;");
       if (!detailText.includes(label) || !detailHtml.includes(renderedUrl)) failures.push(`${item.id} ${number}번 카드 출처 누락: ${label}`);
     }
   }
@@ -137,8 +140,26 @@ const modelItems = newsItems.filter((item) => item.type === "model");
 if (!homeHtml.includes('data-filter="model"') || !homeHtml.includes("모델 소식")) {
   failures.push("모델 소식 필터 또는 이름 누락");
 }
-if (modelItems.length !== 3 || !modelItems.some((item) => item.id === "solar-pro-4") || !modelItems.some((item) => item.id === "qwen-3-8-max") || !modelItems.some((item) => item.id === "grok-4-6")) {
-  failures.push("기존 모델 출시 기사 분류 누락");
+const expectedModelIds = new Set([
+  "solar-pro-4",
+  "qwen-3-8-max",
+  "grok-4-6",
+  "kimi-k3",
+  "claude-opus-5",
+  "deepseek-v4-flash-0731",
+  "muse-spark-1-2",
+  "gpt-5-6-cyber",
+  "muse-glimmer-30b",
+  "nemotron-3-5-lightning",
+  "gemini-3-7-flash",
+  "deepseek-v4-pro-0813",
+  "k-exaone-2",
+  "ax-k2",
+  "solar-open-2",
+  "motif-3"
+]);
+if (modelItems.length !== expectedModelIds.size || modelItems.some((item) => !expectedModelIds.has(item.id))) {
+  failures.push("모델 출시 기사 분류 누락 또는 중복");
 }
 const modelTiles = [...homeHtml.matchAll(/data-type="model"/g)].length;
 if (modelTiles !== modelItems.length) failures.push(`모델 소식 타일 ${modelItems.length}개 예상, ${modelTiles}개 확인`);
@@ -160,6 +181,9 @@ for (const item of newsItems) {
   const expectedUrl = `data-copy-url="https://ranian963.github.io/ai-news-archive/${item.path}"`;
   if (!detailHtml.includes("data-copy-link") || !detailHtml.includes(expectedUrl)) {
     failures.push(`뉴스 공유 버튼 또는 고유 주소 누락: ${item.id}`);
+  }
+  if (!detailHtml.includes('"@type":"NewsArticle"') || !detailHtml.includes(`"datePublished":"${item.published}"`) || !detailHtml.includes(`"mainEntityOfPage":"https://ranian963.github.io/ai-news-archive/${item.path}"`)) {
+    failures.push(`뉴스 구조화 데이터 누락: ${item.id}`);
   }
   const readerIndex = detailHtml.indexOf('class="reader-stage reader-stage--');
   const carouselIndex = detailHtml.indexOf('class="carousel"');

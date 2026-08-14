@@ -22,6 +22,11 @@ const escapeHtml = (value) => String(value)
   .replaceAll(">", "&gt;")
   .replaceAll('"', "&quot;");
 
+function renderedSourceLink(url, base = "../../../") {
+  if (!url.startsWith(siteUrl)) return { href: url, external: true };
+  return { href: `${base}${url.slice(siteUrl.length)}`, external: false };
+}
+
 const keepInlinePhrases = [
   "Qwen3.8-Max",
   "Solar Pro 4",
@@ -34,6 +39,12 @@ const keepInlinePhrases = [
   "Hugging Face",
   "Kimi K3",
   "Muse Spark 1.2",
+  "Muse Glimmer 30B",
+  "Nemotron 3.5 Lightning",
+  "Gemini 3.7 Flash",
+  "GPT-5.6 Cyber",
+  "DeepSeek V4 Flash 0731",
+  "DeepSeek V4 Pro 0813",
   "GPT Image 2",
   "Grok Imagine Image 2.0",
   "Grok 4.6",
@@ -42,6 +53,11 @@ const keepInlinePhrases = [
   "Gemini Robotics 2",
   "Seedance 2.5",
   "Motif-3 Beta",
+  "Motif-3",
+  "K-EXAONE 2.0",
+  "A.X K2",
+  "Context Length",
+  "384 experts",
   "95.5%로",
   "가격 인하",
   "바탕으로 한 정리",
@@ -57,7 +73,7 @@ function inlineText(value) {
   return html;
 }
 
-const pageShell = ({ title, description, canonical, cssPath, scriptPath, body, bodyClass = "", socialImage, preloadImage, preloadImageSrcset = "", preloadImageSizes = "" }) => `<!doctype html>
+const pageShell = ({ title, description, canonical, cssPath, scriptPath, body, bodyClass = "", socialImage, preloadImage, preloadImageSrcset = "", preloadImageSizes = "", structuredData }) => `<!doctype html>
 <html lang="ko">
 <head>
   <meta charset="utf-8">
@@ -73,6 +89,7 @@ const pageShell = ({ title, description, canonical, cssPath, scriptPath, body, b
   <meta property="og:url" content="${canonical}">
   <meta property="og:image" content="${socialImage}">
   <meta name="twitter:card" content="summary_large_image">
+${structuredData ? `  <script type="application/ld+json">${JSON.stringify(structuredData).replaceAll("<", "\\u003c")}</script>` : ""}
   ${preloadImage ? `<link rel="preload" as="image" href="${preloadImage}"${preloadImageSrcset ? ` imagesrcset="${preloadImageSrcset}" imagesizes="${preloadImageSizes}"` : ""} fetchpriority="high">` : ""}
   <link rel="icon" href="${cssPath.startsWith("../../../") ? "../../../" : ""}favicon.svg" type="image/svg+xml">
   <style>${inlineStyles}</style>
@@ -143,9 +160,13 @@ function newsDetailContent(item) {
     <div class="tags" aria-label="주제">${item.tags.slice(1).map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}</div>`;
 }
 
-function cardDetailContent(number, detail) {
+function cardDetailContent(number, detail, base) {
   const points = (detail.points ?? []).map(([title, description]) => `<li><strong>${inlineText(title)}</strong><span>${inlineText(description)}</span></li>`).join("");
-  const sources = detail.sources.map(([type, label, url]) => `<li><a href="${escapeHtml(url)}" target="_blank" rel="noreferrer"><span class="card-detail__source-type">${escapeHtml(type)}</span><span>${inlineText(label)}</span><span class="card-detail__external">새 창</span></a></li>`).join("");
+  const sources = detail.sources.map(([type, label, url]) => {
+    const link = renderedSourceLink(url, base);
+    const externalAttributes = link.external ? ' target="_blank" rel="noreferrer"' : ' data-internal-link';
+    return `<li><a href="${escapeHtml(link.href)}"${externalAttributes}><span class="card-detail__source-type">${escapeHtml(type)}</span><span>${inlineText(label)}</span><span class="card-detail__external">${link.external ? "새 창" : "이동"}</span></a></li>`;
+  }).join("");
   const modifier = detail.modelRows ? " card-detail--dense" : "";
   const pointsSection = points ? `<section class="card-detail__section" aria-labelledby="card-points-title"><h2 id="card-points-title">카드에서 볼 내용</h2><ul class="card-detail__points">${points}</ul></section>` : "";
   return `<div class="card-detail${modifier}"><p class="detail-header__summary">${inlineText(detail.summary)}</p>
@@ -165,14 +186,30 @@ function cardVisualContent(visual) {
   if (visual.type === "timeline") {
     return `<ol class="card-visual card-visual--timeline" aria-label="주요 흐름">${simpleItems.map(([time, label]) => `<li><strong>${inlineText(time)}</strong><span>${inlineText(label)}</span></li>`).join("")}</ol>`;
   }
+  if (visual.type === "milestones") {
+    return `<ol class="card-visual card-visual--milestones" aria-label="주요 이정표">${simpleItems.map(([time, label]) => `<li><strong>${inlineText(time)}</strong><span>${inlineText(label)}</span></li>`).join("")}</ol>`;
+  }
+  if (visual.type === "tile-grid") {
+    return `<div class="card-visual card-visual--tile-grid" aria-label="핵심 비교">${simpleItems.map(([label, value]) => `<span><small>${inlineText(label)}</small><strong>${inlineText(value)}</strong></span>`).join("")}</div>`;
+  }
+  if (visual.type === "triple-list") {
+    const headers = visual.columns ?? ["항목", "구분", "값"];
+    return `<div class="card-visual card-visual--triple-list"${visual.layout ? ` data-layout="${escapeHtml(visual.layout)}"` : ""} role="table" aria-label="핵심 비교"><div class="card-visual__list-head" role="row">${headers.map((column) => `<strong role="columnheader">${inlineText(column)}</strong>`).join("")}</div>${simpleItems.map((row) => `<div role="row">${row.map((cell) => `<span role="cell">${inlineText(cell)}</span>`).join("")}</div>`).join("")}</div>`;
+  }
+  if (visual.type === "allocation") {
+    return `<div class="card-visual card-visual--allocation" aria-label="100점 배점 구성"><div class="card-visual__allocation-bar">${simpleItems.map(([label, value]) => `<span style="--allocation:${Number(value)}" title="${escapeHtml(label)} ${Number(value)}점"></span>`).join("")}</div><div class="card-visual__allocation-key">${simpleItems.map(([label, value]) => `<span><small>${inlineText(label)}</small><strong>${Number(value)}점</strong></span>`).join("")}</div></div>`;
+  }
   if (visual.type === "bars") {
-    return `<div class="card-visual card-visual--bars" aria-label="수치 비교">${simpleItems.map(([label, value, display]) => `<span><small>${inlineText(label)}</small><i><b style="--bar-value:${Number(value)}%"></b></i><strong>${inlineText(display)}</strong></span>`).join("")}</div>`;
+    return `<div class="card-visual card-visual--bars" aria-label="수치 비교">${simpleItems.map(([label, value, display]) => `<span><small>${inlineText(label)}</small><i><b style="--bar-value:${Number(value)}%"></b></i><strong>${inlineText(display)}</strong></span>`).join("")}${visual.note ? `<p class="card-visual__note">${inlineText(visual.note)}</p>` : ""}</div>`;
   }
   if (visual.type === "ranking") {
-    return `<ol class="card-visual card-visual--ranking" aria-label="순위 비교">${simpleItems.map(([rank, label, value]) => `<li><b>${inlineText(rank)}</b><span>${inlineText(label)}</span><strong>${inlineText(value)}</strong></li>`).join("")}</ol>`;
+    return `<div class="card-visual card-visual--ranking-wrap"><ol class="card-visual--ranking" aria-label="순위 비교">${simpleItems.map(([rank, label, value]) => `<li><b>${inlineText(rank)}</b><span>${inlineText(label)}</span><strong>${inlineText(value)}</strong></li>`).join("")}</ol>${visual.note ? `<p class="card-visual__note">${inlineText(visual.note)}</p>` : ""}</div>`;
+  }
+  if (visual.type === "price-shift") {
+    return `<div class="card-visual card-visual--price-shift" aria-label="가격 변경과 업무 비용 계산"><div class="card-visual__price-states">${simpleItems.map(([label, period, value]) => `<span><small>${inlineText(label)}</small><strong>${inlineText(value)}</strong><em>${inlineText(period)}</em></span>`).join('<b aria-hidden="true">→</b>')}</div><p class="card-visual__price-change">${inlineText(visual.change)}</p><p class="card-visual__cost-rule"><small>업무 한 건의 비용</small><strong>${inlineText(visual.total)}</strong></p></div>`;
   }
   if (visual.type === "table") {
-    return `<div class="card-visual card-visual--table" role="table" aria-label="모델 비교"><div role="row">${visual.columns.map((column) => `<strong role="columnheader">${inlineText(column)}</strong>`).join("")}</div>${visual.rows.map((row) => `<div role="row">${row.map((cell) => `<span role="cell">${inlineText(cell)}</span>`).join("")}</div>`).join("")}</div>`;
+    return `<div class="card-visual card-visual--table" data-columns="${visual.columns.length}" role="table" aria-label="모델 비교"><div role="row">${visual.columns.map((column) => `<strong role="columnheader">${inlineText(column)}</strong>`).join("")}</div>${visual.rows.map((row) => `<div role="row">${row.map((cell) => `<span role="cell">${inlineText(cell)}</span>`).join("")}</div>`).join("")}</div>`;
   }
   return "";
 }
@@ -197,7 +234,10 @@ function cardOverlayContent(item, number, detail) {
     ? `<figure class="card-copy__media">${detail.mediaFull ? `<a href="../../../assets/${item.imageStem}/${escapeHtml(detail.mediaFull)}" target="_blank" rel="noreferrer" aria-label="${escapeHtml(detail.mediaAlt)} 전체 크기로 보기">` : ""}<img src="../../../assets/${item.imageStem}/${escapeHtml(detail.media)}" width="${detail.mediaWidth ?? 1200}" height="${detail.mediaHeight ?? 505}" loading="eager" decoding="async" alt="${escapeHtml(detail.mediaAlt)}">${detail.mediaFull ? "</a>" : ""}${detail.mediaHighlights?.length ? `<div class="card-copy__media-highlights" aria-label="그래프 주요 수치">${detail.mediaHighlights.map(([label, value]) => `<span><b>${escapeHtml(label)}</b><strong>${escapeHtml(value)}</strong></span>`).join("")}</div>` : ""}<figcaption>${escapeHtml(detail.mediaCaption)}</figcaption></figure>`
     : "";
   const pageLabel = detail.pageLabel ? `<p class="card-copy__page">${escapeHtml(detail.pageLabel)}</p>` : "";
-  const variants = [detail.variant, (detail.cardBody?.join("").length ?? 0) > 210 ? "compact" : ""].filter(Boolean);
+  const authoredVariants = Array.isArray(detail.variant)
+    ? detail.variant
+    : String(detail.variant ?? "").split(/\s+/).filter(Boolean);
+  const variants = [...authoredVariants, (detail.cardBody?.join("").length ?? 0) > 210 ? "compact" : ""].filter(Boolean);
   const variant = variants.map((name) => ` card-copy--${name}`).join("");
   return `<article class="card-copy${variant}" data-theme="${escapeHtml(detail.theme ?? "coral")}" aria-labelledby="card-copy-title-${number}">
     <div class="card-copy__panel">
@@ -286,6 +326,7 @@ function sourceKind(label, url) {
   if (/huggingface\.co\/blog(?:\/|$)/.test(url)) return "reference";
   if (/github\.com/.test(url) || (/huggingface\.co/.test(url) && !/huggingface\.co\/blog(?:\/|$)/.test(url))) return "repository-or-model-card";
   if (/artificialanalysis\.ai|news\.hada\.io|aiwire\.kr|axios\.com|nature\.com|arxiv\.org|zenodo\.org/.test(url)) return "reference";
+  if (/kimi\.com|anthropic\.com|platform\.claude\.com|api-docs\.deepseek\.com|research\.meta\.ai|openai\.com|blogs\.nvidia\.com|blog\.google|ai\.google\.dev|qwen\.ai/.test(url)) return "official";
   if (/공식|Upstage|OpenAI|Google|xAI|Prime|Liquid|Mistral|InclusionAI|Anthropic/.test(label)) return "official";
   return "reference";
 }
@@ -349,8 +390,12 @@ function detailHtml(item) {
   </article>`).join("");
   const previousHtml = previous ? `<a class="news-navigation__link" href="${itemHref(previous, base)}"><span class="news-navigation__label">이전 뉴스</span><span class="news-navigation__title">${inlineText(previous.title)}</span></a>` : `<span></span>`;
   const nextHtml = next ? `<a class="news-navigation__link news-navigation__link--next" href="${itemHref(next, base)}"><span class="news-navigation__label">다음 뉴스</span><span class="news-navigation__title">${inlineText(next.title)}</span></a>` : `<span></span>`;
-  const sourceHtml = item.sources.map(([label, url]) => `<li><a href="${escapeHtml(url)}" target="_blank" rel="noreferrer"><span class="source-list__label">${inlineText(label)}</span></a></li>`).join("");
-  const cardDetailTemplates = Object.entries(item.cardDetails ?? {}).map(([number, detail]) => `<template data-card-detail-index="${Number(number) - 1}">${cardDetailContent(number, detail)}</template>`).join("");
+  const sourceHtml = item.sources.map(([label, url]) => {
+    const link = renderedSourceLink(url, base);
+    const attributes = link.external ? ' target="_blank" rel="noreferrer"' : ' data-internal-link';
+    return `<li><a href="${escapeHtml(link.href)}"${attributes}><span class="source-list__label">${inlineText(label)}</span></a></li>`;
+  }).join("");
+  const cardDetailTemplates = Object.entries(item.cardDetails ?? {}).map(([number, detail]) => `<template data-card-detail-index="${Number(number) - 1}">${cardDetailContent(number, detail, base)}</template>`).join("");
   const body = `<main id="main" class="detail-main">
     <section class="reader-stage reader-stage--${item.type}" aria-labelledby="news-title">
       <div class="reader-toolbar">
@@ -378,13 +423,26 @@ function detailHtml(item) {
     ${related.length ? `<section class="detail-section" aria-labelledby="related-title"><h2 id="related-title">함께 볼 뉴스</h2><div class="related-grid">${relatedHtml}</div></section>` : ""}
   </main>`;
   const canonical = canonicalHref(item);
+  const socialImage = `${siteUrl}assets/${item.imageStem}/01.webp`;
   return pageShell({
     title: `${item.title} · AI Trend Note`,
     description: item.summary,
     canonical,
     cssPath: `${base}styles.css`,
     scriptPath: `${base}app.js`,
-    socialImage: `${siteUrl}assets/${item.imageStem}/01.webp`,
+    socialImage,
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      headline: item.title,
+      description: item.summary,
+      datePublished: item.published,
+      dateModified: item.published,
+      inLanguage: "ko-KR",
+      mainEntityOfPage: canonical,
+      image: [socialImage],
+      publisher: { "@type": "Organization", name: "AI Trend Note", url: siteUrl }
+    },
     preloadImage: item.cardDetails?.[1]?.background ? cardBackgroundHref(item, 1, base) : coverHref(item, base),
     preloadImageSrcset: item.cardDetails?.[1]?.background ? "" : `${coverHref(item, base)} 720w, ${imageHref(item, 1, base)} 1080w`,
     preloadImageSizes: "(max-width: 792px) calc(100vw - 32px), 760px",
