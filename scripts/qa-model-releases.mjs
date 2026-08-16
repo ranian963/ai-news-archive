@@ -20,7 +20,7 @@ const browser = await chromium.launch({
 const context = await browser.newContext({ permissions: ["clipboard-read", "clipboard-write"] });
 const report = [];
 
-for (const [viewport, width, height] of [["mobile", 390, 844], ["tablet", 768, 1024], ["desktop", 1280, 900]]) {
+for (const [viewport, width, height] of [["mobile", 375, 812], ["tablet", 768, 1024], ["desktop", 1280, 900]]) {
   const page = await context.newPage();
   await page.setViewportSize({ width, height });
   for (const item of items) {
@@ -49,7 +49,17 @@ for (const [viewport, width, height] of [["mobile", 390, 844], ["tablet", 768, 1
         };
       });
       if (!geometry.panelFits || !geometry.visualFits || geometry.textOverflow) throw new Error(`${viewport}/${item.id}/${index + 1}: 카드 넘침`);
-      await frame.screenshot({ path: resolve(outputDir, `${viewport}-${item.id}-${String(index + 1).padStart(2, "0")}.png`) });
+      await page.evaluate(() => new Promise((resolveFrame) => requestAnimationFrame(() => requestAnimationFrame(resolveFrame))));
+      const clip = await frame.evaluate((element) => {
+        const rect = element.getBoundingClientRect();
+        return {
+          x: rect.left + window.scrollX,
+          y: rect.top + window.scrollY,
+          width: rect.width,
+          height: rect.height
+        };
+      });
+      await page.screenshot({ path: resolve(outputDir, `${viewport}-${item.id}-${String(index + 1).padStart(2, "0")}.png`), clip });
       report.push({ viewport, id: item.id, card: index + 1, geometry });
     }
 
@@ -73,7 +83,7 @@ for (const [viewport, width, height] of [["mobile", 390, 844], ["tablet", 768, 1
 }
 
 const home = await context.newPage();
-await home.setViewportSize({ width: 390, height: 844 });
+await home.setViewportSize({ width: 375, height: 812 });
 await home.goto("http://127.0.0.1:4173/?type=model#news-list-title", { waitUntil: "networkidle" });
 const visibleModels = await home.locator('[data-news-grid] > [data-type="model"]:not([hidden])').count();
 const visibleOtherNews = await home.locator('[data-news-grid] > :not([data-type="model"]):not([hidden])').count();

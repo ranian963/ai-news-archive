@@ -128,6 +128,14 @@ The detail page starts with a viewport-aware Reader Stage. Its toolbar, card, co
 - Rhythm rule: do not place more than one conventional table in succession. Alternate tables with open rows, bars, timelines, or a short prose card so the reader can see the relationship before reading every cell.
 - Evidence rule: cited leaderboard screenshots belong in the detail/source context when their axis labels become microtext at card size. The card itself must redraw the relevant values as live HTML and state the scope in text.
 
+### Model Profile
+- Purpose: every `모델 소식` cover gives readers the minimum technical identity before they move to later cards.
+- Structure: the cover explanation comes first, followed by a two-column definition grid for `모델 크기`, `Context Length`, `라이선스`, `Input`, `Output`, and `지식 기준일`.
+- Data rule: use verified official values only. If a value is not public, write `공식 미기재`; never estimate a parameter count, context window, modality, license, or knowledge cutoff.
+- Styling: reuse the card accent, warm neutral rules, readable body tier, and `roomy` paper field. The grid is not a dashboard and uses no decorative icon, extra legend, or second semantic color system.
+- Accessibility: render the profile as a live HTML definition list in reading order. Labels and values carry the meaning without relying on color.
+- Reuse: new model articles must add one profile entry before build. Weekly or brief cards do not use this component unless the article itself is reclassified as `모델 소식`.
+
 ### Reader Stage
 - Structure: archive back-link, a stable article identity, share action, Card Viewer, and card explanation. The identity combines a category badge, optional brand badge, short subject name, and article publication date. It never shows the card count; the carousel counter already provides that information.
 - Publication rule: the toolbar and archive tile always show the article publication date. A model document date, release date, or weekly coverage period stays in the cover and article copy.

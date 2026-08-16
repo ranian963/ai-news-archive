@@ -1,6 +1,7 @@
 import { legacyCardCopy } from "./legacy-card-copy.mjs";
 import { legacyCardSources } from "./legacy-card-sources.mjs";
 import { dokpamoNewsItems } from "./dokpamo-news-data.mjs";
+import { modelProfiles } from "./model-profiles.mjs";
 
 function sourceType(label) {
   if (/Artificial Analysis|벤치마크|분석/.test(label)) return "분석";
@@ -263,10 +264,11 @@ const solarPro4Details = {
 
 const grok46Sources = [
   ["xAI 공식 출시", "https://x.ai/news/grok-4-6"],
-  ["xAI 공식 모델 문서", "https://docs.x.ai/developers/models/grok-4.6"],
+  ["xAI 공식 모델 문서", "https://docs.x.ai/developers/grok-4-6"],
   ["xAI 공식 요금표", "https://docs.x.ai/developers/pricing"],
-  ["Artificial Analysis 리더보드", "https://artificialanalysis.ai/"],
-  ["GeekNews 정리", "https://news.hada.io/topic?id=32438"]
+  ["Artificial Analysis Grok 4.6", "https://artificialanalysis.ai/models/grok-4-6"],
+  ["GeekNews 정리", "https://news.hada.io/topic?id=32438"],
+  ["Grok 4.6 가격과 활용 정리", "https://bizstoryway.tistory.com/569"]
 ];
 
 const grok46Details = {
@@ -274,7 +276,7 @@ const grok46Details = {
     background: editorialScenes.model,
     category: "글로벌 AI 모델",
     theme: "mint",
-    variant: "cover",
+    variant: ["cover", "roomy"],
     eyebrow: "XAI | MODEL RELEASE",
     title: "xAI가 공개한 Grok 4.6",
     cardBody: [
@@ -282,113 +284,180 @@ const grok46Details = {
       "장시간 이어지는 에이전트 작업과 코딩, 지식 업무에 맞춘 상용 모델입니다.",
       "Cursor와 Grok Build, xAI API에서 바로 사용할 수 있습니다."
     ],
-    highlight: "8월 12일 출시 | 장기 실행 에이전트와 코딩",
-    summary: "xAI는 2026년 8월 12일 Grok 4.6을 출시했습니다. Grok 4.5를 보완해 여러 단계가 필요한 조사, 코드 작업, 자료 분석과 앱 제작에 초점을 맞춘 모델입니다.",
+    highlight: "8월 12일 출시 | 긴 에이전트 작업과 코딩",
+    summary: "xAI는 2026년 8월 12일 Grok 4.6을 출시했습니다. Grok 4.5보다 긴 시간 이어지는 조사, 코드 작업, 자료 분석과 앱 제작에 초점을 맞춘 상용 모델입니다.",
     points: [
       ["먼저 제공된 곳", "출시와 함께 Cursor, Grok Build와 xAI API에 적용됐습니다."],
-      ["출시 혜택", "Cursor와 Grok Build는 출시 뒤 첫 일주일 동안 포함 사용량을 2배로 제공한다고 안내했습니다."]
+      ["출시 혜택", "Cursor와 Grok Build는 출시 뒤 첫 일주일 동안 포함 사용량을 2배로 제공한다고 안내했습니다."],
+      ["안전 평가", "xAI는 출시 전 안전 평가 범위를 넓혔다고 밝혔지만 세부 결과는 공식 글에서 별도로 확인해야 합니다."]
     ],
     sources: [["공식", "xAI Grok 4.6 출시", "https://x.ai/news/grok-4-6"], ["참고", "GeekNews 정리", "https://news.hada.io/topic?id=32438"]]
   },
   2: {
+    background: editorialScenes.longRunningCode,
+    category: "긴 작업",
+    theme: "coral",
+    variant: ["roomy", "diagram-large"],
+    eyebrow: "LONG-RUNNING AGENTS",
+    title: "여러 단계를 이어 가는 작업에 초점을 맞췄습니다",
+    cardBody: [
+      "낯선 분야를 조사하고 앱 구조를 잡은 뒤 구현과 수정을 이어 갑니다.",
+      "xAI는 긴 작업에서 모델이 결과를 스스로 확인하는 모습도 늘었다고 설명했습니다."
+    ],
+    highlight: "조사 → 설계 → 구현 → 확인",
+    summary: "xAI는 Grok 4.6이 여러 단계에 걸친 조사와 분석, 코드베이스 작업, 앱 제작을 이어 가도록 학습했다고 설명했습니다. 특히 긴 작업에서는 다음 단계로 넘어가기 전에 결과를 스스로 시험하고 확인하는 행동이 늘었다고 밝혔습니다.",
+    points: [
+      ["xAI가 든 예", "낯선 분야 조사, 애플리케이션 구조 설계, 주요 기능 구현과 여러 차례 수정입니다."],
+      ["읽을 때 주의", "자체 점검과 첫 결과 개선은 xAI의 내부 시험에서 관찰한 내용입니다. 실제 업무에서는 별도 검증이 필요합니다."]
+    ],
+    sources: [["공식", "xAI Grok 4.6 출시", "https://x.ai/news/grok-4-6"]]
+  },
+  3: {
     background: editorialScenes.longContext,
     category: "모델 사양",
     theme: "sky",
+    variant: "roomy",
     eyebrow: "MODEL SPECS",
-    title: "500K 컨텍스트, 텍스트와 이미지 입력",
+    title: "500K 컨텍스트와 이미지 입력을 지원합니다",
     cardBody: [
       "API 모델명은 grok-4.6입니다.",
-      "500K 컨텍스트와 텍스트, 이미지 입력을 지원합니다.",
-      "함수 호출, 구조화 출력과 조절 가능한 추론을 제공합니다."
+      "함수 호출, 구조화 출력과 조절 가능한 추론을 제공합니다.",
+      "공식 문서는 텍스트 출력 길이에 별도 상한을 두지 않는다고 안내합니다."
     ],
-    highlight: "500K context | Text, Image | configurable reasoning",
-    summary: "xAI 모델 문서에는 500K 컨텍스트, 텍스트와 이미지 입력, 함수 호출, 구조화 출력과 조절 가능한 추론이 기재돼 있습니다. 지식 기준일은 2026년 2월 1일입니다.",
+    highlight: "500K | Text, Image → Text | 출력 상한 없음",
+    summary: "xAI 모델 문서는 500K 컨텍스트, 텍스트와 이미지 입력, 함수 호출, 구조화 출력과 조절 가능한 추론을 안내합니다. 지식 기준일은 2026년 2월 1일이며 텍스트 출력 길이에는 별도 상한이 없습니다.",
     points: [
       ["공개된 정보", "API 모델명과 컨텍스트 길이, 입력 형식, 주요 API 기능이 공개됐습니다."],
-      ["공개되지 않은 정보", "최대 출력 길이와 파라미터 수, 세부 구조는 공식 문서에서 확인되지 않습니다."]
+      ["출력 길이", "공식 문서에는 텍스트 출력 상한이 없다고 적혀 있습니다. 요청과 응답은 500K 컨텍스트 범위 안에서 다뤄야 합니다."],
+      ["공개되지 않은 정보", "파라미터 수와 세부 구조는 공식 문서에서 확인되지 않습니다."]
     ],
-    sources: [["공식", "xAI Grok 4.6 모델 문서", "https://docs.x.ai/developers/models/grok-4.6"]]
+    sources: [["공식", "xAI Grok 4.6 모델 문서", "https://docs.x.ai/developers/grok-4-6"]]
   },
-  3: {
+  4: {
     background: editorialScenes.benchmark,
     category: "종합 성능",
     theme: "lilac",
+    variant: "spacious",
     eyebrow: "INTELLIGENCE INDEX",
     title: "AA 지수 61점, 8월 14일 기준 공동 3위",
     cardBody: [
-      "Grok 4.6 High는 Artificial Analysis 지수에서 61점을 기록했습니다.",
-      "8월 14일 기준 Opus 5 Max 63점, Fable 5 Max 62점 다음입니다.",
-      "GPT-5.6 Sol Max와 같은 점수이며 Grok 4.5 High보다 5점 올랐습니다."
+      "AA 지수는 GPT-5.6 Sol Max와 같은 61점입니다.",
+      "공식 표의 비교 가능한 8개 평가에서는 6개가 높고 2개가 낮았습니다."
     ],
-    highlight: "Fable 5 Max 62 | Grok 4.6 High 61 | GPT-5.6 Sol Max 61",
-    summary: "Artificial Analysis Intelligence Index에서 Grok 4.6 High는 61점을 기록했습니다. 8월 14일 확인 기준 Opus 5 Max 63점, Fable 5 Max 62점 다음이며 GPT-5.6 Sol Max와 같은 점수입니다.",
+    highlight: "AA 61 동률 | 6개 높음 | 2개 낮음",
+    summary: "Artificial Analysis Intelligence Index에서 Grok 4.6 High는 61점을 기록했습니다. 8월 14일 확인 기준 공동 3위이며 GPT-5.6 Sol Max와 같은 점수입니다. xAI가 공개한 다른 평가에서는 비교 가능한 8개 중 6개가 높고 2개가 낮았습니다.",
     points: [
-      ["지표 범위", "Artificial Analysis Intelligence Index는 9개 평가를 합친 종합 지수입니다."],
-      ["확인 시점", "순위는 새 모델과 재평가가 반영되면 달라질 수 있어 점수와 확인 시점을 함께 봐야 합니다."]
+      ["높았던 6개", "GDPVal-AA, CursorBench, FrontierCode, APEX-Agents, AA-Briefcase와 Harvey LAB에서 GPT-5.6 Sol Max보다 높았습니다."],
+      ["낮았던 2개", "DeepSWE와 Terminal-Bench에서는 GPT-5.6 Sol Max보다 낮았습니다. APEX-SWE는 비교 모델 수치가 없어 제외했습니다."],
+      ["읽는 방법", "공식 표는 각 개발사의 공개 결과를 모은 비교입니다. 현재 순위는 독립 평가 페이지에서 따로 확인했습니다."]
     ],
-    sources: [["공식", "xAI Grok 4.6 출시", "https://x.ai/news/grok-4-6"], ["분석", "Artificial Analysis 리더보드", "https://artificialanalysis.ai/"]]
+    sources: [["공식", "xAI Grok 4.6 출시", "https://x.ai/news/grok-4-6"], ["분석", "Artificial Analysis Grok 4.6", "https://artificialanalysis.ai/models/grok-4-6"], ["참고", "Grok 4.6 비교와 활용 정리", "https://bizstoryway.tistory.com/569"]]
   },
-  4: {
+  5: {
     background: editorialScenes.coding,
     category: "코딩 평가",
     theme: "butter",
+    variant: "roomy",
     eyebrow: "CODING EVALS",
-    title: "코딩 평가는 항목마다 순위가 달랐습니다",
+    title: "코딩 평가는 항목마다 결과가 달랐습니다",
     cardBody: [
-      "CursorBench는 69.9%로 GPT-5.6 Sol의 67.2%보다 높았습니다.",
-      "DeepSWE는 65.9%로 GPT-5.6 Sol의 73.0%보다 낮았습니다.",
-      "FrontierCode는 61.3%로 GPT-5.6 Sol의 60.6%와 비슷했습니다."
+      "CursorBench와 FrontierCode에서는 GPT-5.6 Sol Max보다 높았습니다.",
+      "DeepSWE에서는 65.9%로 GPT-5.6 Sol Max의 73.0%보다 낮았습니다."
     ],
     highlight: "CursorBench 69.9% | DeepSWE 65.9% | FrontierCode 61.3%",
     summary: "xAI의 공개 표에서 Grok 4.6은 CursorBench v3.2와 FrontierCode v1.1 Extended에서 GPT-5.6 Sol Max보다 높은 점수를 냈지만 DeepSWE v1.1에서는 7.1%p 낮았습니다.",
     points: [
-      ["잘 나온 평가", "CursorBench v3.2는 69.9%, FrontierCode v1.1 Extended는 61.3%였습니다."],
-      ["낮았던 평가", "DeepSWE v1.1은 65.9%로 GPT-5.6 Sol Max 73.0%와 Fable 5 Max 70.0%보다 낮았습니다."]
+      ["앞선 평가", "CursorBench v3.2는 69.9%, FrontierCode v1.1 Extended는 61.3%였습니다."],
+      ["뒤진 평가", "DeepSWE v1.1은 65.9%로 GPT-5.6 Sol Max 73.0%와 Fable 5 Max 70.0%보다 낮았습니다."],
+      ["비교 조건", "경쟁 모델 수치는 각 개발사의 공개 자료나 벤치마크 리더보드에서 가져온 값입니다."]
     ],
     sources: [["공식", "xAI Grok 4.6 평가표", "https://x.ai/news/grok-4-6"]]
   },
-  5: {
+  6: {
+    background: editorialScenes.agentEvaluation,
+    category: "에이전트 평가",
+    theme: "mint",
+    variant: "roomy",
+    eyebrow: "GROK 4.6 VS 4.5",
+    title: "긴 작업 평가는 4.5보다 올랐습니다",
+    cardBody: [
+      "APEX-Agents는 47.1%에서 57.5%로 올랐습니다.",
+      "Terminal‑Bench v3.0은 15.7%에서 26.0%가 됐지만 경쟁 모델보다는 낮았습니다."
+    ],
+    highlight: "APEX-Agents +10.4%p | Terminal‑Bench +10.3%p",
+    summary: "xAI의 공개 표에서 Grok 4.6은 Grok 4.5보다 APEX-Agents 10.4%p, Terminal‑Bench v3.0 10.3%p, APEX-SWE 2.8%p 높았습니다. 다만 Terminal‑Bench는 GPT-5.6 Sol Max 34.6%와 Fable 5 Max 34.1%에 미치지 못했습니다.",
+    points: [
+      ["APEX-Agents", "Grok 4.6은 57.5%, Grok 4.5는 47.1%였습니다."],
+      ["Terminal‑Bench", "Grok 4.6은 26.0%, Grok 4.5는 15.7%였습니다."],
+      ["APEX-SWE", "Grok 4.6은 56.4%, Grok 4.5는 53.6%였습니다."]
+    ],
+    sources: [["공식", "xAI Grok 4.6 평가표", "https://x.ai/news/grok-4-6"]]
+  },
+  7: {
     background: editorialScenes.harness,
     category: "학습 방식",
     theme: "coral",
+    variant: "roomy",
     eyebrow: "TRAINING",
-    title: "긴 작업을 처리하도록 후속 학습을 늘렸습니다",
+    title: "보충 학습부터 에이전트 강화학습까지 늘렸습니다",
     cardBody: [
       "Grok 4.5보다 긴 보충 학습을 진행했습니다.",
-      "Grok 4.5로 SFT 작업 경로를 다시 만들고 문제가 있는 결과를 걸렀습니다.",
-      "코딩과 지식 업무, 웹 개발 등에 에이전트 강화학습을 적용했습니다."
+      "Grok 4.5로 SFT 작업 경로를 다시 만들고 문제가 있는 결과를 걸렀습니다."
     ],
-    highlight: "보충 학습 | SFT 재생성 | 에이전트 강화학습",
-    summary: "xAI는 보충 학습을 늘리고, Grok 4.5로 여러 추론 단계와 에이전트 환경의 SFT 작업 경로를 다시 만들었다고 설명했습니다. 이후 코딩과 지식 업무, 웹 개발, 커널 최적화 등에 에이전트 강화학습을 적용했습니다.",
+    highlight: "보충 학습 → SFT 재생성과 검사 → 에이전트 강화학습",
+    summary: "xAI는 보충 학습을 늘리고, Grok 4.5로 여러 추론 단계와 에이전트 환경의 SFT 작업 경로를 다시 만들었다고 설명했습니다. 이후 코딩과 지식 업무, 웹 개발, 커널 최적화, 컴퓨터 지원 설계 등에 에이전트 강화학습을 적용했습니다.",
     points: [
-      ["달라진 학습", "모델 생성 데이터, 엔지니어링 데이터, 개선한 최적화 방식을 보충 학습에 사용했습니다."],
+      ["보충 학습", "추론과 기술 개념에 맞춘 모델 생성 데이터, 엔지니어링 데이터, 개선한 최적화 방식을 사용했습니다."],
+      ["SFT 단계", "추론 강도와 에이전트 환경, STEM과 소프트웨어 분야의 작업 경로를 다시 만들고 문제가 있는 기록을 걸렀습니다."],
       ["공개 범위", "학습 과정의 방향은 공개했지만 파라미터 수와 전체 학습량은 밝히지 않았습니다."]
     ],
     sources: [["공식", "xAI Grok 4.6 학습 설명", "https://x.ai/news/grok-4-6"]]
   },
-  6: {
+  8: {
     background: editorialScenes.pricing,
     category: "API 요금",
     theme: "mint",
+    variant: "roomy",
     eyebrow: "API PRICING",
-    title: "200K를 넘으면 전체 요청 단가가 2배가 됩니다",
+    title: "200K 이상이면 요청 전체 단가가 2배가 됩니다",
     cardBody: [
       "기본 요금은 입력 $2, 캐시 입력 $0.50, 출력 $6입니다.",
-      "프롬프트가 200K 이상이면 $4, $1, $12로 올라갑니다.",
-      "빠른 처리 옵션은 모든 토큰 단가가 다시 2배입니다."
+      "프롬프트가 200K 이상이면 $4, $1, $12가 요청 전체에 적용됩니다."
     ],
-    highlight: "기본 $2 / $0.50 / $6 | 200K 이상 $4 / $1 / $12",
+    highlight: "입력 / 캐시 / 출력 | 200K 이상은 요청 전체 2배",
     summary: "Grok 4.6의 1M 토큰당 기본 요금은 입력 2달러, 캐시 입력 0.50달러, 출력 6달러입니다. 프롬프트가 200K 토큰 이상이면 요청 전체에 입력 4달러, 캐시 입력 1달러, 출력 12달러가 적용됩니다.",
     points: [
       ["긴 요청", "200K를 넘긴 부분만 비싸지는 방식이 아니라 해당 요청의 모든 토큰에 긴 컨텍스트 요금이 붙습니다."],
-      ["빠른 처리", "xAI는 표준 모델보다 빠른 옵션을 제공하며 단가는 표준 요금의 2배입니다."]
+      ["빠른 처리", "우선 처리 옵션은 모든 토큰 단가가 표준 요금의 2배입니다."],
+      ["배치 할인", "xAI 요금표의 배치 할인 대상 목록에는 Grok 4.6이 포함돼 있지 않습니다."]
     ],
-    sources: [["공식", "xAI API 요금표", "https://docs.x.ai/developers/pricing"], ["공식", "xAI Grok 4.6 모델 문서", "https://docs.x.ai/developers/models/grok-4.6"]]
+    sources: [["공식", "xAI API 요금표", "https://docs.x.ai/developers/pricing"], ["공식", "xAI Grok 4.6 모델 문서", "https://docs.x.ai/developers/grok-4-6"]]
   },
-  7: {
+  9: {
+    background: editorialScenes.tokens,
+    category: "도구 비용",
+    theme: "butter",
+    variant: "roomy",
+    eyebrow: "SERVER-SIDE TOOLS",
+    title: "에이전트 비용에는 도구 호출도 더해집니다",
+    cardBody: [
+      "웹 검색과 X 검색, 코드 실행은 1,000회당 각각 $5입니다.",
+      "첨부 파일 검색은 1,000회당 $10이며 토큰 요금은 별도로 계산됩니다."
+    ],
+    highlight: "토큰 사용량 + 도구 호출 + 반복 횟수",
+    summary: "xAI의 서버 도구를 사용하면 토큰 요금 외에 호출 비용이 더해집니다. 웹 검색과 X 검색, 코드 실행은 1,000회당 5달러, 첨부 파일 검색은 10달러, 컬렉션 검색은 2.50달러입니다.",
+    points: [
+      ["검색과 실행", "웹 검색, X 검색과 코드 실행은 1,000회당 각각 5달러입니다."],
+      ["파일과 컬렉션", "첨부 파일 검색은 1,000회당 10달러, 컬렉션 검색은 2.50달러입니다."],
+      ["비용을 볼 때", "긴 에이전트 작업은 토큰뿐 아니라 도구 호출 횟수와 재시도 횟수도 함께 계산해야 합니다."]
+    ],
+    sources: [["공식", "xAI API 요금표", "https://docs.x.ai/developers/pricing"]]
+  },
+  10: {
     background: editorialScenes.selfHosting,
     category: "제공 방식",
     theme: "sky",
+    variant: "roomy",
     eyebrow: "AVAILABILITY",
     title: "API로 제공되며 가중치는 공개되지 않았습니다",
     cardBody: [
@@ -396,13 +465,14 @@ const grok46Details = {
       "OpenRouter, Vercel, Cloudflare도 제공처에 포함됐습니다.",
       "모델 가중치와 직접 운영용 라이선스는 공개되지 않았습니다."
     ],
-    highlight: "비공개 가중치 | 상용 API와 파트너 서비스로 제공",
+    highlight: "상용 API | 비공개 가중치 | 로컬 실행 경로 없음",
     summary: "Grok 4.6은 xAI가 운영하는 상용 API와 Cursor, Grok Build, OpenRouter, Vercel, Cloudflare에서 제공됩니다. 모델 가중치와 직접 운영용 라이선스는 공개되지 않아 로컬이나 사내 서버에 내려받아 실행하는 모델은 아닙니다.",
     points: [
+      ["Cursor와 Grok Build", "Cursor에서는 모든 요금제에서 선택할 수 있고 Grok Build에서는 기본 모델로 제공됩니다."],
       ["직접 운영", "가중치 파일이 없으므로 필요한 GPU 메모리나 자체 서버 구성도 공개 자료로 계산할 수 없습니다."],
-      ["확인할 제한", "파라미터 수와 최대 출력 길이도 공식 문서에 없으므로 추정치를 사양처럼 받아들이지 않는 편이 안전합니다."]
+      ["확인할 제한", "파라미터 수와 세부 구조는 공식 문서에 없으므로 외부 추정치를 사양처럼 받아들이지 않는 편이 안전합니다."]
     ],
-    sources: [["공식", "xAI Grok 4.6 모델 문서", "https://docs.x.ai/developers/models/grok-4.6"], ["공식", "xAI Grok 4.6 출시", "https://x.ai/news/grok-4-6"]]
+    sources: [["공식", "xAI Grok 4.6 모델 문서", "https://docs.x.ai/developers/grok-4-6"], ["공식", "xAI Grok 4.6 출시", "https://x.ai/news/grok-4-6"], ["참고", "Cursor에서 Grok 4.6 쓰는 방법", "https://bizstoryway.tistory.com/569"]]
   }
 };
 
@@ -449,6 +519,18 @@ const modelReleasePresentations = {
       3: { type: "timeline", items: [["8월 3일", "API 공개"], ["출시 직후", "Agentic Index 1위"], ["평가 갱신", "2위로 변경"], ["현재", "가중치 공개"]] },
       4: { type: "metric", items: [["입력", "$2"], ["출력", "$6"], ["캐시", "$0.17"]] },
       6: { type: "metric", items: [["전체", "2.4T"], ["4비트", "약 1.2TB"], ["실행", "분산 추론"]] }
+    }
+  },
+  "qwen-3-8-27b": {
+    order: [1, 2, 4, 3, 7, 5, 6],
+    backgrounds: ["cover-art.webp", editorialScenes.media, editorialScenes.benchmark, editorialScenes.selfHosting, editorialScenes.license, editorialScenes.longContext],
+    sections: [["로컬 멀티모달 모델", "QWEN | QWEN3.8-27B"], ["모델 구조", "64 LAYERS | DELTANET + ATTENTION"], ["공식 성능표", "QWEN3.8-27B | OPUS4.6 MAX"], ["로컬 실행 메모리", "UNSLOTH QUANTIZED BUILDS"], ["Apache 2.0", "OPEN WEIGHTS"], ["긴 컨텍스트 설정", "262K NATIVE | 1M VIA YARN"]],
+    visuals: {
+      2: { type: "tile-grid", items: [["구조", "27B Dense"], ["전체 층", "64"], ["Gated DeltaNet", "48"], ["전체 Attention", "16"]] },
+      3: { type: "compare", items: [["SWE Pro", "61.7 vs 53.4"], ["OSWorld", "84.3 vs 72.7"], ["Terminal", "73.0 vs 78.2"]] },
+      4: { type: "tile-grid", items: [["2-bit", "11–13GB"], ["3-bit", "13–16GB"], ["4-bit", "17–19GB"], ["6-bit", "24GB"], ["8-bit", "31GB"], ["BF16", "56GB"]] },
+      5: { type: "compare", items: [["가중치", "공개"], ["라이선스", "Apache 2.0"], ["Hosted API", "준비 중"]] },
+      6: { type: "flow", items: ["262K 기본", "YaRN 설정", "최대 1M", "짧은 입력 재시험"] }
     }
   },
   "muse-spark-1-2": {
@@ -609,12 +691,28 @@ function modelReleaseDetails(model) {
       sources: sourceSet(official, technical, analysis, reference)
     }
   };
+  if (model.extraCard) {
+    cards[7] = {
+      background: model.extraCard.background ?? editorialScenes.benchmark,
+      category: model.extraCard.category,
+      eyebrow: model.extraCard.eyebrow,
+      theme: model.extraCard.theme ?? "sky",
+      title: model.extraCard.title,
+      cardBody: model.extraCard.cardBody,
+      highlight: model.extraCard.highlight,
+      visual: model.extraCard.visual,
+      summary: model.extraCard.summary,
+      points: model.extraCard.points,
+      sources: model.extraCard.sources
+    };
+  }
   const order = presentation.order ?? [1, 2, 3, 4, 5, 6];
   return Object.fromEntries(order.map((cardNumber, index) => [index + 1, cards[cardNumber]]));
 }
 
 function modelReleaseItem(model) {
   const subject = model.subject ?? `${model.brand}가`;
+  const cardDetails = modelReleaseDetails(model);
   return {
     id: model.id,
     type: "model",
@@ -624,10 +722,10 @@ function modelReleaseItem(model) {
     title: `${subject} 공개한 ${model.name}`,
     summary: model.articleSummary,
     tags: ["모델 소식", "AI 모델", model.brand, model.openWeight ? "오픈웨이트" : "상용 API", ...model.tags],
-    cardCount: 6,
+    cardCount: Object.keys(cardDetails).length,
     imageStem: model.id,
     coverAlt: `${subject} 공개한 ${model.name} 모델 카드뉴스 표지`,
-    cardDetails: modelReleaseDetails(model),
+    cardDetails,
     sources: model.sources.filter(Boolean).map(([, label, url]) => [label, url])
   };
 }
@@ -1005,9 +1103,9 @@ export const newsItems = [
     identity: { brand: "xAI", title: "Grok 4.6" },
     published: "2026-08-14",
     title: "xAI가 공개한 Grok 4.6",
-    summary: "8월 12일 출시된 Grok 4.6의 500K 컨텍스트와 API 기능, 공식 성능표, 코딩 평가, 요금과 비공개 가중치 범위를 7장으로 정리했습니다.",
+    summary: "8월 12일 출시된 Grok 4.6의 긴 에이전트 작업, 500K 컨텍스트, 공식 평가, 학습 방식, API와 도구 비용, 비공개 가중치 범위를 10장으로 정리했습니다.",
     tags: ["모델 소식", "AI 모델", "xAI", "Grok", "에이전트", "코딩"],
-    cardCount: 7,
+    cardCount: 10,
     imageStem: "grok-4-6",
     coverAlt: "xAI가 공개한 Grok 4.6 모델 카드뉴스 표지",
     cardDetails: grok46Details,
@@ -1044,12 +1142,22 @@ setCardVisuals(newsItems[7].cardDetails, {
 
 const grok46Item = newsItems.find((item) => item.id === "grok-4-6");
 setCardVisuals(grok46Item.cardDetails, {
-  2: { type: "metric", items: [["Context", "500K"], ["Input", "Text, Image"], ["Reasoning", "조절 가능"]] },
-  3: { type: "ranking", items: [["1", "Opus 5 Max", "63"], ["2", "Fable 5 Max", "62"], ["3", "Grok 4.6 High", "61"], ["3", "GPT-5.6 Sol Max", "61"]] },
-  4: { type: "table", columns: ["평가", "Grok 4.6", "GPT-5.6 Sol"], rows: [["CursorBench", "69.9%", "67.2%"], ["DeepSWE", "65.9%", "73.0%"], ["FrontierCode", "61.3%", "60.6%"]] },
-  5: { type: "flow", items: ["보충 학습", "SFT 재생성", "에이전트 강화학습"] },
-  6: { type: "compare", items: [["기본 입력", "$2"], ["기본 캐시", "$0.50"], ["기본 출력", "$6"]] },
-  7: { type: "compare", items: [["제공", "상용 API"], ["가중치", "비공개"], ["직접 운영", "공개 경로 없음"]] }
+  2: { type: "flow", items: ["조사", "구조 설계", "구현과 수정", "자체 확인"] },
+  3: { type: "metric", items: [["Context", "500K"], ["Input", "Text, Image"], ["Reasoning", "조절 가능"]] },
+  4: { type: "ranking", items: [["1", "Opus 5 Max", "63"], ["2", "Fable 5 Max", "62"], ["3", "Grok 4.6 High", "61"], ["3", "GPT-5.6 Sol Max", "61"]], note: "Artificial Analysis, 2026년 8월 14일 확인" },
+  5: { type: "bars", items: [["CursorBench", 69.9, "69.9%"], ["DeepSWE", 65.9, "65.9%"], ["FrontierCode", 61.3, "61.3%"]], note: "평가마다 경쟁 모델과의 순위가 다릅니다." },
+  6: { type: "compare", items: [["APEX-Agents", "+10.4%p"], ["Terminal‑Bench", "+10.3%p"], ["APEX-SWE", "+2.8%p"]] },
+  7: { type: "flow", items: ["보충 학습", "SFT 재생성", "문제 기록 검사", "에이전트 강화학습"] },
+  8: {
+    type: "price-shift",
+    ariaLabel: "200K 토큰 기준 전후의 Grok 4.6 API 요금",
+    items: [["기본 요금", "200K 미만", "$2 / $0.50 / $6"], ["긴 요청", "200K 이상", "$4 / $1 / $12"]],
+    change: "기준을 넘으면 요청 전체 토큰 단가가 2배",
+    totalLabel: "표시 순서",
+    total: "입력 / 캐시 입력 / 출력, 1M tokens"
+  },
+  9: { type: "metric", items: [["웹, X 검색", "$5 / 1K"], ["코드 실행", "$5 / 1K"], ["첨부 검색", "$10 / 1K"]] },
+  10: { type: "compare", items: [["제공", "상용 API"], ["가중치", "비공개"], ["직접 운영", "공개 경로 없음"]] }
 });
 
 const modelReleases = [
@@ -1456,6 +1564,64 @@ const modelReleases = [
     caveatSummary: "DeepSeek V4 Pro 0813은 프리뷰보다 공식 코딩 평가가 올랐지만 응답 길이와 환각은 별도 지표로 확인해야 합니다. 버전명이 없는 V4 Pro 결과를 0813 성능으로 받아들이지 않는 편이 안전합니다.",
     caveatPoints: [["토큰", "AA의 이전 V4 Pro 분석에서도 출력 토큰 사용량이 많다고 지적했습니다."], ["환각", "지식 평가에서 답을 모를 때도 응답하는 비율이 높았던 만큼 실제 자료 확인 절차가 필요합니다."]],
     sources: [["공식", "DeepSeek V4 Pro 변경 내역", "https://api-docs.deepseek.com/updates"], ["공식", "DeepSeek V4 Pro 모델 카드", "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813"], ["분석", "Artificial Analysis", "https://artificialanalysis.ai/models/deepseek-v4-pro"], ["참고", "GeekNews 정리", "https://news.hada.io/topic?id=32444"]]
+  },
+  {
+    id: "qwen-3-8-27b",
+    brand: "Qwen",
+    subject: "Qwen이",
+    name: "Qwen3.8-27B",
+    published: "2026-08-15",
+    releaseDateLabel: "한국 시간 8월 15일",
+    accessLabel: "Apache 2.0 오픈웨이트",
+    openWeight: true,
+    tags: ["중국 AI", "로컬 AI", "멀티모달", "코딩", "Dense"],
+    articleSummary: "한국 시간 8월 15일 공개된 Qwen3.8-27B의 27B Dense 구조와 262K 기본 컨텍스트, 이미지와 영상 입력, 이전 27B와의 성능 변화, Apache 2.0 가중치와 직접 실행 조건을 7장으로 정리했습니다.",
+    coverBody: ["Qwen은 한국 시간 8월 15일 Qwen3.8-27B 가중치를 공개했습니다.", "Max급 MoE와 달리 27B 전체를 쓰는 Dense 모델입니다.", "이미지와 영상도 읽으며 Apache 2.0으로 직접 배포할 수 있습니다."],
+    coverSummary: "Qwen3.8-27B는 2026년 8월 15일 공개된 27B Dense 멀티모달 모델입니다. Qwen3.8-Max보다 작고 직접 운영하기 쉬운 크기를 택했으며 코딩과 문서, 화면 작업을 함께 겨냥합니다.",
+    coverPoints: [["Max와의 차이", "2.4T MoE인 Qwen3.8-Max와 달리 하나의 27B 밀집 모델이라 필요한 가중치와 장비 규모가 훨씬 작습니다."], ["제공 상태", "Hugging Face에서 가중치와 설정 파일을 바로 받을 수 있으며 별도 승인 절차는 없습니다."]],
+    specTitle: "64개 층에 두 종류의 Attention을 섞었습니다",
+    specBody: ["48개 Gated DeltaNet 층과 16개 전체 Attention 층을 번갈아 배치했습니다.", "27B 전체 파라미터를 쓰는 Dense 구조이며 MTP 학습도 적용했습니다.", "Text, Image, Video를 입력하고 Text를 출력합니다."],
+    specHighlight: "64 layers | 48 DeltaNet | 16 Attention",
+    specRows: [["구조", "27B Dense"], ["Context", "262K, 최대 1M"], ["입력", "Text, Image, Video"], ["출력", "Text"]],
+    specSummary: "Qwen3.8-27B는 27B 전체 파라미터를 사용하는 Dense 모델입니다. 64개 층 가운데 48개는 Gated DeltaNet, 16개는 전체 Attention을 사용하며 여러 토큰을 함께 예측하는 MTP 학습도 적용했습니다. 기본 컨텍스트는 262,144 토큰이고 이미지와 영상도 읽습니다.",
+    specPoints: [["추론 조절", "xhigh, medium, low로 추론 깊이를 바꿀 수 있고, 요청마다 추론을 끄는 설정도 지원합니다."], ["구조를 섞은 이유", "긴 입력을 효율적으로 처리하는 선형 Attention과 필요한 구간을 자세히 보는 전체 Attention을 함께 사용합니다."], ["대화 기록", "preserve_thinking이 기본으로 켜져 있어 여러 차례 이어지는 에이전트 작업에서 이전 추론 내용을 유지합니다."]],
+    benchmarkTitle: "두 평가는 Opus 4.6 Max보다 높았습니다",
+    benchmarkBody: ["Qwen 공식 표에서 SWE-bench Pro는 61.7 대 53.4였습니다.", "OSWorld-Verified는 84.3 대 72.7이었습니다.", "반면 Terminal-Bench 2.1은 Opus 4.6 Max가 78.2로 앞섰습니다."],
+    benchmarkHighlight: "표기 순서: Qwen3.8-27B vs Opus 4.6 Max",
+    benchmarkRows: [["Terminal-Bench 2.1", "73.0"], ["SWE-bench Pro", "61.7"], ["CoWorkBench", "70.7"], ["OSWorld-Verified", "84.3"]],
+    benchmarkSummary: "Qwen이 공개한 비교표에서 Qwen3.8-27B는 SWE-bench Pro 61.7, OSWorld-Verified 84.3으로 Opus 4.6 Max의 53.4와 72.7보다 높았습니다. 그러나 Terminal-Bench 2.1은 Qwen 73.0, Opus 78.2였고 다른 지식·과학 평가에서도 결과가 엇갈렸습니다. 두 항목만으로 전체 성능 우위를 단정할 수는 없습니다.",
+    benchmarkPoints: [["평가 범위", "SWE-bench Pro는 실제 저장소의 소프트웨어 문제를, OSWorld-Verified는 화면을 보고 데스크톱 앱을 조작하는 능력을 평가합니다."], ["평가 조건", "SWE-bench Pro의 Opus 점수는 공식 보고값을 사용했고 다른 모델은 Qwen이 Claude Code 하네스로 다시 평가했습니다. QwenSWEBench와 CoWorkBench는 Qwen의 자체 평가입니다."], ["독립 평가", "현재는 Qwen이 공개한 표가 중심입니다. 속도와 토큰 사용량, 실제 저장소 작업 결과는 독립 평가가 더 나온 뒤 함께 봐야 합니다."]],
+    extraCard: {
+      background: editorialScenes.agentEvaluation,
+      category: "이전 27B와 비교",
+      eyebrow: "QWEN3.6 → QWEN3.8",
+      theme: "sky",
+      title: "화면 조작 점수는 63.9에서 84.3으로 올랐습니다",
+      cardBody: ["Qwen 공식 표에서 OSWorld-Verified는 63.9에서 84.3으로 올랐습니다.", "Terminal-Bench 2.1은 63.4에서 73.0, DeepSWE 1.1은 13.3에서 42.2였습니다.", "SWE-MM도 25.7에서 38.6으로 올랐습니다."],
+      highlight: "Qwen3.6 → Qwen3.8 | Qwen 공식 평가",
+      visual: { type: "tile-grid", items: [["OSWorld", "63.9 → 84.3"], ["Terminal", "63.4 → 73.0"], ["DeepSWE", "13.3 → 42.2"], ["SWE-MM", "25.7 → 38.6"]] },
+      summary: "Qwen이 공개한 같은 계열 비교표에서 화면 조작 평가인 OSWorld-Verified는 63.9에서 84.3으로 올랐습니다. Terminal-Bench 2.1은 63.4에서 73.0, DeepSWE 1.1은 13.3에서 42.2, SWE-MM은 25.7에서 38.6으로 바뀌었습니다. 모두 Qwen이 공개한 평가 결과이므로 실제 PC 작업과 저장소에서는 별도로 확인해야 합니다.",
+      points: [["OSWorld가 보는 범위", "화면을 보고 데스크톱 앱을 조작하는 능력을 평가합니다. 문서 작성이나 브라우저 작업 같은 컴퓨터 사용과 관련이 있습니다."], ["수치 해석", "같은 계열의 세대 변화를 보는 데는 도움이 되지만 Qwen이 공개한 자체 평가표입니다. 독립 평가 결과와 같은 의미로 받아들이면 안 됩니다."], ["로컬에서 쓸 때", "anyAX는 Apache 2.0과 로컬 실행 가능성을 컴퓨터 사용 에이전트의 장점으로 봤습니다. 파일 삭제나 외부 전송처럼 되돌리기 어려운 작업은 사람의 확인 절차가 필요합니다."]],
+      sources: [["공식", "Qwen3.8-27B 모델 카드", "https://huggingface.co/Qwen/Qwen3.8-27B"], ["참고", "Threads Qwen3.8 로컬 에이전트 정리", "https://www.threads.com/@choi.openai/post/DcEDcofEgNA"], ["참고", "anyAX 로컬 컴퓨터 사용 분석", "https://anyax.io/insights/qwen-3-8-27b-apache-local-computer-use"]]
+    },
+    accessTitle: "4비트 배포본은 17~19GB까지 줄어듭니다",
+    accessBody: ["Unsloth가 공개한 양자화 배포본은 2비트부터 8비트까지 고를 수 있습니다.", "4비트 배포본은 RAM과 VRAM 또는 통합 메모리를 합쳐 17~19GB를 안내합니다.", "실제 실행에는 KV 캐시가 더해지므로 긴 컨텍스트일수록 여유 메모리가 필요합니다."],
+    accessHighlight: "Unsloth 기준 | 4-bit 17–19GB | KV 캐시 별도",
+    accessRows: [["BF16 가중치", "약 55.6GB"], ["파일", "18 shards"], ["지원 도구", "vLLM, SGLang, TokenSpeed"]],
+    accessSummary: "Qwen의 BF16 가중치는 약 56GB입니다. Unsloth는 2비트 11~13GB, 3비트 13~16GB, 4비트 17~19GB, 6비트 24GB, 8비트 31GB 배포본을 제공합니다. 이 수치는 RAM과 VRAM 또는 통합 메모리를 합친 총 메모리 기준이며, 긴 컨텍스트를 쓰면 KV 캐시가 더 필요합니다.",
+    accessPoints: [["24GB 장비", "4비트 배포본은 24GB GPU나 24GB 통합 메모리 Mac에서 시도할 수 있습니다. 다만 운영체제와 프레임워크가 쓸 공간도 남겨야 합니다."], ["Blackwell GPU", "Unsloth의 NVFP4 배포본은 RTX 50 시리즈, DGX Spark, B200, B300 같은 Blackwell GPU를 대상으로 합니다. 이전 GPU에서는 GGUF 경로가 맞습니다."], ["품질 차이", "양자화 비트 수와 방식에 따라 품질과 속도가 달라집니다. 같은 4비트라도 배포본을 바꾸면 결과가 같다고 볼 수 없습니다."]],
+    licenseTitle: "Apache 2.0으로 가중치를 공개했습니다",
+    licenseBody: ["모델 카드와 가중치에 Apache 2.0이 적용됩니다.", "연구와 상용 서비스에 쓸 수 있고 별도 Qwen 전용 약관은 없습니다.", "Qwen이 운영하는 Hosted API는 준비 중으로 안내돼 있습니다."],
+    licenseHighlight: "Open weights | Apache 2.0 | Hosted API 준비 중",
+    licenseRows: [["가중치", "공개"], ["라이선스", "Apache 2.0"], ["Hosted API", "준비 중"]],
+    licenseSummary: "Qwen3.8-27B는 Apache 2.0 오픈웨이트 모델입니다. 가중치를 내려받아 수정하거나 서비스에 사용할 수 있으며, 공식 Qwen Cloud Hosted API는 모델 카드 기준으로 아직 준비 중입니다.",
+    licensePoints: [["Max와 다른 조건", "Qwen3.8-Max의 자체 라이선스가 아니라 Apache 2.0을 사용합니다."], ["직접 운영", "라이선스가 단순해도 모델이 파일과 도구를 다루게 한다면 권한 제한과 안전 검사는 별도로 설계해야 합니다."]],
+    caveatTitle: "1M은 기본 설정이 아닙니다",
+    caveatBody: ["기본 컨텍스트는 262K이며 1M은 YaRN 설정을 적용한 확장 범위입니다.", "고정된 YaRN 설정은 짧은 입력 성능에 영향을 줄 수 있습니다.", "추론 강도를 낮춰도 재시도가 늘면 전체 시간과 토큰은 줄지 않을 수 있습니다."],
+    caveatHighlight: "262K native | 1M via YaRN | 독립 평가 대기",
+    caveatSummary: "Qwen3.8-27B의 1M 컨텍스트는 YaRN을 적용한 확장 설정입니다. Qwen은 짧은 입력에 고정 스케일링이 영향을 줄 수 있다고 안내하며, 낮은 reasoning_effort가 작업 전체 시간과 토큰을 항상 줄이는 것도 아니라고 설명합니다.",
+    caveatPoints: [["도입 전 시험", "팀의 실제 문서 길이와 도구 호출, 재시도까지 포함해 262K 기본 설정과 확장 설정을 비교해야 합니다."], ["성능 해석", "현재 공개된 주요 점수는 Qwen의 모델 카드 결과입니다. 독립 평가가 나오면 속도와 토큰 사용량, 환각률을 함께 확인할 필요가 있습니다."]],
+    sources: [["공식", "Qwen3.8-27B 모델 카드", "https://huggingface.co/Qwen/Qwen3.8-27B"], ["공식", "Unsloth Qwen3.8 실행 안내", "https://unsloth.ai/docs/models/qwen3.8"], ["참고", "GeekNews Qwen3.8-27B 정리", "https://news.hada.io/topic?id=32510"], ["참고", "Threads Qwen3.8-27B 연속 글", "https://www.threads.com/@choi.openai/post/DcByxIkD2n0"], ["참고", "Threads Qwen3.8 로컬 에이전트 정리", "https://www.threads.com/@choi.openai/post/DcEDcofEgNA"], ["참고", "GeekNews 4비트 로컬 실행 정리", "https://news.hada.io/topic?id=32514"], ["공식", "Qwen Qwen3.8 오픈웨이트 발표", "https://www.linkedin.com/posts/qwen_we-promised-open-weights-for-qwen38-now-activity-7494045927939170304-6XKD"], ["공식", "vLLM Qwen3.8-27B 실행 안내", "https://recipes.vllm.ai/Qwen/Qwen3.8-27B"], ["공식", "Qwen3.8 제품군 발표", "https://qwen.ai/blog?id=qwen3.8"], ["참고", "anyAX 로컬 컴퓨터 사용 분석", "https://anyax.io/insights/qwen-3-8-27b-apache-local-computer-use"]]
   }
 ];
 
@@ -1794,6 +1960,16 @@ newsItems.push({
   ]
 });
 
+for (const item of newsItems.filter((newsItem) => newsItem.type === "model")) {
+  const profile = modelProfiles[item.id];
+  const cover = item.cardDetails?.[1];
+  if (!profile || !cover) continue;
+  const variants = Array.isArray(cover.variant)
+    ? cover.variant
+    : String(cover.variant ?? "").split(/\s+/).filter(Boolean);
+  cover.variant = [...new Set([...variants, "cover", "roomy", "model-profile"])];
+  cover.visual = { type: "model-profile", items: profile };
+}
 
 export const labels = {
   all: "전체",

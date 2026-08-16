@@ -672,26 +672,38 @@
   },
   {
     "newsId": "grok-4-6",
-    "label": "Artificial Analysis 리더보드",
-    "url": "https://artificialanalysis.ai/",
+    "label": "Artificial Analysis Grok 4.6",
+    "url": "https://artificialanalysis.ai/models/grok-4-6",
     "kind": "reference",
     "checkedAt": "2026-08-14",
     "archiveStatus": "link-only",
     "cards": [
-      3
+      4
+    ]
+  },
+  {
+    "newsId": "grok-4-6",
+    "label": "Grok 4.6 비교와 활용 정리",
+    "url": "https://bizstoryway.tistory.com/569",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      4,
+      10
     ]
   },
   {
     "newsId": "grok-4-6",
     "label": "xAI Grok 4.6 모델 문서",
-    "url": "https://docs.x.ai/developers/models/grok-4.6",
+    "url": "https://docs.x.ai/developers/grok-4-6",
     "kind": "official",
     "checkedAt": "2026-08-14",
     "archiveStatus": "link-only",
     "cards": [
-      2,
-      6,
-      7
+      3,
+      8,
+      10
     ]
   },
   {
@@ -702,7 +714,8 @@
     "checkedAt": "2026-08-14",
     "archiveStatus": "link-only",
     "cards": [
-      6
+      8,
+      9
     ]
   },
   {
@@ -725,10 +738,12 @@
     "archiveStatus": "link-only",
     "cards": [
       1,
-      3,
+      2,
       4,
       5,
-      7
+      6,
+      7,
+      10
     ]
   },
   {
@@ -1161,6 +1176,121 @@
     "checkedAt": "2026-08-14",
     "archiveStatus": "link-only",
     "cards": []
+  },
+  {
+    "newsId": "qwen-3-8-27b",
+    "label": "anyAX 로컬 컴퓨터 사용 분석",
+    "url": "https://anyax.io/insights/qwen-3-8-27b-apache-local-computer-use",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      5
+    ]
+  },
+  {
+    "newsId": "qwen-3-8-27b",
+    "label": "Qwen3.8-27B 모델 카드",
+    "url": "https://huggingface.co/Qwen/Qwen3.8-27B",
+    "kind": "repository-or-model-card",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  {
+    "newsId": "qwen-3-8-27b",
+    "label": "GeekNews Qwen3.8-27B 정리",
+    "url": "https://news.hada.io/topic?id=32510",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      3,
+      4,
+      7
+    ]
+  },
+  {
+    "newsId": "qwen-3-8-27b",
+    "label": "GeekNews 4비트 로컬 실행 정리",
+    "url": "https://news.hada.io/topic?id=32514",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": []
+  },
+  {
+    "newsId": "qwen-3-8-27b",
+    "label": "Qwen3.8 제품군 발표",
+    "url": "https://qwen.ai/blog?id=qwen3.8",
+    "kind": "official",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": []
+  },
+  {
+    "newsId": "qwen-3-8-27b",
+    "label": "vLLM Qwen3.8-27B 실행 안내",
+    "url": "https://recipes.vllm.ai/Qwen/Qwen3.8-27B",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": []
+  },
+  {
+    "newsId": "qwen-3-8-27b",
+    "label": "Unsloth Qwen3.8 실행 안내",
+    "url": "https://unsloth.ai/docs/models/qwen3.8",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      2,
+      3,
+      4,
+      6,
+      7
+    ]
+  },
+  {
+    "newsId": "qwen-3-8-27b",
+    "label": "Qwen Qwen3.8 오픈웨이트 발표",
+    "url": "https://www.linkedin.com/posts/qwen_we-promised-open-weights-for-qwen38-now-activity-7494045927939170304-6XKD",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": []
+  },
+  {
+    "newsId": "qwen-3-8-27b",
+    "label": "Threads Qwen3.8-27B 연속 글",
+    "url": "https://www.threads.com/@choi.openai/post/DcByxIkD2n0",
+    "kind": "threads",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      1,
+      7
+    ]
+  },
+  {
+    "newsId": "qwen-3-8-27b",
+    "label": "Threads Qwen3.8 로컬 에이전트 정리",
+    "url": "https://www.threads.com/@choi.openai/post/DcEDcofEgNA",
+    "kind": "threads",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      5
+    ]
   },
   {
     "newsId": "qwen-3-8-max",

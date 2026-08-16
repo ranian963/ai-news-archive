@@ -28,6 +28,7 @@ function renderedSourceLink(url, base = "../../../") {
 }
 
 const keepInlinePhrases = [
+  "Qwen3.8-27B",
   "Qwen3.8-Max",
   "Solar Pro 4",
   "Solar Pro 3",
@@ -35,6 +36,7 @@ const keepInlinePhrases = [
   "ARC-AGI-3",
   "Claude Code",
   "Claude Opus 5",
+  "Opus 4.6 Max",
   "Claude Fable 5",
   "Hugging Face",
   "Kimi K3",
@@ -50,6 +52,7 @@ const keepInlinePhrases = [
   "Grok 4.6",
   "Computer History",
   "$CODEX_HOME",
+  "ChatGPT desktop app",
   "8월 14일",
   "DeepSeek V4-Flash",
   "Gemini Robotics 2",
@@ -64,7 +67,10 @@ const keepInlinePhrases = [
   "가격 인하",
   "바탕으로 한 정리",
   "긴 문서 과제",
-  "한국어 실무 과제"
+  "한국어 실무 과제",
+  "SWE-bench Pro",
+  "화면 작업",
+  "기본 설정"
 ];
 
 function inlineText(value) {
@@ -186,6 +192,9 @@ function cardVisualContent(visual) {
   if (visual.type === "metric" || visual.type === "compare" || visual.type === "risk") {
     return `<div class="card-visual card-visual--${visual.type}" aria-label="주요 수치">${simpleItems.map(([label, value]) => `<span><small>${inlineText(label)}</small><strong>${inlineText(value)}</strong></span>`).join("")}</div>`;
   }
+  if (visual.type === "model-profile") {
+    return `<dl class="card-visual card-visual--model-profile" aria-label="모델 주요 정보">${simpleItems.map(([label, value]) => `<div><dt>${inlineText(label)}</dt><dd>${inlineText(value)}</dd></div>`).join("")}</dl>`;
+  }
   if (visual.type === "flow") {
     return `<ol class="card-visual card-visual--flow" aria-label="내용 흐름">${simpleItems.map((item) => `<li>${inlineText(item)}</li>`).join("")}</ol>`;
   }
@@ -212,7 +221,7 @@ function cardVisualContent(visual) {
     return `<div class="card-visual card-visual--ranking-wrap"><ol class="card-visual--ranking" aria-label="순위 비교">${simpleItems.map(([rank, label, value]) => `<li><b>${inlineText(rank)}</b><span>${inlineText(label)}</span><strong>${inlineText(value)}</strong></li>`).join("")}</ol>${visual.note ? `<p class="card-visual__note">${inlineText(visual.note)}</p>` : ""}</div>`;
   }
   if (visual.type === "price-shift") {
-    return `<div class="card-visual card-visual--price-shift" aria-label="가격 변경과 업무 비용 계산"><div class="card-visual__price-states">${simpleItems.map(([label, period, value]) => `<span><small>${inlineText(label)}</small><strong>${inlineText(value)}</strong><em>${inlineText(period)}</em></span>`).join('<b aria-hidden="true">→</b>')}</div><p class="card-visual__price-change">${inlineText(visual.change)}</p><p class="card-visual__cost-rule"><small>업무 한 건의 비용</small><strong>${inlineText(visual.total)}</strong></p></div>`;
+    return `<div class="card-visual card-visual--price-shift" aria-label="${escapeHtml(visual.ariaLabel ?? "가격 변경과 업무 비용 계산")}"><div class="card-visual__price-states">${simpleItems.map(([label, period, value]) => `<span><small>${inlineText(label)}</small><strong>${inlineText(value)}</strong><em>${inlineText(period)}</em></span>`).join('<b aria-hidden="true">→</b>')}</div><p class="card-visual__price-change">${inlineText(visual.change)}</p><p class="card-visual__cost-rule"><small>${inlineText(visual.totalLabel ?? "업무 한 건의 비용")}</small><strong>${inlineText(visual.total)}</strong></p></div>`;
   }
   if (visual.type === "table") {
     return `<div class="card-visual card-visual--table" data-columns="${visual.columns.length}" role="table" aria-label="모델 비교"><div role="row">${visual.columns.map((column) => `<strong role="columnheader">${inlineText(column)}</strong>`).join("")}</div>${visual.rows.map((row) => `<div role="row">${row.map((cell) => `<span role="cell">${inlineText(cell)}</span>`).join("")}</div>`).join("")}</div>`;
@@ -245,10 +254,11 @@ function cardOverlayContent(item, number, detail) {
     : String(detail.variant ?? "").split(/\s+/).filter(Boolean);
   const variants = [...authoredVariants, (detail.cardBody?.join("").length ?? 0) > 210 ? "compact" : ""].filter(Boolean);
   const variant = variants.map((name) => ` card-copy--${name}`).join("");
+  const mainContent = detail.visual?.type === "model-profile" ? `${body}${visual}` : `${visual}${body}`;
   return `<article class="card-copy${variant}" data-theme="${escapeHtml(detail.theme ?? "coral")}" aria-labelledby="card-copy-title-${number}">
     <div class="card-copy__panel">
       ${watercolor}<p class="card-copy__eyebrow">${escapeHtml(detail.eyebrow)}</p>
-      <h2 id="card-copy-title-${number}">${inlineText(detail.title)}</h2>${comparisonMedia || media}${visual}${body}${models}
+      <h2 id="card-copy-title-${number}">${inlineText(detail.title)}</h2>${comparisonMedia || media}${mainContent}${models}
       <p class="card-copy__highlight">${inlineText(detail.highlight)}</p>
     </div>
   </article>${pageLabel}`;

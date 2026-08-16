@@ -143,6 +143,7 @@ if (!homeHtml.includes('data-filter="model"') || !homeHtml.includes("모델 소�
 const expectedModelIds = new Set([
   "solar-pro-4",
   "qwen-3-8-max",
+  "qwen-3-8-27b",
   "grok-4-6",
   "kimi-k3",
   "claude-opus-5",
@@ -160,6 +161,13 @@ const expectedModelIds = new Set([
 ]);
 if (modelItems.length !== expectedModelIds.size || modelItems.some((item) => !expectedModelIds.has(item.id))) {
   failures.push("모델 출시 기사 분류 누락 또는 중복");
+}
+const modelProfileLabels = ["모델 크기", "Context Length", "라이선스", "Input", "Output", "지식 기준일"];
+for (const item of modelItems) {
+  const profile = item.cardDetails?.[1]?.visual;
+  if (profile?.type !== "model-profile" || profile.items?.length !== modelProfileLabels.length || profile.items.some(([label], index) => label !== modelProfileLabels[index])) {
+    failures.push(`${item.id}: 첫 카드 모델 주요 정보 누락`);
+  }
 }
 const modelTiles = [...homeHtml.matchAll(/data-type="model"/g)].length;
 if (modelTiles !== modelItems.length) failures.push(`모델 소식 타일 ${modelItems.length}개 예상, ${modelTiles}개 확인`);
