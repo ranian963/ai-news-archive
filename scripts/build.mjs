@@ -3,6 +3,7 @@ import { cp, mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { labels, newsItems } from "../src/news-data.mjs";
+import { researchItems } from "../src/research-data.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const output = resolve(root, "docs");
@@ -118,6 +119,7 @@ const header = (base) => `<header class="site-header">
       <a href="${base}?type=weekly#news-list-title">주간 뉴스</a>
       <a href="${base}?type=model#news-list-title">모델 소식</a>
       <a href="${base}?type=brief#news-list-title">짧막 뉴스</a>
+      <a href="${base}?type=research#news-list-title">리서치</a>
       <a href="${base}">전체 뉴스 보기</a>
     </nav>
   </div>
@@ -266,10 +268,21 @@ function cardOverlayContent(item, number, detail) {
 
 function tile(item, base = "", heading = "h2", eager = false) {
   const tagHtml = item.tags.slice(1, 4).map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("");
-  return `<article class="news-tile" data-type="${item.type}" data-search="${escapeHtml(`${item.title} ${item.summary} ${item.tags.join(" ")}`.toLocaleLowerCase("ko"))}">
-    <a class="news-tile__image-link" href="${itemHref(item, base)}">
+  const cover = item.type === "research"
+    ? `<a class="news-tile__image-link research-cover-link" href="${itemHref(item, base)}">
+      <span class="research-cover" aria-label="${escapeHtml(item.title)} 연구 보고서">
+        <span class="research-cover__eyebrow">AI RESEARCH REPORT</span>
+        <strong>${inlineText(item.title)}</strong>
+        <span class="research-cover__copy">네 모델의 사양, 구조, 평가 결과를 한 문서에서 비교합니다.</span>
+        <span class="research-cover__subjects">${item.subjects.map((subject) => `<span>${inlineText(subject)}</span>`).join("")}</span>
+        <span class="research-cover__format">HTML REPORT</span>
+      </span>
+    </a>`
+    : `<a class="news-tile__image-link" href="${itemHref(item, base)}">
       <img class="news-tile__image" src="${coverHref(item, base)}" srcset="${coverHref(item, base)} 720w, ${imageHref(item, 1, base)} 1080w" sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 900px) 50vw, 380px" width="720" height="900" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} alt="${escapeHtml(item.coverAlt)}">
-    </a>
+    </a>`;
+  return `<article class="news-tile" data-type="${item.type}" data-search="${escapeHtml(`${item.title} ${item.summary} ${item.tags.join(" ")}`.toLocaleLowerCase("ko"))}">
+    ${cover}
     <div class="news-tile__meta">${category(item)}<time datetime="${item.published}">${publicationDate(item)} 발행</time></div>
     <${heading}><a href="${itemHref(item, base)}">${inlineText(item.title)}</a></${heading}>
     <p class="news-tile__summary">${inlineText(item.summary)}</p>
@@ -279,16 +292,17 @@ function tile(item, base = "", heading = "h2", eager = false) {
 }
 
 const chronologicalNewsItems = [...newsItems].sort((a, b) => a.published.localeCompare(b.published));
+const chronologicalArchiveItems = [...newsItems, ...researchItems].sort((a, b) => a.published.localeCompare(b.published));
 
 function homeHtml() {
-  const items = [...chronologicalNewsItems].reverse();
-  const featured = items[0];
+  const items = [...chronologicalArchiveItems].reverse();
+  const featured = [...chronologicalNewsItems].reverse()[0];
   const body = `<main id="main" class="archive-main">
     <section class="archive-intro" aria-labelledby="archive-title">
       <p class="eyebrow">AI NEWS ARCHIVE</p>
       <h1 id="archive-title">한 주씩, 한 소식씩 쌓아두는 AI 뉴스</h1>
-      <p class="archive-intro__copy">주간 뉴스는 한 주의 흐름을 묶고, 모델 소식은 새로 나온 모델 하나를 자세히 살펴봅니다. 그 밖의 중요한 이슈는 짧막 뉴스에서 다룹니다.</p>
-      <p class="archive-intro__note">현재 ${newsItems.length}개 뉴스 · 카드 ${newsItems.reduce((sum, item) => sum + item.cardCount, 0)}장</p>
+      <p class="archive-intro__copy">주간 뉴스는 한 주의 흐름을 묶고, 모델 소식은 새로 나온 모델 하나를 자세히 살펴봅니다. 긴 비교 분석과 실험 기록은 리서치에서 원문 형태로 제공합니다.</p>
+      <p class="archive-intro__note">현재 ${newsItems.length}개 뉴스 · 리서치 ${researchItems.length}개 · 카드 ${newsItems.reduce((sum, item) => sum + item.cardCount, 0)}장</p>
     </section>
     <section aria-labelledby="news-list-title">
       <h2 id="news-list-title" class="eyebrow">NEWS INDEX</h2>
@@ -298,6 +312,7 @@ function homeHtml() {
           <button class="filter-button" type="button" data-filter="weekly" aria-pressed="false">주간 뉴스</button>
           <button class="filter-button" type="button" data-filter="model" aria-pressed="false">모델 소식</button>
           <button class="filter-button" type="button" data-filter="brief" aria-pressed="false">짧막 뉴스</button>
+          <button class="filter-button" type="button" data-filter="research" aria-pressed="false">리서치</button>
         </div>
         <div class="search-field">
           <label for="news-search">제목이나 주제로 찾기</label>
@@ -349,7 +364,7 @@ function sourceKind(label, url) {
 
 function sourceRegister() {
   const records = new Map();
-  for (const item of newsItems) {
+  for (const item of [...newsItems, ...researchItems]) {
     const uses = [];
     for (const [number, detail] of Object.entries(item.cardDetails ?? {})) {
       for (const [, label, url] of detail.sources) uses.push({ label, url, card: Number(number) });
@@ -362,7 +377,7 @@ function sourceRegister() {
         label: use.label,
         url: use.url,
         kind: sourceKind(use.label, use.url),
-        checkedAt: sourceCheckedAt,
+        checkedAt: item.checkedAt ?? sourceCheckedAt,
         archiveStatus: "link-only",
         cards: []
       };
@@ -371,6 +386,16 @@ function sourceRegister() {
     }
   }
   return [...records.values()].sort((a, b) => a.newsId.localeCompare(b.newsId) || a.url.localeCompare(b.url));
+}
+
+function researchDocumentHtml(item, source) {
+  const canonical = canonicalHref(item);
+  const metadata = `  <link rel="canonical" href="${canonical}">\n  <meta property="og:url" content="${canonical}">\n`;
+  const returnLink = `<nav class="ai-trend-return-bar" aria-label="AI Trend Note"><a class="ai-trend-return" href="../../">AI Trend Note 리서치 목록</a></nav>`;
+  const returnStyle = `<style>.ai-trend-return-bar{display:flex;justify-content:flex-start;align-items:center;min-height:60px;padding:8px clamp(16px,4vw,48px);background:#fffaf0;border-bottom:1px solid #e8dfd2}.ai-trend-return{min-height:44px;display:inline-flex;align-items:center;padding:0 14px;border:1px solid #ded8cf;border-radius:10px;color:#2d2a28;background:#fffdf9;font:700 14px/1.4 "Apple SD Gothic Neo",Pretendard,"Noto Sans KR",system-ui,sans-serif;text-decoration:none}.ai-trend-return::before{content:"←";margin-right:8px}.ai-trend-return:focus-visible{outline:3px solid #665d91;outline-offset:3px}</style>\n`;
+  return source
+    .replace("</head>", `${metadata}${returnStyle}</head>`)
+    .replace(/<body([^>]*)>/, `<body$1>${returnLink}`);
 }
 
 function detailHtml(item) {
@@ -505,7 +530,14 @@ for (const item of newsItems) {
   await writeFile(target, detailHtml(item));
 }
 
+for (const item of researchItems) {
+  const target = resolve(output, item.path, "index.html");
+  const source = await readFile(resolve(root, item.sourceFile), "utf8");
+  await mkdir(dirname(target), { recursive: true });
+  await writeFile(target, researchDocumentHtml(item, source));
+}
+
 await writeFile(resolve(output, "404.html"), `<!doctype html><meta charset="utf-8"><title>페이지를 찾을 수 없습니다</title><meta http-equiv="refresh" content="0; url=${siteUrl}"><a href="${siteUrl}">AI 뉴스 아카이브로 이동</a>`);
 await mkdir(resolve(root, "research"), { recursive: true });
 await writeFile(resolve(root, "research", "source-register.json"), `${JSON.stringify(sourceRegister(), null, 2)}\n`);
-console.log(`Built ${newsItems.length} news pages in ${output}`);
+console.log(`Built ${newsItems.length} news pages and ${researchItems.length} research pages in ${output}`);

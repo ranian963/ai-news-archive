@@ -3,6 +3,7 @@ import { access, readFile, readdir } from "node:fs/promises";
 import { dirname, extname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { isRobotScene, newsItems } from "../src/news-data.mjs";
+import { researchItems } from "../src/research-data.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const docs = resolve(root, "docs");
@@ -175,13 +176,31 @@ if (!homeHtml.includes('href="?type=model#news-list-title">모델 소식</a>')) 
 if (!homeHtml.includes("공개한 <span class=\"keep-inline\">Qwen3.8-Max</span>") || !homeHtml.includes("공개한 <span class=\"keep-inline\">Solar Pro 4</span>") || !homeHtml.includes("공개한 <span class=\"keep-inline\">Grok 4.6</span>")) {
   failures.push("한국어 제목과 모델명 사이 공백 누락");
 }
-const homeShareButtons = [...homeHtml.matchAll(/data-copy-link/g)];
-if (homeShareButtons.length !== newsItems.length) {
-  failures.push(`홈 공유 버튼 ${newsItems.length}개 예상, ${homeShareButtons.length}개 확인`);
+if (!homeHtml.includes('data-filter="research"') || !homeHtml.includes('href="?type=research#news-list-title">리서치</a>')) {
+  failures.push("리서치 필터 또는 메뉴 누락");
 }
-for (const item of newsItems) {
+const researchTiles = [...homeHtml.matchAll(/data-type="research"/g)].length;
+if (researchTiles !== researchItems.length) failures.push(`리서치 타일 ${researchItems.length}개 예상, ${researchTiles}개 확인`);
+const homeShareButtons = [...homeHtml.matchAll(/data-copy-link/g)];
+const expectedHomeShareButtons = newsItems.length + researchItems.length;
+if (homeShareButtons.length !== expectedHomeShareButtons) {
+  failures.push(`홈 공유 버튼 ${expectedHomeShareButtons}개 예상, ${homeShareButtons.length}개 확인`);
+}
+for (const item of [...newsItems, ...researchItems]) {
   const expectedUrl = `data-copy-url="https://ranian963.github.io/ai-news-archive/${item.path}"`;
   if (!homeHtml.includes(expectedUrl)) failures.push(`홈 공유 주소 누락: ${item.id}`);
+}
+
+for (const item of researchItems) {
+  const reportPath = resolve(docs, item.path, "index.html");
+  await assertFile(reportPath, `리서치 문서 누락 (${item.id})`);
+  const reportHtml = await readFile(reportPath, "utf8");
+  if (!reportHtml.includes(`<link rel="canonical" href="${siteUrl}${item.path}">`) || !reportHtml.includes('class="ai-trend-return" href="../../"')) {
+    failures.push(`${item.id}: 리서치 canonical 또는 돌아가기 링크 누락`);
+  }
+  if (!reportHtml.includes(item.title) || !reportHtml.includes('id="trapbench"')) {
+    failures.push(`${item.id}: 리서치 본문 누락`);
+  }
 }
 
 for (const item of newsItems) {
@@ -241,4 +260,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`PASS: 뉴스 ${newsItems.length}개, 카드 ${newsItems.reduce((sum, item) => sum + item.cardCount, 0)}장, 내부 링크 검증 완료`);
+console.log(`PASS: 뉴스 ${newsItems.length}개, 리서치 ${researchItems.length}개, 카드 ${newsItems.reduce((sum, item) => sum + item.cardCount, 0)}장, 내부 링크 검증 완료`);

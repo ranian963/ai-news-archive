@@ -1596,13 +1596,13 @@ const modelReleases = [
       category: "이전 27B와 비교",
       eyebrow: "QWEN3.6 → QWEN3.8",
       theme: "sky",
-      title: "화면 조작 점수는 63.9에서 84.3으로 올랐습니다",
-      cardBody: ["Qwen 공식 표에서 OSWorld-Verified는 63.9에서 84.3으로 올랐습니다.", "Terminal-Bench 2.1은 63.4에서 73.0, DeepSWE 1.1은 13.3에서 42.2였습니다.", "SWE-MM도 25.7에서 38.6으로 올랐습니다."],
+      title: "화면과 브라우저 조작 점수가 함께 올랐습니다",
+      cardBody: ["Qwen 공식 표에서 OSWorld-Verified는 63.9에서 84.3으로 올랐습니다.", "WebArena-Verified는 48.8에서 64.8로 바뀌었습니다.", "DeepSWE 1.1도 13.3에서 42.2로 올랐습니다."],
       highlight: "Qwen3.6 → Qwen3.8 | Qwen 공식 평가",
-      visual: { type: "tile-grid", items: [["OSWorld", "63.9 → 84.3"], ["Terminal", "63.4 → 73.0"], ["DeepSWE", "13.3 → 42.2"], ["SWE-MM", "25.7 → 38.6"]] },
-      summary: "Qwen이 공개한 같은 계열 비교표에서 화면 조작 평가인 OSWorld-Verified는 63.9에서 84.3으로 올랐습니다. Terminal-Bench 2.1은 63.4에서 73.0, DeepSWE 1.1은 13.3에서 42.2, SWE-MM은 25.7에서 38.6으로 바뀌었습니다. 모두 Qwen이 공개한 평가 결과이므로 실제 PC 작업과 저장소에서는 별도로 확인해야 합니다.",
-      points: [["OSWorld가 보는 범위", "화면을 보고 데스크톱 앱을 조작하는 능력을 평가합니다. 문서 작성이나 브라우저 작업 같은 컴퓨터 사용과 관련이 있습니다."], ["수치 해석", "같은 계열의 세대 변화를 보는 데는 도움이 되지만 Qwen이 공개한 자체 평가표입니다. 독립 평가 결과와 같은 의미로 받아들이면 안 됩니다."], ["로컬에서 쓸 때", "anyAX는 Apache 2.0과 로컬 실행 가능성을 컴퓨터 사용 에이전트의 장점으로 봤습니다. 파일 삭제나 외부 전송처럼 되돌리기 어려운 작업은 사람의 확인 절차가 필요합니다."]],
-      sources: [["공식", "Qwen3.8-27B 모델 카드", "https://huggingface.co/Qwen/Qwen3.8-27B"], ["참고", "Threads Qwen3.8 로컬 에이전트 정리", "https://www.threads.com/@choi.openai/post/DcEDcofEgNA"], ["참고", "anyAX 로컬 컴퓨터 사용 분석", "https://anyax.io/insights/qwen-3-8-27b-apache-local-computer-use"]]
+      visual: { type: "tile-grid", items: [["OSWorld", "63.9 → 84.3"], ["WebArena", "48.8 → 64.8"], ["DeepSWE", "13.3 → 42.2"], ["Terminal", "63.4 → 73.0"]] },
+      summary: "Qwen이 공개한 같은 계열 비교표에서 화면 조작 평가인 OSWorld-Verified는 63.9에서 84.3, 브라우저 조작 평가인 WebArena-Verified는 48.8에서 64.8로 올랐습니다. DeepSWE 1.1은 13.3에서 42.2, Terminal-Bench 2.1은 63.4에서 73.0으로 바뀌었습니다. 모두 Qwen의 공식 평가이므로 실제 PC 작업과 저장소에서는 별도로 확인해야 합니다.",
+      points: [["두 평가의 차이", "OSWorld-Verified는 데스크톱 앱 조작을, WebArena-Verified는 웹사이트에서 과제를 수행하는 능력을 평가합니다."], ["시각 평가 조건", "MathVision은 CI 미사용 90.0, CI 사용 94.6으로 따로 공개됐습니다. 다른 모델과 비교할 때도 같은 CI 조건을 맞춰야 합니다."], ["국내 모델과 비교할 때", "Dennis Kim은 Apache 2.0과 로컬 배포 가능성을 독파모의 경쟁 압력으로 봤습니다. 다만 한국어와 국내 법제, 공공·보안 환경은 별도의 비교 항목이라고 함께 적었습니다."]],
+      sources: [["공식", "Qwen3.8-27B 모델 카드", "https://huggingface.co/Qwen/Qwen3.8-27B"], ["참고", "Threads Qwen3.8 로컬 에이전트 정리", "https://www.threads.com/@choi.openai/post/DcEDcofEgNA"], ["참고", "anyAX 로컬 컴퓨터 사용 분석", "https://anyax.io/insights/qwen-3-8-27b-apache-local-computer-use"], ["분석", "Qwen3.8-27B와 독파모 영향 분석", "https://www.linkedin.com/pulse/qwen38-27b-%EC%A0%95%EB%B0%80-%EB%B6%84%EC%84%9D-%EA%B7%B8%EB%A6%AC%EA%B3%A0-%EB%8F%85%ED%8C%8C%EB%AA%A8%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9C%84%ED%98%91-%ED%8F%89%EA%B0%80-dennis-kim-huuxc"]]
     },
     accessTitle: "4비트 배포본은 17~19GB까지 줄어듭니다",
     accessBody: ["Unsloth가 공개한 양자화 배포본은 2비트부터 8비트까지 고를 수 있습니다.", "4비트 배포본은 RAM과 VRAM 또는 통합 메모리를 합쳐 17~19GB를 안내합니다.", "실제 실행에는 KV 캐시가 더해지므로 긴 컨텍스트일수록 여유 메모리가 필요합니다."],
@@ -1612,7 +1612,7 @@ const modelReleases = [
     accessPoints: [["24GB 장비", "4비트 배포본은 24GB GPU나 24GB 통합 메모리 Mac에서 시도할 수 있습니다. 다만 운영체제와 프레임워크가 쓸 공간도 남겨야 합니다."], ["Blackwell GPU", "Unsloth의 NVFP4 배포본은 RTX 50 시리즈, DGX Spark, B200, B300 같은 Blackwell GPU를 대상으로 합니다. 이전 GPU에서는 GGUF 경로가 맞습니다."], ["품질 차이", "양자화 비트 수와 방식에 따라 품질과 속도가 달라집니다. 같은 4비트라도 배포본을 바꾸면 결과가 같다고 볼 수 없습니다."]],
     licenseTitle: "Apache 2.0으로 가중치를 공개했습니다",
     licenseBody: ["모델 카드와 가중치에 Apache 2.0이 적용됩니다.", "연구와 상용 서비스에 쓸 수 있고 별도 Qwen 전용 약관은 없습니다.", "Qwen이 운영하는 Hosted API는 준비 중으로 안내돼 있습니다."],
-    licenseHighlight: "Open weights | Apache 2.0 | Hosted API 준비 중",
+    licenseHighlight: "Open weights | Apache 2.0 | API 준비 중",
     licenseRows: [["가중치", "공개"], ["라이선스", "Apache 2.0"], ["Hosted API", "준비 중"]],
     licenseSummary: "Qwen3.8-27B는 Apache 2.0 오픈웨이트 모델입니다. 가중치를 내려받아 수정하거나 서비스에 사용할 수 있으며, 공식 Qwen Cloud Hosted API는 모델 카드 기준으로 아직 준비 중입니다.",
     licensePoints: [["Max와 다른 조건", "Qwen3.8-Max의 자체 라이선스가 아니라 Apache 2.0을 사용합니다."], ["직접 운영", "라이선스가 단순해도 모델이 파일과 도구를 다루게 한다면 권한 제한과 안전 검사는 별도로 설계해야 합니다."]],
@@ -1621,7 +1621,7 @@ const modelReleases = [
     caveatHighlight: "262K native | 1M via YaRN | 독립 평가 대기",
     caveatSummary: "Qwen3.8-27B의 1M 컨텍스트는 YaRN을 적용한 확장 설정입니다. Qwen은 짧은 입력에 고정 스케일링이 영향을 줄 수 있다고 안내하며, 낮은 reasoning_effort가 작업 전체 시간과 토큰을 항상 줄이는 것도 아니라고 설명합니다.",
     caveatPoints: [["도입 전 시험", "팀의 실제 문서 길이와 도구 호출, 재시도까지 포함해 262K 기본 설정과 확장 설정을 비교해야 합니다."], ["성능 해석", "현재 공개된 주요 점수는 Qwen의 모델 카드 결과입니다. 독립 평가가 나오면 속도와 토큰 사용량, 환각률을 함께 확인할 필요가 있습니다."]],
-    sources: [["공식", "Qwen3.8-27B 모델 카드", "https://huggingface.co/Qwen/Qwen3.8-27B"], ["공식", "Unsloth Qwen3.8 실행 안내", "https://unsloth.ai/docs/models/qwen3.8"], ["참고", "GeekNews Qwen3.8-27B 정리", "https://news.hada.io/topic?id=32510"], ["참고", "Threads Qwen3.8-27B 연속 글", "https://www.threads.com/@choi.openai/post/DcByxIkD2n0"], ["참고", "Threads Qwen3.8 로컬 에이전트 정리", "https://www.threads.com/@choi.openai/post/DcEDcofEgNA"], ["참고", "GeekNews 4비트 로컬 실행 정리", "https://news.hada.io/topic?id=32514"], ["공식", "Qwen Qwen3.8 오픈웨이트 발표", "https://www.linkedin.com/posts/qwen_we-promised-open-weights-for-qwen38-now-activity-7494045927939170304-6XKD"], ["공식", "vLLM Qwen3.8-27B 실행 안내", "https://recipes.vllm.ai/Qwen/Qwen3.8-27B"], ["공식", "Qwen3.8 제품군 발표", "https://qwen.ai/blog?id=qwen3.8"], ["참고", "anyAX 로컬 컴퓨터 사용 분석", "https://anyax.io/insights/qwen-3-8-27b-apache-local-computer-use"]]
+    sources: [["공식", "Qwen3.8-27B 모델 카드", "https://huggingface.co/Qwen/Qwen3.8-27B"], ["공식", "Unsloth Qwen3.8 실행 안내", "https://unsloth.ai/docs/models/qwen3.8"], ["참고", "GeekNews Qwen3.8-27B 정리", "https://news.hada.io/topic?id=32510"], ["참고", "Threads Qwen3.8-27B 연속 글", "https://www.threads.com/@choi.openai/post/DcByxIkD2n0"], ["참고", "Threads Qwen3.8 로컬 에이전트 정리", "https://www.threads.com/@choi.openai/post/DcEDcofEgNA"], ["참고", "GeekNews 4비트 로컬 실행 정리", "https://news.hada.io/topic?id=32514"], ["공식", "Qwen Qwen3.8 오픈웨이트 발표", "https://www.linkedin.com/posts/qwen_we-promised-open-weights-for-qwen38-now-activity-7494045927939170304-6XKD"], ["공식", "vLLM Qwen3.8-27B 실행 안내", "https://recipes.vllm.ai/Qwen/Qwen3.8-27B"], ["공식", "Qwen3.8 제품군 발표", "https://qwen.ai/blog?id=qwen3.8"], ["참고", "anyAX 로컬 컴퓨터 사용 분석", "https://anyax.io/insights/qwen-3-8-27b-apache-local-computer-use"], ["분석", "Qwen3.8-27B와 독파모 영향 분석", "https://www.linkedin.com/pulse/qwen38-27b-%EC%A0%95%EB%B0%80-%EB%B6%84%EC%84%9D-%EA%B7%B8%EB%A6%AC%EA%B3%A0-%EB%8F%85%ED%8C%8C%EB%AA%A8%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9C%84%ED%98%91-%ED%8F%89%EA%B0%80-dennis-kim-huuxc"]]
   }
 ];
 
@@ -1975,5 +1975,6 @@ export const labels = {
   all: "전체",
   weekly: "주간 뉴스",
   brief: "짧막 뉴스",
-  model: "모델 소식"
+  model: "모델 소식",
+  research: "리서치"
 };

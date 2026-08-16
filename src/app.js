@@ -34,7 +34,7 @@
     const empty = document.querySelector("[data-empty]");
     const count = document.querySelector("[data-result-count]");
     const requested = new URLSearchParams(location.search).get("type");
-    let selected = ["weekly", "model", "brief"].includes(requested) ? requested : "all";
+    let selected = ["weekly", "model", "brief", "research"].includes(requested) ? requested : "all";
 
     const apply = () => {
       const query = input.value.trim().toLocaleLowerCase("ko");

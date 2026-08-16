@@ -521,6 +521,15 @@
     ]
   },
   {
+    "newsId": "dokpamo-second-round-research",
+    "label": "Markview 공개 문서",
+    "url": "https://markview-4hy.pages.dev/v/4cfee388",
+    "kind": "reference",
+    "checkedAt": "2026-08-16",
+    "archiveStatus": "link-only",
+    "cards": []
+  },
+  {
     "newsId": "gemini-3-7-flash",
     "label": "Gemini API 모델 문서",
     "url": "https://ai.google.dev/gemini-api/docs/models",
@@ -1268,6 +1277,17 @@
     "checkedAt": "2026-08-14",
     "archiveStatus": "link-only",
     "cards": []
+  },
+  {
+    "newsId": "qwen-3-8-27b",
+    "label": "Qwen3.8-27B와 독파모 영향 분석",
+    "url": "https://www.linkedin.com/pulse/qwen38-27b-%EC%A0%95%EB%B0%80-%EB%B6%84%EC%84%9D-%EA%B7%B8%EB%A6%AC%EA%B3%A0-%EB%8F%85%ED%8C%8C%EB%AA%A8%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9C%84%ED%98%91-%ED%8F%89%EA%B0%80-dennis-kim-huuxc",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      5
+    ]
   },
   {
     "newsId": "qwen-3-8-27b",

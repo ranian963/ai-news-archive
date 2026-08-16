@@ -23,7 +23,7 @@ The archive should feel like a light weekly notebook that happens to be digital:
 | Line strong | `--color-line-strong` | `#c9c0b6` | Focused separators |
 | Coral | `--color-coral` | `#f1aeb9` | Weekly filter and selected state |
 | Sky | `--color-sky` | `#cfe6f3` | Model and product tags |
-| Butter | `--color-butter` | `#f7e7a9` | Research tags |
+| Butter | `--color-butter` | `#f7e7a9` | Research tags and report tiles |
 | Mint | `--color-mint` | `#cfe8d7` | Korean AI tags |
 | Lilac | `--color-lilac` | `#ddd4ee` | Security and agent tags |
 | Focus | `--color-focus` | `#665d91` | Keyboard focus ring |
@@ -85,7 +85,7 @@ The detail page starts with a viewport-aware Reader Stage. Its toolbar, card, co
 - Motion: color and underline opacity only.
 
 ### Filter Bar
-- Structure: four filter buttons and a labelled search field. `모델 소식`은 새로 공개되거나 출시된 AI 모델 하나를 중심으로 다룬 기사에만 사용한다. 모델이 일부 언급되더라도 제품·사건·보안 분석이 중심이면 `짧막 뉴스`에 둔다.
+- Structure: five filter buttons and a labelled search field. `모델 소식`은 새로 공개되거나 출시된 AI 모델 하나를 중심으로 다룬 기사에만 사용한다. 모델이 일부 언급되더라도 제품·사건·보안 분석이 중심이면 `짧막 뉴스`에 둔다. 긴 비교 보고서와 자체 실험 문서는 `리서치`에 둔다.
 - States: default, hover, selected, focus, empty result.
 - Accessibility: pressed state via `aria-pressed`; search has a visible label; 44px targets.
 - Motion: selected background fades over the standard duration.
@@ -96,6 +96,11 @@ The detail page starts with a viewport-aware Reader Stage. Its toolbar, card, co
 - States: default, hover, focus.
 - Accessibility: one descriptive link per tile; image has exact dimensions and informative alt text.
 - Motion: image translates upward 4px on hover; reduced-motion removes the translation.
+
+### Research Report
+- Archive surface: use the same 4:5 tile anatomy, warm paper, typography, and butter category accent as the archive. The report title, one-sentence scope, and compared subjects remain live HTML rather than a generated thumbnail image.
+- Document surface: open the complete self-contained HTML report under the same GitHub Pages origin. Do not force a long report into the Card Viewer or an external iframe.
+- Portability: commit the user-owned source HTML and copy it through the build. Keep a canonical link and a 44px return control. External hosted copies remain provenance links, not the only copy of the report.
 
 ### Card Viewer
 - Structure: compact toolbar, scroll-snap track, slide figures, previous/next buttons, page counter, keyboard hint, direct selector rail.
