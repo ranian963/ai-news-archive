@@ -189,7 +189,8 @@ for (const item of newsItems) {
   const carouselIndex = detailHtml.indexOf('class="carousel"');
   const identityIndex = detailHtml.indexOf('class="reader-toolbar__identity"');
   const headingCount = [...detailHtml.matchAll(/<h1\b/g)].length;
-  if (!detailHtml.includes('<body class="detail-page">') || !detailHtml.includes(`class="reader-stage reader-stage--${item.type}"`) || readerIndex < 0) {
+  const readerStagePattern = new RegExp(`class="reader-stage reader-stage--${item.type}(?:\\s+[^\"]+)?"`);
+  if (!detailHtml.includes('<body class="detail-page">') || !readerStagePattern.test(detailHtml) || readerIndex < 0) {
     failures.push(`이미지 우선 뉴스 화면 누락: ${item.id}`);
   }
   if (identityIndex < readerIndex || carouselIndex < identityIndex) {

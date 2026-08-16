@@ -48,6 +48,8 @@ const keepInlinePhrases = [
   "GPT Image 2",
   "Grok Imagine Image 2.0",
   "Grok 4.6",
+  "Computer History",
+  "$CODEX_HOME",
   "8월 14일",
   "DeepSeek V4-Flash",
   "Gemini Robotics 2",
@@ -168,9 +170,13 @@ function cardDetailContent(number, detail, base) {
     return `<li><a href="${escapeHtml(link.href)}"${externalAttributes}><span class="card-detail__source-type">${escapeHtml(type)}</span><span>${inlineText(label)}</span><span class="card-detail__external">${link.external ? "새 창" : "이동"}</span></a></li>`;
   }).join("");
   const modifier = detail.modelRows ? " card-detail--dense" : "";
+  const panelTitle = detail.panelTitle ? `<h2 class="card-detail__title">${inlineText(detail.panelTitle)}</h2>` : "";
+  const summary = Array.isArray(detail.summary)
+    ? `<div class="detail-header__summary detail-header__summary--stacked">${detail.summary.map((paragraph) => `<p>${inlineText(paragraph)}</p>`).join("")}</div>`
+    : `<p class="detail-header__summary">${inlineText(detail.summary)}</p>`;
   const pointsSection = points ? `<section class="card-detail__section" aria-labelledby="card-points-title"><h2 id="card-points-title">카드에서 볼 내용</h2><ul class="card-detail__points">${points}</ul></section>` : "";
-  return `<div class="card-detail${modifier}"><p class="detail-header__summary">${inlineText(detail.summary)}</p>
-    <p class="card-detail__category">${number} · ${escapeHtml(detail.category)}</p>${pointsSection}
+  return `<div class="card-detail${modifier}"><p class="card-detail__eyebrow">지금 읽는 내용</p>
+    <p class="card-detail__category">${number} · ${escapeHtml(detail.category)}</p>${panelTitle}${summary}${pointsSection}
     <section class="card-detail__section" aria-labelledby="card-sources-title"><h2 id="card-sources-title">관련 링크</h2><ul class="card-detail__sources">${sources}</ul><a class="card-detail__all-sources" href="#sources-title">전체 참고자료 보기</a></section></div>`;
 }
 
@@ -395,9 +401,32 @@ function detailHtml(item) {
     const attributes = link.external ? ' target="_blank" rel="noreferrer"' : ' data-internal-link';
     return `<li><a href="${escapeHtml(link.href)}"${attributes}><span class="source-list__label">${inlineText(label)}</span></a></li>`;
   }).join("");
+  const videoHtml = item.video?.youtubeId && /^[A-Za-z0-9_-]{6,20}$/.test(item.video.youtubeId)
+    ? `<section class="detail-section article-video" aria-labelledby="article-video-title">
+      <div class="article-video__copy">
+        <p class="eyebrow">OFFICIAL DEMO</p>
+        <h2 id="article-video-title">${inlineText(item.video.title)}</h2>
+        <p>${inlineText(item.video.description)}</p>
+      </div>
+      <div class="article-video__frame">
+        <iframe src="https://www.youtube-nocookie.com/embed/${escapeHtml(item.video.youtubeId)}" title="${escapeHtml(item.video.title)}" width="960" height="540" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+    </section>`
+    : "";
+  const articleIntroHtml = item.articleIntro
+    ? `<section class="detail-section article-intro" aria-labelledby="article-intro-title">
+      <div class="article-intro__heading">
+        <p class="eyebrow">${escapeHtml(item.articleIntro.eyebrow ?? "한눈에 읽기")}</p>
+        <h2 id="article-intro-title">${inlineText(item.articleIntro.title)}</h2>
+      </div>
+      <div class="article-intro__body">${item.articleIntro.body.map((paragraph) => `<p>${inlineText(paragraph)}</p>`).join("")}</div>
+      <dl class="article-intro__facts">${item.articleIntro.facts.map(([term, description]) => `<div><dt>${inlineText(term)}</dt><dd>${inlineText(description)}</dd></div>`).join("")}</dl>
+    </section>`
+    : "";
   const cardDetailTemplates = Object.entries(item.cardDetails ?? {}).map(([number, detail]) => `<template data-card-detail-index="${Number(number) - 1}">${cardDetailContent(number, detail, base)}</template>`).join("");
+  const readerMode = item.readerMode ? ` reader-stage--${escapeHtml(item.readerMode)}` : "";
   const body = `<main id="main" class="detail-main">
-    <section class="reader-stage reader-stage--${item.type}" aria-labelledby="news-title">
+    <section class="reader-stage reader-stage--${item.type}${readerMode}" aria-labelledby="news-title">
       <div class="reader-toolbar">
         <a class="reader-toolbar__back" href="${base}" aria-label="뉴스 목록으로 돌아가기"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>뉴스 목록</span></a>
         ${readerIdentity(item)}
@@ -417,7 +446,9 @@ function detailHtml(item) {
         <aside class="detail-header" data-card-detail-region aria-label="현재 카드 설명" aria-live="polite">${newsDetailContent(item)}</aside>${cardDetailTemplates ? `
         ${cardDetailTemplates}` : ""}
       </div>
-    </section>
+    </section>${articleIntroHtml ? `
+    ${articleIntroHtml}` : ""}${videoHtml ? `
+    ${videoHtml}` : ""}
     <section class="detail-section" aria-labelledby="sources-title"><h2 id="sources-title">참고한 자료</h2><ul class="source-list">${sourceHtml}</ul></section>
     <nav class="detail-section news-navigation" aria-label="다른 뉴스">${previousHtml}<a class="news-navigation__home" href="${base}">전체 뉴스 보기</a>${nextHtml}</nav>
     ${related.length ? `<section class="detail-section" aria-labelledby="related-title"><h2 id="related-title">함께 볼 뉴스</h2><div class="related-grid">${relatedHtml}</div></section>` : ""}

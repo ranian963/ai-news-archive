@@ -1509,6 +1509,291 @@ const qwen38Index = newsItems.findIndex((item) => item.id === "qwen-3-8-max");
 newsItems[qwen38Index] = modelReleaseItem(qwen38Update);
 newsItems.push(...modelReleases.map(modelReleaseItem));
 newsItems.push(...dokpamoNewsItems);
+newsItems.push({
+  id: "computer-history",
+  type: "brief",
+  path: "news/brief/computer-history/",
+  identity: { brand: "OpenAI", title: "Computer History" },
+  published: "2026-08-14",
+  title: "ChatGPT가 내가 하던 일을 기억한다, Computer History",
+  summary: "Computer History는 허용한 앱과 웹사이트에서 일어난 최근 작업을 타임라인과 메모리로 정리하는 기능입니다. ChatGPT와 Codex가 이 기억을 어떻게 활용하는지, 무엇을 기록하고 어디까지 통제할 수 있는지 10장과 공식 영상으로 살펴봅니다.",
+  tags: ["짧막 뉴스", "OpenAI", "ChatGPT", "Codex", "생산성", "개인정보"],
+  cardCount: 10,
+  imageStem: "computer-history",
+  readerMode: "editorial",
+  coverAlt: "맥의 앱과 웹사이트에서 일어난 작업 흐름이 타임라인과 메모리로 이어지는 Computer History 카드뉴스 표지",
+  articleIntro: {
+    eyebrow: "WHY IT MATTERS",
+    title: "다시 찾는 대신, 하던 일을 이어갑니다",
+    body: [
+      "지금까지 AI에게 지난 일을 이어서 시키려면 파일 이름, 대화방, 문서 위치를 다시 알려줘야 했습니다. Computer History는 사용자가 허용한 앱과 웹사이트의 최근 작업을 기억해 이 설명을 줄이려는 기능입니다.",
+      "핵심은 단순한 사용 기록이 아니라 작업의 맥락입니다. 언제 어떤 앱에서 무엇을 했는지 타임라인으로 보여주고, 나중에 다시 쓸 만한 내용을 로컬 Markdown 메모리로 남깁니다.",
+      "편리함의 대가는 더 넓은 접근 권한입니다. 화면과 오디오를 녹화하지 않더라도 입력과 클릭에는 민감한 맥락이 담길 수 있으므로, 필요한 앱만 허용하고 기록과 메모리를 직접 살피는 운영 원칙이 필요합니다."
+    ],
+    facts: [
+      ["한 문장 정의", "허용한 앱과 웹사이트의 최근 작업을 타임라인과 메모리로 정리하는 기능"],
+      ["현재 대상", "macOS용 ChatGPT Pro·Business·Enterprise"],
+      ["기본 상태", "꺼짐. 사용자 또는 조직 관리자의 허용 뒤 개인 동의 필요"],
+      ["기억의 형태", "날짜별 타임라인과 사용자가 확인할 수 있는 로컬 Markdown 메모리"]
+    ]
+  },
+  video: {
+    youtubeId: "W-HhMUe9hOg",
+    title: "OpenAI Computer History 공식 데모",
+    description: "3분 10초 영상에서 지난 문서 찾기, 단체 대화방 공유, 오전 업무 요약, 앱·사이트별 권한과 삭제 과정을 직접 확인할 수 있습니다."
+  },
+  cardDetails: {
+    1: {
+      background: "bg-cover.webp",
+      category: "OpenAI · 새 기능",
+      theme: "sky",
+      variant: ["cover", "roomy", "explainer"],
+      eyebrow: "OPENAI · COMPUTER HISTORY",
+      title: "허용한 앱에서 한 일을 ChatGPT가 기억합니다",
+      visual: { type: "metric", items: [["입력", "앱·웹 활동"], ["기억", "타임라인·메모리"], ["활용", "ChatGPT·Codex"]] },
+      cardBody: [
+        "허용한 앱과 웹사이트에서 일어난 최근 작업을 타임라인과 메모리로 정리하는 기능입니다.",
+        "ChatGPT와 Codex가 이 기억을 참고해 ‘아까 하던 일’을 이어서 돕습니다."
+      ],
+      highlight: "기억한다 → 찾아준다 → 이어서 돕는다",
+      panelTitle: "Computer History는 무엇인가",
+      summary: [
+        "한 문장으로 말하면, 허용한 앱과 웹사이트에서 일어난 최근 작업을 타임라인과 메모리로 정리하는 기능입니다.",
+        "사용자가 직접 켜야 하며, ChatGPT와 Codex는 이 기억을 바탕으로 파일 이름을 몰라도 이전 작업의 맥락을 찾아 이어서 도울 수 있습니다."
+      ],
+      points: [
+        ["무엇이 달라지나", "파일 이름이나 대화방을 정확히 기억하지 못해도 최근 작업 흐름을 바탕으로 이어서 물을 수 있습니다."],
+        ["먼저 확인할 점", "화면 전체를 녹화하는 기능은 아니지만 입력과 클릭 같은 상호작용 이벤트를 다루므로 권한 범위를 먼저 정해야 합니다."]
+      ],
+      sources: [["공식", "OpenAI Computer History 안내", "https://learn.chatgpt.com/docs/customization/computer-history"], ["영상", "OpenAI 공식 데모", "https://youtu.be/W-HhMUe9hOg"]]
+    },
+    2: {
+      background: "../editorial-scenes-v2/agent-harness.webp",
+      category: "작동 방식",
+      theme: "mint",
+      variant: ["roomy", "diagram-large", "explainer"],
+      eyebrow: "HOW IT WORKS",
+      title: "상호작용이 타임라인과 메모리가 됩니다",
+      visual: { type: "flow", items: ["허용한 앱·웹", "클릭·입력 이벤트", "요약과 정리", "타임라인·메모리"] },
+      cardBody: [
+        "기록은 날짜별 타임라인과 로컬 Markdown 메모리로 나뉩니다.",
+        "다음 대화에서는 관련된 기억을 꺼내 ‘아까 보던 문서’ 같은 요청과 연결합니다."
+      ],
+      highlight: "작업 기록 → 요약 → 다음 대화의 맥락",
+      panelTitle: "기억은 어떻게 만들어지나",
+      summary: [
+        "허용한 앱과 웹사이트의 상호작용 이벤트가 임시 기록으로 모이고, 일시적인 Codex 처리 과정을 거쳐 타임라인과 로컬 Markdown 메모리로 정리됩니다.",
+        "타임라인은 언제 무엇을 했는지 보여주는 기록이고, 메모리는 다음 대화와 작업에서 다시 활용할 수 있도록 요약한 맥락입니다."
+      ],
+      points: [
+        ["기억의 단위", "날짜별 타임라인과 컴퓨터 사용에서 추출한 로컬 메모리가 함께 생깁니다."],
+        ["대화와의 관계", "기억은 관련 질문에 자동으로 쓰일 수 있고, 사용자는 메모리 파일을 직접 열어 확인할 수 있습니다."]
+      ],
+      sources: [["공식", "작동 방식과 메모리", "https://learn.chatgpt.com/docs/customization/computer-history"], ["정리", "Threads 기능 소개", "https://www.threads.com/share/DDQPu39_I/"]]
+    },
+    3: {
+      background: "bg-privacy.webp",
+      category: "수집 범위",
+      theme: "butter",
+      variant: ["roomy", "explainer"],
+      eyebrow: "EVENTS, NOT SCREENSHOTS",
+      title: "화면 녹화 대신 상호작용 이벤트를 읽습니다",
+      visual: { type: "tile-grid", items: [["기록", "클릭·입력·단축키"], ["맥락", "앱 전환·접근성 정보"], ["기록하지 않음", "화면·오디오"], ["자동 제외", "비공개 브라우징"]] },
+      cardBody: [
+        "이전 Chronicle은 스크린샷을 썼지만, Computer History는 화면이나 오디오를 캡처하지 않습니다.",
+        "다만 입력과 클릭만으로도 업무와 개인 생활의 맥락이 드러날 수 있습니다."
+      ],
+      highlight: "이벤트 기반 · 화면과 오디오 미수집",
+      panelTitle: "무엇을 기록하고 무엇을 빼나",
+      summary: [
+        "Computer History가 다루는 것은 클릭, 입력, 단축키, 앱 전환과 접근성 맥락 같은 상호작용 이벤트입니다.",
+        "화면 스크린샷과 오디오는 수집하지 않고 브라우저의 비공개 모드 활동도 제외합니다. 그렇다고 민감하지 않은 것은 아니므로 수집 범위를 좁게 잡아야 합니다."
+      ],
+      points: [
+        ["Chronicle과의 차이", "기존 Chronicle의 스크린샷 방식이 아니라 이벤트 기반으로 다시 만든 기능입니다."],
+        ["그래도 민감한 이유", "입력 내용과 앱 사용 흐름만으로도 업무와 개인 생활의 맥락이 드러날 수 있습니다."]
+      ],
+      sources: [["공식", "수집하는 정보와 제외 항목", "https://learn.chatgpt.com/docs/customization/computer-history"], ["참고", "Wikidocs 사용 전 확인", "https://wikidocs.net/blog/@openwiki/28526/"]]
+    },
+    4: {
+      background: "../editorial-scenes-v2/office-ai-panel.webp",
+      category: "공식 데모",
+      theme: "coral",
+      variant: ["roomy", "diagram-large", "explainer"],
+      eyebrow: "OFFICIAL DEMO",
+      title: "‘아까 그 문서’를 찾아 이전 일을 이어갑니다",
+      visual: { type: "timeline", items: [["1", "최근 Google 문서 찾기"], ["2", "이전 단체 대화방 확인"], ["3", "문서 공유"], ["4", "오전 업무 요약"]] },
+      cardBody: [
+        "정확한 문서명이나 대화방 이름을 말하지 않아도 최근 작업 흐름에서 대상을 찾습니다.",
+        "찾은 문서를 공유하고 오전 업무를 요약하는 장면까지 공식 영상에서 확인할 수 있습니다."
+      ],
+      highlight: "3분 10초 · OpenAI 공식 영상 포함",
+      panelTitle: "공식 데모에서 확인한 장면",
+      summary: [
+        "사용자가 ‘아까 작업하던 Google 문서’와 ‘이전 단체 대화방’처럼 모호하게 말해도 ChatGPT가 최근 작업에서 대상을 찾아냅니다.",
+        "이어 문서를 공유하고 오전에 한 일을 요약합니다. 카드 설명이 끝난 뒤 나오는 공식 영상에서 3분 10초 전체 흐름을 직접 볼 수 있습니다."
+      ],
+      points: [
+        ["가능해지는 질문", "파일명보다 작업의 시간과 맥락을 이용해 이어서 요청할 수 있습니다."],
+        ["영상 선택", "Threads에 소개된 영상과 같은 OpenAI 공식 YouTube 데모를 안정적인 임베드로 넣었습니다."]
+      ],
+      sources: [["영상", "OpenAI 공식 데모", "https://youtu.be/W-HhMUe9hOg"], ["정리", "Threads 영상 소개", "https://www.threads.com/share/DDQPu39_I/"]]
+    },
+    5: {
+      background: "bg-automation.webp",
+      category: "반복 업무",
+      theme: "lilac",
+      variant: ["roomy", "diagram-large", "explainer"],
+      eyebrow: "SKILLS & AUTOMATIONS",
+      title: "반복한 일은 스킬과 자동화 후보가 됩니다",
+      visual: { type: "flow", items: ["반복 작업 감지", "패턴 정리", "스킬 제안", "예약 자동화"] },
+      cardBody: [
+        "타임라인은 반복한 업무를 찾아 재사용할 스킬이나 정기 실행할 자동화를 제안합니다.",
+        "다만 실제 생성과 실행은 사용자가 내용을 확인한 뒤 결정해야 합니다."
+      ],
+      highlight: "기억에서 끝나지 않고 다음 실행으로 연결",
+      panelTitle: "기억이 자동화로 이어지는 지점",
+      summary: [
+        "Computer History는 활동 기록을 보여주는 데서 끝나지 않습니다. 반복되는 순서를 찾아 다시 쓸 수 있는 스킬이나 일정에 맞춘 자동화 후보를 제안할 수 있습니다.",
+        "기억이 ‘과거를 찾는 기능’이라면 스킬과 자동화는 그 기억을 ‘다음 실행’으로 바꾸는 단계입니다. 제안의 내용과 실행 범위는 사용자가 확인해야 합니다."
+      ],
+      points: [
+        ["스킬", "문서 정리나 업무 보고처럼 같은 절차를 반복할 때 재사용 가능한 작업 방식으로 묶습니다."],
+        ["자동화", "반복 주기가 보이는 업무는 예약 실행 후보로 제안할 수 있지만, 실제 생성과 실행은 사용자가 확인해야 합니다."]
+      ],
+      sources: [["공식", "타임라인의 제안 기능", "https://learn.chatgpt.com/docs/customization/computer-history"], ["영상", "OpenAI 공식 데모", "https://youtu.be/W-HhMUe9hOg"]]
+    },
+    6: {
+      background: "../editorial-scenes-v2/compatibility-testing.webp",
+      category: "제공 범위",
+      theme: "sky",
+      variant: ["roomy", "explainer"],
+      eyebrow: "AVAILABILITY",
+      title: "Mac용 Pro와 조직용 플랜부터 시작합니다",
+      visual: { type: "tile-grid", items: [["운영체제", "macOS 데스크톱"], ["개인", "Pro에서 직접 선택"], ["조직", "관리자 허용 뒤 개인 동의"], ["필수", "Memories 켜기"]] },
+      cardBody: [
+        "Pro는 사용자가 직접 켜고, Business·Enterprise는 관리자가 허용한 뒤 구성원이 동의합니다.",
+        "API 키·Amazon Bedrock 연결과 영국·EEA·스위스에서는 아직 쓸 수 없습니다."
+      ],
+      highlight: "기본값 꺼짐 · 워크스페이스도 개인별 동의",
+      panelTitle: "누가 지금 쓸 수 있나",
+      summary: [
+        "현재 macOS용 ChatGPT 데스크톱 앱의 Pro, Business, Enterprise에서 제공합니다. Pro 사용자는 직접 켤 수 있고, 조직용 플랜은 관리자가 먼저 접근을 허용해야 합니다.",
+        "관리자가 열어도 구성원 각자가 다시 동의해야 하며 Memories도 켜져 있어야 합니다. API 키나 Amazon Bedrock 연결, 영국·EEA·스위스는 지원 대상이 아닙니다."
+      ],
+      points: [
+        ["제외된 연결", "API 키나 Amazon Bedrock을 쓰는 환경에서는 지원하지 않습니다."],
+        ["지역 제한", "EEA, 스위스, 영국에서는 현재 사용할 수 없습니다."]
+      ],
+      sources: [["공식", "플랜과 지역별 제공 범위", "https://learn.chatgpt.com/docs/customization/computer-history"], ["참고", "LinkedIn 기능 정리", "https://www.linkedin.com/feed/update/urn:li:activity:7493856064396902401?updateEntityUrn=urn%3Ali%3Afs_updateV2%3A%28urn%3Ali%3Aactivity%3A7493856064396902401%2CFEED_DETAIL%2CEMPTY%2CDEFAULT%2Cfalse%29"]]
+    },
+    7: {
+      background: "../editorial-scenes-v2/office-suite.webp",
+      category: "시작 방법",
+      theme: "mint",
+      variant: ["roomy", "explainer"],
+      eyebrow: "TURN IT ON",
+      title: "설정에서 켜고 앱과 사이트 범위를 고릅니다",
+      visual: { type: "milestones", items: [["1", "Settings 열기"], ["2", "Integrations 선택"], ["3", "Computer history 켜기"], ["4", "앱·사이트 권한 지정"]] },
+      cardBody: [
+        "처음에는 문서와 개발 도구처럼 목적이 분명한 앱만 허용하는 편이 좋습니다.",
+        "생성된 타임라인과 메모리를 살펴본 뒤 필요할 때 범위를 넓힙니다."
+      ],
+      highlight: "좁게 시작하고 기록을 직접 확인",
+      panelTitle: "처음 켤 때 이렇게 시작",
+      summary: [
+        "ChatGPT 설정의 Integrations에서 Computer history를 켜고 앱과 웹사이트 접근 범위를 정합니다.",
+        "처음부터 모든 앱을 허용하기보다 문서·개발 도구처럼 목적이 분명한 업무 앱만 선택하세요. 기록이 어떻게 만들어지는지 확인한 뒤 범위를 넓히는 편이 안전합니다."
+      ],
+      points: [
+        ["권장 시작", "문서와 개발 도구처럼 목적이 분명한 앱만 먼저 허용합니다."],
+        ["통신 앱", "다른 사람의 메시지나 대화를 기록하려면 사전에 명시적인 동의를 받아야 합니다."]
+      ],
+      sources: [["공식", "설정과 권한 안내", "https://learn.chatgpt.com/docs/customization/computer-history"], ["참고", "Wikidocs 설정 정리", "https://wikidocs.net/blog/@openwiki/28526/"]]
+    },
+    8: {
+      background: "../editorial-scenes-v2/security-access.webp",
+      category: "사용자 통제",
+      theme: "butter",
+      variant: ["roomy", "explainer"],
+      eyebrow: "PAUSE, EXCLUDE, DELETE",
+      title: "앱을 빼고, 멈추고, 기록을 지울 수 있습니다",
+      visual: { type: "tile-grid", items: [["제외", "앱·사이트별 차단"], ["중지", "일시정지와 재개"], ["삭제", "10분·1시간·하루·전체"], ["확인", "개별 기록과 메모리 열기"]] },
+      cardBody: [
+        "앱과 사이트를 제외하고 수집을 잠시 멈추거나 최근 기록을 지울 수 있습니다.",
+        "기능을 끄는 것과 이미 만든 로컬 메모리를 삭제하는 것은 서로 다른 작업입니다."
+      ],
+      highlight: "수집 범위와 남은 메모리를 따로 관리",
+      panelTitle: "사용자가 통제할 수 있는 것",
+      summary: [
+        "앱과 사이트를 제외하고 수집을 일시정지하거나 다시 켤 수 있습니다. 최근 10분, 1시간, 하루 또는 전체 기록을 지우는 선택지도 제공합니다.",
+        "개별 타임라인 항목과 메모리도 삭제할 수 있습니다. 다만 기능을 끄는 것과 이미 만들어진 로컬 Markdown 메모리를 지우는 것은 별도로 확인해야 합니다."
+      ],
+      points: [
+        ["즉시 멈추기", "민감한 대화나 개인 업무를 시작하기 전에 일시정지할 수 있습니다."],
+        ["삭제 확인", "Computer History를 껐다고 로컬에 이미 생성된 Markdown 메모리까지 자동으로 모두 사라진다고 가정하면 안 됩니다."]
+      ],
+      sources: [["공식", "일시정지·제외·삭제", "https://learn.chatgpt.com/docs/customization/computer-history"], ["영상", "권한과 삭제 공식 데모", "https://youtu.be/W-HhMUe9hOg"]]
+    },
+    9: {
+      background: "../editorial-scenes-v2/ai-infrastructure.webp",
+      category: "데이터 경로",
+      theme: "coral",
+      variant: ["roomy", "diagram-large", "explainer"],
+      eyebrow: "LOCAL FILES & PROCESSING",
+      title: "임시 이벤트와 로컬 메모리는 보관 방식이 다릅니다",
+      visual: { type: "flow", items: ["Mac 임시 이벤트", "일시적 서버 처리", "로컬 Markdown", "ChatGPT·Codex 활용"] },
+      cardBody: [
+        "임시 이벤트 파일은 Mac에 최대 48시간 남을 수 있습니다.",
+        "정리된 로컬 Markdown 메모리는 사용자가 직접 삭제할 때까지 유지됩니다."
+      ],
+      highlight: "이벤트 최대 48시간 · 메모리는 직접 삭제",
+      panelTitle: "데이터가 어디에 얼마나 남나",
+      summary: [
+        "Mac의 임시 이벤트 파일은 최대 48시간 남을 수 있고, 요약을 위해 일시적인 Codex 세션이 서버에서 처리합니다. OpenAI는 법적 의무가 없는 한 처리 뒤 이벤트 파일을 보관하거나 학습에 쓰지 않는다고 설명합니다.",
+        "요약 결과인 로컬 Markdown 메모리는 사용자가 삭제할 때까지 남습니다. Computer History가 이 파일을 별도로 암호화하지 않으므로 같은 macOS 사용자 권한으로 실행되는 프로그램이 접근할 수 있습니다."
+      ],
+      points: [
+        ["로컬 경로", "메모리는 $CODEX_HOME/memories/extensions/skysight/ 아래에 생성되며 일반적으로 ~/.codex 아래를 사용합니다."],
+        ["암호화", "Computer History가 이 파일을 별도로 암호화하지 않아 같은 macOS 사용자 권한으로 실행되는 프로그램이 접근할 수 있습니다."]
+      ],
+      sources: [["공식", "보관 기간과 로컬 메모리", "https://learn.chatgpt.com/docs/customization/computer-history"], ["참고", "Wikidocs 개인정보 정리", "https://wikidocs.net/blog/@openwiki/28526/"]]
+    },
+    10: {
+      background: "bg-risk.webp",
+      category: "도입 전 확인",
+      theme: "lilac",
+      variant: ["roomy", "explainer"],
+      eyebrow: "PRIVACY & PROMPT INJECTION",
+      title: "편리함보다 먼저 권한과 민감정보를 점검해야 합니다",
+      visual: { type: "tile-grid", items: [["프롬프트 인젝션", "앱·웹 콘텐츠가 악성 지시를 포함할 수 있음"], ["사람의 동의", "통신 기록은 사전 동의 필요"], ["민감한 앱", "건강·금융·개인 앱 제외 권장"], ["비용", "요약 과정에서 토큰 사용"]] },
+      cardBody: [
+        "AI가 읽는 앱과 웹이 늘어날수록 악성 지시와 과도한 수집 위험도 커집니다.",
+        "민감한 앱은 빼고, 기록과 메모리를 정기적으로 확인하고 삭제해야 합니다."
+      ],
+      highlight: "필요한 앱만 허용 · 기록 확인 · 정기 삭제",
+      panelTitle: "도입 전 마지막 체크리스트",
+      summary: [
+        "읽는 앱과 웹 콘텐츠가 늘어날수록 프롬프트 인젝션에 노출될 가능성도 커집니다. 통신 기록은 상대의 동의를 받고 건강·금융·개인 앱처럼 민감한 영역은 제외하는 편이 좋습니다.",
+        "필요한 앱만 허용하고, 민감한 작업 전에는 잠시 멈추며, 타임라인과 로컬 메모리를 정기적으로 살펴보세요. 생성된 메모리와 채팅은 계정의 데이터 제어 설정에 따라 모델 개선에 쓰일 수 있습니다."
+      ],
+      points: [
+        ["실무 체크리스트", "필요한 앱만 허용하고, 민감한 작업 전에 멈추며, 타임라인과 로컬 메모리를 정기적으로 살핍니다."],
+        ["과장하지 않기", "이 기능이 생산성 격차를 크게 벌릴 것이라는 반응도 있지만, 실제 효과는 업무 종류와 권한 설계에 따라 달라집니다."]
+      ],
+      sources: [["공식", "보안·개인정보 주의사항", "https://learn.chatgpt.com/docs/customization/computer-history"], ["반응", "Threads 생산성 반응", "https://www.threads.com/share/GDkCxzJ9u/"]]
+    }
+  },
+  sources: [
+    ["OpenAI Computer History 공식 안내", "https://learn.chatgpt.com/docs/customization/computer-history"],
+    ["OpenAI 공식 YouTube 데모", "https://youtu.be/W-HhMUe9hOg"],
+    ["Threads 기능·영상 소개", "https://www.threads.com/share/DDQPu39_I/"],
+    ["Threads 생산성 반응", "https://www.threads.com/share/GDkCxzJ9u/"],
+    ["LinkedIn Computer History 정리", "https://www.linkedin.com/feed/update/urn:li:activity:7493856064396902401?updateEntityUrn=urn%3Ali%3Afs_updateV2%3A%28urn%3Ali%3Aactivity%3A7493856064396902401%2CFEED_DETAIL%2CEMPTY%2CDEFAULT%2Cfalse%29"],
+    ["Wikidocs 기능·개인정보 정리", "https://wikidocs.net/blog/@openwiki/28526/"]
+  ]
+});
+
 
 export const labels = {
   all: "전체",
