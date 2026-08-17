@@ -51,6 +51,35 @@
   --card-footer-mask-height: 8cqw;
   --card-copy-padding: 3.2cqw;
   --card-copy-radius: 1.2cqw;
+  --card-balanced-panel-width: 86cqw;
+  --card-balanced-panel-height: 88cqw;
+  --card-balanced-cover-height: 92cqw;
+  --card-balanced-padding: 4.4cqw;
+  --card-balanced-paper-opacity: 84%;
+  --card-balanced-backdrop-blur: 1.45cqw;
+  --card-balanced-title-measure: 17ch;
+  --card-balanced-cover-title-measure: 15ch;
+  --card-balanced-title-size: clamp(1.28rem, 4.45cqw, 2.7rem);
+  --card-balanced-cover-title-size: clamp(1.48rem, 5cqw, 3rem);
+  --card-balanced-section-gap: 3.5cqw;
+  --card-balanced-body-gap: 1.1cqw;
+  --card-balanced-body-margin: 3.2cqw;
+  --card-balanced-body-padding: 2.5cqw;
+  --card-balanced-body-size: clamp(.8rem, 1.92cqw, 1.08rem);
+  --card-balanced-body-leading: 1.5;
+  --card-balanced-highlight-margin: 3.1cqw;
+  --card-balanced-label-size: clamp(.76rem, 1.78cqw, 1rem);
+  --card-balanced-table-padding: 1cqw .9cqw;
+  --diagram-gap: 1.4cqw;
+  --diagram-rule-width: .35cqw;
+  --diagram-node-height: 7.8cqw;
+  --diagram-orbit-height: 29cqw;
+  --diagram-layer-offset: 4.5cqw;
+  --diagram-corner: .8cqw;
+  --diagram-label-size: clamp(.68rem, 1.55cqw, .9rem);
+  --diagram-value-size: clamp(.76rem, 1.78cqw, 1.02rem);
+  --diagram-surface-opacity: 70%;
+  --diagram-illustration-height: 29cqw;
   --card-category-rule-width: clamp(3px, .72cqw, 5px);
   --card-category-rule-opacity: .82;
   --motion-micro: 120ms;
@@ -936,6 +965,9 @@ button { color: inherit; }
 }
 .card-copy {
   --card-accent: var(--color-coral);
+  --diagram-open-rule: color-mix(in srgb, var(--card-accent) 64%, var(--color-line));
+  --diagram-graph-edge: color-mix(in srgb, var(--card-accent) 56%, var(--color-ink));
+  --diagram-soft-surface: color-mix(in srgb, var(--color-paper) 72%, transparent);
   width: var(--card-copy-width);
   height: var(--card-copy-height);
   position: absolute;
@@ -1120,6 +1152,355 @@ button { color: inherit; }
 .card-visual--timeline li::before { content: ""; width: 1.2cqw; height: 1.2cqw; position: absolute; top: -.75cqw; left: 1cqw; border-radius: 50%; background: var(--card-accent); }
 .card-visual--timeline strong { font-size: clamp(.62rem, 1.55cqw, .9rem); }
 .card-visual--timeline span { color: var(--color-muted); font-size: clamp(.52rem, 1.2cqw, .72rem); line-height: 1.25; }
+.card-visual--hierarchy {
+  display: grid;
+  gap: .7cqw;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.card-visual--hierarchy li {
+  min-height: 7.4cqw;
+  display: grid;
+  grid-template-columns: 10cqw minmax(0, 1fr);
+  align-items: center;
+  gap: 1.4cqw;
+  padding: 1.1cqw 1.5cqw;
+  border-left: .45cqw solid var(--card-accent);
+  background: color-mix(in srgb, var(--card-accent) 13%, var(--color-paper));
+}
+.card-visual--hierarchy li:nth-child(2) { width: calc(100% - 5cqw); margin-left: 5cqw; }
+.card-visual--hierarchy li:nth-child(3) { width: calc(100% - 10cqw); margin-left: 10cqw; }
+.card-visual--hierarchy li:nth-child(4) { width: calc(100% - 15cqw); margin-left: 15cqw; }
+.card-visual--hierarchy small { color: var(--color-muted); font-size: clamp(.7rem, 1.55cqw, .88rem); font-weight: 800; }
+.card-visual--hierarchy strong { min-width: 0; font-size: clamp(.78rem, 1.8cqw, 1.02rem); line-height: 1.3; }
+.card-visual--lanes { display: grid; gap: var(--diagram-gap); }
+.card-visual--lanes section {
+  display: grid;
+  grid-template-columns: 10cqw minmax(0, 1fr);
+  align-items: center;
+  gap: var(--diagram-gap);
+}
+.card-visual--lanes section > strong {
+  display: grid;
+  place-items: center;
+  min-height: calc(var(--diagram-node-height) + 1cqw);
+  border-radius: var(--diagram-corner);
+  background: color-mix(in srgb, var(--card-accent) 38%, var(--color-paper));
+  font-size: var(--diagram-label-size);
+}
+.card-visual--lanes ol {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--diagram-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.card-visual--lanes li {
+  min-width: 0;
+  min-height: var(--diagram-node-height);
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 1cqw;
+  border: 1px solid color-mix(in srgb, var(--card-accent) 52%, var(--color-line));
+  background: color-mix(in srgb, var(--color-paper) var(--diagram-surface-opacity), transparent);
+  text-align: center;
+  font-size: var(--diagram-label-size);
+  font-weight: 800;
+  line-height: 1.25;
+}
+.card-visual--lanes li + li::before {
+  content: "";
+  width: var(--diagram-gap);
+  height: var(--diagram-rule-width);
+  position: absolute;
+  left: calc(-1 * var(--diagram-gap));
+  background: var(--card-accent);
+}
+.card-visual--orbit {
+  height: var(--diagram-orbit-height);
+  position: relative;
+}
+.card-visual__orbit-center {
+  width: 24cqw;
+  min-height: 9cqw;
+  position: absolute;
+  inset: 50% auto auto 50%;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  padding: 1.1cqw;
+  border: var(--diagram-rule-width) solid var(--card-accent);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--color-paper) 88%, transparent);
+  font-size: var(--diagram-value-size);
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+.card-visual--orbit ol { margin: 0; padding: 0; list-style: none; }
+.card-visual--orbit li {
+  width: 29cqw;
+  min-height: var(--diagram-node-height);
+  position: absolute;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  padding: 1cqw 1.2cqw;
+  border-left: var(--diagram-rule-width) solid var(--card-accent);
+  background: color-mix(in srgb, var(--color-paper) var(--diagram-surface-opacity), transparent);
+  font-size: var(--diagram-label-size);
+  font-weight: 800;
+  line-height: 1.25;
+  text-align: center;
+}
+.card-visual--orbit li:nth-child(1) { top: 0; left: 0; }
+.card-visual--orbit li:nth-child(2) { top: 0; right: 0; }
+.card-visual--orbit li:nth-child(3) { bottom: 0; right: 0; }
+.card-visual--orbit li:nth-child(4) { bottom: 0; left: 0; }
+.card-visual--orbit::before,
+.card-visual--orbit::after {
+  content: "";
+  position: absolute;
+  inset: 4cqw 16cqw;
+  border: var(--diagram-rule-width) solid color-mix(in srgb, var(--card-accent) 66%, var(--color-line));
+  border-radius: 50%;
+}
+.card-visual--orbit::after { inset: 7cqw 23cqw; border-style: dashed; }
+.card-visual--orbit[data-mode="loop"]::before { border-right-style: dashed; }
+.card-visual--layers {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.card-visual--layers li {
+  width: calc(100% - var(--layer-inset, 0cqw));
+  min-height: var(--diagram-node-height);
+  display: grid;
+  grid-template-columns: 17cqw minmax(0, 1fr);
+  align-items: center;
+  gap: var(--diagram-gap);
+  margin-left: 0;
+  padding: 1.1cqw 1.5cqw;
+  border-top: var(--diagram-rule-width) solid var(--card-accent);
+  background: color-mix(in srgb, var(--color-paper) var(--diagram-surface-opacity), transparent);
+}
+.card-visual--layers li:nth-child(2) { --layer-inset: 4.5cqw; margin-left: var(--diagram-layer-offset); background: color-mix(in srgb, var(--card-accent) 11%, var(--color-paper)); }
+.card-visual--layers li:nth-child(3) { --layer-inset: 9cqw; margin-left: calc(var(--diagram-layer-offset) * 2); background: color-mix(in srgb, var(--card-accent) 17%, var(--color-paper)); }
+.card-visual--layers li:nth-child(4) { --layer-inset: 13.5cqw; margin-left: calc(var(--diagram-layer-offset) * 3); background: color-mix(in srgb, var(--card-accent) 24%, var(--color-paper)); }
+.card-visual--layers strong { font-size: var(--diagram-label-size); }
+.card-visual--layers span { color: var(--color-muted); font-size: var(--diagram-label-size); line-height: 1.25; }
+.card-visual--funnel {
+  display: grid;
+  justify-items: center;
+  gap: .7cqw;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.card-visual--funnel li {
+  width: calc(100% - var(--funnel-inset, 0%));
+  min-height: 6.4cqw;
+  display: grid;
+  place-items: center;
+  padding: .8cqw 1.4cqw;
+  background: color-mix(in srgb, var(--card-accent) var(--funnel-tone, 20%), var(--color-paper));
+  clip-path: polygon(4% 0, 96% 0, 100% 100%, 0 100%);
+  font-size: var(--diagram-label-size);
+  font-weight: 800;
+  text-align: center;
+}
+.card-visual--funnel li:nth-child(2) { --funnel-inset: 12%; --funnel-tone: 30%; }
+.card-visual--funnel li:nth-child(3) { --funnel-inset: 24%; --funnel-tone: 42%; }
+.card-visual--funnel li:nth-child(4) { --funnel-inset: 38%; --funnel-tone: 58%; }
+.card-visual--gate {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 16cqw minmax(0, 1fr);
+  align-items: center;
+  gap: var(--diagram-gap);
+}
+.card-visual--gate > span,
+.card-visual--gate > strong,
+.card-visual--gate b {
+  min-height: calc(var(--diagram-node-height) + 1cqw);
+  display: grid;
+  place-items: center;
+  padding: 1cqw;
+  text-align: center;
+  font-size: var(--diagram-label-size);
+  line-height: 1.25;
+}
+.card-visual--gate > span { border: 1px solid var(--color-line); background: color-mix(in srgb, var(--color-paper) 74%, transparent); font-weight: 800; }
+.card-visual--gate > strong { border-radius: 50%; background: color-mix(in srgb, var(--card-accent) 52%, var(--color-paper)); }
+.card-visual--gate > div { display: grid; gap: .8cqw; }
+.card-visual--gate b { min-height: 6.2cqw; border-left: var(--diagram-rule-width) solid var(--card-accent); background: color-mix(in srgb, var(--color-paper) 74%, transparent); }
+.card-visual--retrieval-scene {
+  min-height: var(--diagram-illustration-height);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: end;
+  gap: 1.6cqw;
+  margin-inline: 0;
+  padding: 0 0 1cqw;
+  list-style: none;
+  background: linear-gradient(var(--diagram-open-rule), var(--diagram-open-rule)) 50% 11.5cqw / calc(100% - 16cqw) var(--diagram-rule-width) no-repeat;
+}
+.card-visual--retrieval-scene li {
+  min-width: 0;
+  display: grid;
+  justify-items: center;
+  gap: 2cqw;
+  font-size: var(--diagram-label-size);
+  font-weight: 800;
+  line-height: 1.25;
+  text-align: center;
+}
+.card-visual--retrieval-scene li > span {
+  width: 12cqw;
+  height: 12cqw;
+  position: relative;
+  display: block;
+  border: var(--diagram-rule-width) solid var(--diagram-open-rule);
+  background: var(--diagram-soft-surface);
+}
+.card-visual--retrieval-scene li[data-stage="1"] > span { border-radius: 50%; }
+.card-visual--retrieval-scene li[data-stage="1"] > span::before {
+  content: "";
+  width: 4.6cqw;
+  height: 2.8cqw;
+  position: absolute;
+  inset: 3.4cqw auto auto 3.3cqw;
+  border: var(--diagram-rule-width) solid var(--card-accent);
+  border-radius: 50%;
+}
+.card-visual--retrieval-scene li[data-stage="1"] > span::after {
+  content: "";
+  width: 2.4cqw;
+  height: var(--diagram-rule-width);
+  position: absolute;
+  inset: 7.4cqw auto auto 6.8cqw;
+  background: var(--card-accent);
+  transform: rotate(45deg);
+}
+.card-visual--retrieval-scene li[data-stage="2"] > span,
+.card-visual--retrieval-scene li[data-stage="3"] > span { border-radius: .8cqw; box-shadow: -1.4cqw 1.4cqw 0 color-mix(in srgb, var(--card-accent) 24%, var(--color-paper)); }
+.card-visual--retrieval-scene li[data-stage="2"] > span::before,
+.card-visual--retrieval-scene li[data-stage="3"] > span::before,
+.card-visual--retrieval-scene li[data-stage="4"] > span::before {
+  content: "";
+  position: absolute;
+  inset: 3cqw 2.2cqw;
+  background: repeating-linear-gradient(to bottom, var(--diagram-open-rule) 0 .35cqw, transparent .35cqw 1.5cqw);
+}
+.card-visual--retrieval-scene li[data-stage="3"] > span { transform: rotate(-5deg); }
+.card-visual--retrieval-scene li[data-stage="4"] > span { border-radius: 50% 50% 50% 1.2cqw; background: color-mix(in srgb, var(--card-accent) 26%, var(--color-paper)); }
+
+.card-visual--spotlight {
+  min-height: var(--diagram-illustration-height);
+  display: grid;
+  grid-template-columns: 24cqw 14cqw 14cqw minmax(0, 1fr);
+  align-items: center;
+  gap: 0;
+}
+.card-visual--spotlight section { display: grid; gap: 1.2cqw; }
+.card-visual--spotlight section > small { font-size: var(--diagram-label-size); font-weight: 800; }
+.card-visual--spotlight section > div { display: grid; gap: .7cqw; }
+.card-visual--spotlight section span { height: 4.2cqw; overflow: hidden; padding: .8cqw 1cqw; border-left: var(--diagram-rule-width) solid var(--card-accent); background: var(--diagram-soft-surface); font-size: clamp(.58rem, 1.35cqw, .78rem); }
+.card-visual--spotlight > i { width: 100%; height: 15cqw; background: color-mix(in srgb, var(--card-accent) 25%, transparent); clip-path: polygon(0 34%, 100% 0, 100% 100%, 0 66%); }
+.card-visual--spotlight > strong { width: 13cqw; height: 13cqw; display: grid; place-items: center; padding: 1.2cqw; border: var(--diagram-rule-width) solid var(--card-accent); border-radius: 50%; background: var(--color-paper); font-size: var(--diagram-label-size); text-align: center; }
+.card-visual--spotlight > p { margin: 0; padding: 1.5cqw; border-bottom: var(--diagram-rule-width) solid var(--card-accent); font-size: var(--diagram-value-size); font-weight: 800; line-height: 1.25; }
+
+.card-visual--memory-pair { display: grid; gap: 1.8cqw; }
+.card-visual--memory-pair > div { display: grid; grid-template-columns: 1fr 1fr; gap: 5cqw; }
+.card-visual--memory-pair section { min-height: 16cqw; display: grid; align-content: center; gap: 1cqw; padding: 2cqw 3cqw; border: var(--diagram-rule-width) solid var(--diagram-open-rule); border-radius: 50% 50% 18% 18%; background: var(--diagram-soft-surface); text-align: center; }
+.card-visual--memory-pair section small { font-size: var(--diagram-label-size); font-weight: 800; }
+.card-visual--memory-pair section strong { font-size: var(--diagram-value-size); }
+.card-visual--memory-pair > p { width: 54%; margin: 0 auto; padding: 1.1cqw 2cqw; border-top: var(--diagram-rule-width) solid var(--card-accent); background: color-mix(in srgb, var(--card-accent) 18%, var(--color-paper)); font-size: var(--diagram-value-size); font-weight: 800; text-align: center; }
+
+.card-visual--feedback-loop { display: grid; gap: 2.4cqw; }
+.card-visual--feedback-loop ol { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3cqw; margin: 0; padding: 0; list-style: none; }
+.card-visual--feedback-loop li { min-height: 9cqw; position: relative; display: grid; place-items: center; padding: 1.2cqw; border-bottom: var(--diagram-rule-width) solid var(--card-accent); background: var(--diagram-soft-surface); font-size: var(--diagram-label-size); font-weight: 800; text-align: center; }
+.card-visual--feedback-loop li + li::before { content: "→"; position: absolute; left: -2.3cqw; color: var(--color-muted); }
+.card-visual--feedback-loop p { margin: 0 8cqw; padding: 1.3cqw 2cqw; border: var(--diagram-rule-width) dashed var(--diagram-open-rule); border-radius: 8cqw; font-size: var(--diagram-label-size); font-weight: 800; text-align: center; }
+
+.card-visual--context-graph { min-height: var(--diagram-illustration-height); display: grid; grid-template-columns: 23cqw 1fr; align-items: center; gap: 5cqw; }
+.card-visual--context-graph > section { min-height: 20cqw; display: grid; align-content: center; gap: 1cqw; padding: 2cqw; border: 1px solid var(--color-line); border-left: 1.2cqw solid var(--card-accent); background: var(--diagram-soft-surface); }
+.card-visual--context-graph > section small { font-size: var(--diagram-label-size); font-weight: 800; }
+.card-visual--context-graph > section strong { font-size: var(--diagram-value-size); line-height: 1.25; }
+.card-visual--context-graph > div { min-height: 25cqw; position: relative; display: grid; grid-template-columns: 1fr 1fr; align-content: space-between; gap: 8cqw 4cqw; background: linear-gradient(27deg, transparent 49%, var(--diagram-open-rule) 50%, transparent 51%), linear-gradient(-27deg, transparent 49%, var(--diagram-open-rule) 50%, transparent 51%); }
+.card-visual--context-graph > div b { width: 13cqw; height: 13cqw; position: absolute; inset: 50% auto auto 50%; z-index: 2; display: grid; place-items: center; padding: 1cqw; border-radius: 50%; background: color-mix(in srgb, var(--card-accent) 56%, var(--color-paper)); font-size: var(--diagram-label-size); text-align: center; transform: translate(-50%, -50%); }
+.card-visual--context-graph > div span { min-height: 7cqw; z-index: 1; display: grid; place-items: center; padding: .9cqw; border: 1px solid var(--diagram-open-rule); border-radius: 50%; background: var(--color-paper); font-size: clamp(.58rem, 1.32cqw, .76rem); font-weight: 800; text-align: center; }
+
+.card-visual--decision-tree { display: grid; justify-items: center; gap: 1.5cqw; }
+.card-visual--decision-tree > strong { padding: 1cqw 4cqw; border-radius: 6cqw; background: color-mix(in srgb, var(--card-accent) 42%, var(--color-paper)); font-size: var(--diagram-value-size); }
+.card-visual--decision-tree > div { width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2cqw; padding-top: 2.2cqw; background: linear-gradient(var(--diagram-open-rule), var(--diagram-open-rule)) 50% 0 / 68% var(--diagram-rule-width) no-repeat; }
+.card-visual--decision-tree section { display: grid; gap: .5cqw; padding: 1.2cqw; border-bottom: var(--diagram-rule-width) solid var(--card-accent); background: var(--diagram-soft-surface); text-align: center; }
+.card-visual--decision-tree section b { font-size: var(--diagram-label-size); }
+.card-visual--decision-tree section span { color: var(--color-muted); font-size: clamp(.58rem, 1.3cqw, .76rem); }
+.card-visual--decision-tree > p { margin: 0; padding: 1cqw 3cqw; border-top: var(--diagram-rule-width) solid var(--card-accent); font-size: var(--diagram-label-size); font-weight: 800; }
+
+.card-visual--failure-path { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4cqw; margin: 0; padding: 2.8cqw 0 0; list-style: none; border-top: var(--diagram-rule-width) solid var(--diagram-open-rule); }
+.card-visual--failure-path li { position: relative; display: grid; gap: 1cqw; padding: 1.4cqw 1cqw; }
+.card-visual--failure-path li::before { content: ""; width: 2cqw; height: 2cqw; position: absolute; top: -3.9cqw; left: 1cqw; border-radius: 50%; background: var(--card-accent); }
+.card-visual--failure-path li::after { content: "×"; color: color-mix(in srgb, var(--color-coral) 72%, var(--color-ink)); font-size: 2.4cqw; line-height: 1; }
+.card-visual--failure-path strong { font-size: var(--diagram-label-size); }
+.card-visual--failure-path span { color: var(--color-muted); font-size: clamp(.58rem, 1.28cqw, .76rem); line-height: 1.25; }
+
+.card-visual--document-anatomy { min-height: var(--diagram-illustration-height); display: grid; grid-template-columns: 24cqw 1fr; align-items: center; gap: 4cqw; }
+.card-visual--document-anatomy > div { height: 27cqw; display: grid; align-content: start; gap: 2cqw; padding: 3cqw; border: 1px solid var(--color-line); border-radius: .8cqw; background: var(--color-paper); box-shadow: -1.5cqw 1.5cqw 0 color-mix(in srgb, var(--card-accent) 22%, var(--color-paper)); }
+.card-visual--document-anatomy > div i { height: 1.2cqw; background: var(--diagram-open-rule); }
+.card-visual--document-anatomy > div i:nth-child(2) { width: 72%; }
+.card-visual--document-anatomy > div i:nth-child(3) { height: 8cqw; background: color-mix(in srgb, var(--card-accent) 24%, var(--color-paper)); }
+.card-visual--document-anatomy > div i:nth-child(4) { width: 84%; }
+.card-visual--document-anatomy ol { display: grid; gap: .7cqw; margin: 0; padding: 0; list-style: none; }
+.card-visual--document-anatomy li { display: grid; grid-template-columns: 10cqw 1fr; gap: 1.2cqw; padding: .9cqw 0; border-bottom: 1px solid var(--color-line); }
+.card-visual--document-anatomy strong,
+.card-visual--document-anatomy span { font-size: var(--diagram-label-size); line-height: 1.25; }
+.card-visual--document-anatomy span { color: var(--color-muted); }
+
+.card-visual--balance { position: relative; display: grid; grid-template-columns: 1fr 12cqw 1fr; align-items: end; gap: 2cqw; padding-bottom: 7cqw; }
+.card-visual--balance section { min-height: 13cqw; display: grid; align-content: center; gap: .8cqw; padding: 1.5cqw; border-bottom: var(--diagram-rule-width) solid var(--card-accent); background: var(--diagram-soft-surface); text-align: center; }
+.card-visual--balance section small { font-size: var(--diagram-label-size); font-weight: 800; }
+.card-visual--balance section strong { font-size: var(--diagram-value-size); }
+.card-visual--balance > div { height: 13cqw; position: relative; border-bottom: 5cqw solid color-mix(in srgb, var(--card-accent) 48%, var(--color-paper)); border-left: 4cqw solid transparent; border-right: 4cqw solid transparent; }
+.card-visual--balance > div i { width: 34cqw; height: var(--diagram-rule-width); position: absolute; left: 50%; bottom: 6cqw; background: var(--color-ink); transform: translateX(-50%) rotate(-4deg); }
+.card-visual--balance > p { position: absolute; inset: auto 20% 0; margin: 0; padding: 1cqw; background: color-mix(in srgb, var(--card-accent) 22%, var(--color-paper)); font-size: var(--diagram-label-size); font-weight: 800; text-align: center; }
+
+.card-visual--graph-network { height: var(--diagram-illustration-height); position: relative; }
+.card-visual--graph-network::before,
+.card-visual--graph-network::after { content: ""; height: max(2px, .35cqw); position: absolute; z-index: 1; left: 12%; right: 12%; top: 50%; background: var(--diagram-graph-edge); transform-origin: center; }
+.card-visual--graph-network::before { transform: rotate(25deg); }
+.card-visual--graph-network::after { transform: rotate(-25deg); }
+.card-visual--graph-network > strong { width: 16cqw; height: 16cqw; position: absolute; inset: 50% auto auto 50%; z-index: 3; display: grid; place-items: center; padding: 1cqw; border-radius: 42% 58% 48% 52%; background: color-mix(in srgb, var(--card-accent) 58%, var(--color-paper)); font-size: var(--diagram-value-size); text-align: center; transform: translate(-50%, -50%); }
+.card-visual--graph-network ol { margin: 0; padding: 0; list-style: none; }
+.card-visual--graph-network li { width: 17cqw; min-height: 7cqw; position: absolute; z-index: 2; display: grid; place-items: center; padding: .8cqw; border: 1px solid var(--diagram-open-rule); border-radius: 50%; background: var(--color-paper); font-size: var(--diagram-label-size); font-weight: 800; text-align: center; }
+.card-visual--graph-network li:nth-child(1) { top: 0; left: 5cqw; }
+.card-visual--graph-network li:nth-child(2) { top: 2cqw; right: 3cqw; }
+.card-visual--graph-network li:nth-child(3) { bottom: 1cqw; right: 9cqw; }
+.card-visual--graph-network li:nth-child(4) { bottom: 0; left: 1cqw; }
+
+.card-visual--scorecard { display: grid; grid-template-columns: 1fr 1fr; gap: 3cqw; }
+.card-visual--scorecard section { padding-top: 1.4cqw; border-top: var(--diagram-rule-width) solid var(--card-accent); }
+.card-visual--scorecard section > strong { font-size: var(--diagram-value-size); }
+.card-visual--scorecard ul { display: grid; gap: 1cqw; margin: 1.4cqw 0 0; padding: 0; list-style: none; }
+.card-visual--scorecard li { position: relative; padding-left: 3cqw; color: var(--color-muted); font-size: var(--diagram-label-size); line-height: 1.3; }
+.card-visual--scorecard li::before { content: ""; width: 1.5cqw; height: 1.5cqw; position: absolute; left: 0; top: .2cqw; border: var(--diagram-rule-width) solid var(--card-accent); transform: rotate(45deg); }
+
+.card-visual--dual-search { display: grid; grid-template-columns: 1fr 1fr; gap: 4cqw; padding-bottom: 7cqw; position: relative; }
+.card-visual--dual-search section { min-height: 17cqw; display: grid; place-content: center; gap: .7cqw; padding: 2cqw; border: var(--diagram-rule-width) solid var(--diagram-open-rule); border-radius: 50%; background: var(--diagram-soft-surface); text-align: center; }
+.card-visual--dual-search section small { font-size: var(--diagram-label-size); font-weight: 800; }
+.card-visual--dual-search section strong { font-size: var(--diagram-value-size); }
+.card-visual--dual-search > p { position: absolute; inset: auto 16% 0; margin: 0; padding: 1cqw 2cqw; border-top: var(--diagram-rule-width) solid var(--card-accent); font-size: var(--diagram-label-size); font-weight: 800; text-align: center; }
+
+.card-visual--workflow-canvas { min-height: var(--diagram-illustration-height); display: grid; grid-template-columns: 1fr 1fr; gap: 4cqw; position: relative; padding-bottom: 7cqw; }
+.card-visual--workflow-canvas section { display: grid; grid-template-columns: 9cqw 1fr; gap: 1cqw; align-items: center; }
+.card-visual--workflow-canvas section > strong { grid-row: 1 / span 3; align-self: stretch; display: grid; place-items: center; padding: 1cqw; background: color-mix(in srgb, var(--card-accent) 34%, var(--color-paper)); font-size: var(--diagram-label-size); text-align: center; }
+.card-visual--workflow-canvas section > span { padding: .9cqw 1.2cqw; border-bottom: 1px solid var(--color-line); font-size: var(--diagram-label-size); font-weight: 800; }
+.card-visual--workflow-canvas > p { position: absolute; inset: auto 22% 0; margin: 0; padding: 1cqw 2cqw; background: color-mix(in srgb, var(--card-accent) 20%, var(--color-paper)); font-size: var(--diagram-label-size); font-weight: 800; text-align: center; }
 .card-visual--milestones {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1261,7 +1642,7 @@ button { color: inherit; }
   background: color-mix(in srgb, var(--color-paper) 78%, transparent);
 }
 .card-visual--table[data-columns="2"] > div { grid-template-columns: .82fr 1.55fr; }
-.card-visual--table[data-columns="3"] > div { grid-template-columns: 1.35fr 1fr .76fr; }
+.card-visual--table[data-columns="3"] > div { grid-template-columns: 1.15fr 1.45fr 1.05fr; }
 .card-visual--table > div:first-child {
   border-color: color-mix(in srgb, var(--card-accent) 62%, var(--color-line));
   background: color-mix(in srgb, var(--card-accent) 38%, var(--color-paper));
@@ -1332,6 +1713,47 @@ button { color: inherit; }
   padding: .9cqw 1.35cqw;
   font-size: clamp(.74rem, 1.75cqw, 1rem);
   line-height: 1.45;
+}
+.card-frame--watercolor-editorial .card-copy.card-copy--rag-balanced .card-copy__panel,
+.card-frame--watercolor-editorial .card-copy.card-copy--rag-balanced:has(.card-visual) .card-copy__panel {
+  width: var(--card-balanced-panel-width);
+  min-height: var(--card-balanced-panel-height);
+  padding: var(--card-balanced-padding);
+  background: color-mix(in srgb, var(--color-paper) var(--card-balanced-paper-opacity), transparent);
+  -webkit-backdrop-filter: blur(var(--card-balanced-backdrop-blur)) saturate(.9);
+  backdrop-filter: blur(var(--card-balanced-backdrop-blur)) saturate(.9);
+}
+.card-frame--watercolor-editorial .card-copy--cover.card-copy--rag-balanced .card-copy__panel { min-height: var(--card-balanced-cover-height); }
+.card-frame--watercolor-editorial .card-copy.card-copy--rag-balanced h2 {
+  max-width: var(--card-balanced-title-measure);
+  margin-top: var(--card-balanced-section-gap);
+  font-size: var(--card-balanced-title-size);
+}
+.card-frame--watercolor-editorial .card-copy--cover.card-copy--rag-balanced h2 {
+  max-width: var(--card-balanced-cover-title-measure);
+  font-size: var(--card-balanced-cover-title-size);
+}
+.card-frame--watercolor-editorial .card-copy.card-copy--rag-balanced .card-visual { margin-top: var(--card-balanced-section-gap); }
+.card-frame--watercolor-editorial .card-copy.card-copy--rag-balanced .card-copy__body,
+.card-frame--watercolor-editorial .card-copy.card-copy--rag-balanced:has(.card-visual) .card-copy__body {
+  gap: var(--card-balanced-body-gap);
+  margin-top: var(--card-balanced-body-margin);
+  padding-top: var(--card-balanced-body-padding);
+}
+.card-frame--watercolor-editorial .card-copy.card-copy--rag-balanced .card-copy__body p,
+.card-frame--watercolor-editorial .card-copy.card-copy--rag-balanced:has(.card-visual) .card-copy__body p {
+  font-size: var(--card-balanced-body-size);
+  line-height: var(--card-balanced-body-leading);
+}
+.card-frame--watercolor-editorial .card-copy.card-copy--rag-balanced .card-copy__highlight,
+.card-frame--watercolor-editorial .card-copy.card-copy--rag-balanced:has(.card-visual) .card-copy__highlight {
+  margin-top: var(--card-balanced-highlight-margin);
+  font-size: var(--card-balanced-label-size);
+}
+.card-frame--watercolor-editorial .card-copy.card-copy--rag-balanced .card-visual--table strong,
+.card-frame--watercolor-editorial .card-copy.card-copy--rag-balanced .card-visual--table span {
+  padding: var(--card-balanced-table-padding);
+  font-size: var(--card-balanced-label-size);
 }
 .card-copy:has(.card-visual) .card-copy__models { display: none; }
 .card-copy__body p,

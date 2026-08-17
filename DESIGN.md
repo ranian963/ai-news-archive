@@ -68,6 +68,10 @@ Base unit: 4px.
 
 Card composition tokens use container-query units so the exported 4:5 sheet and the responsive viewer share one geometry: `--card-copy-panel-height` is 86cqw for a standard story, `--card-copy-panel-height-compact` is 102cqw, and `--card-footer-mask-height` is 8cqw.
 
+Long illustrated explainers use the reusable `--card-balanced-*` token group. It sets the shorter translucent paper field, title measure, body rhythm, readable label tier, and table-cell spacing together so an article can expose the lower watercolor area without adding page-specific dimensions.
+
+Relationship diagrams use the shared `--diagram-*` token group for gaps, rule weight, node height, orbit height, layer offset, corner treatment, type, and translucent surfaces. New diagrams must use that group rather than page-specific geometry.
+
 Category continuity uses the same pastel mapping already present in the archive: weekly is coral, brief is sky, and model is mint. Inside an article, that color appears only as a `3–5px` left index rule and the compact card-detail category badge. It never recolors the watercolor, diagrams, or main copy panel.
 
 The watercolor is atmosphere, not the subject. Editorial backgrounds use a pale, desaturated wash so the live copy and diagrams remain dominant. Diagrams use the card's single accent plus warm neutral lines; they never introduce a second semantic color system.
@@ -122,15 +126,18 @@ The detail page starts with a viewport-aware Reader Stage. Its toolbar, card, co
 
 ### Card Diagram
 - Purpose: replace repeated prose only when the information has a real relationship to show: before/after, sequence, timeline, comparison, hierarchy, scale, or measured values.
-- Variants: metric row, step flow, two-way comparison, timeline, progress bars, compact table, price transition, and risk scale.
+- Variants: metric row, step flow, two-way comparison, timeline, hierarchy, progress bars, compact table, price transition, and risk scale.
+- Explanatory variants: paired lanes for parallel processes, a retrieval scene for question-to-answer movement, a spotlight for selecting evidence from many documents, memory reservoirs for internal and external knowledge, a feedback path for correction, a context graph, a decision tree, a broken pipeline for failure analysis, document anatomy, a balance for trade-offs, a graph network, separate retrieval and answer scorecards, dual search lenses, a workflow canvas, a funnel, and a permission gate. Choose the variant from the relationship being explained. These are semantic live HTML primitives, not decorative shapes.
 - Copy rule: a diagram card keeps at most one or two explanatory sentences below the visual. Full context remains in the adjacent Card Detail Panel.
 - Styling: one accent color, warm neutral rules, square-to-soft corners, no decorative icons, no rainbow legend, and no infographic dashboard chrome. Compact tables use column-aware widths instead of one fixed grid, a tinted header row, softly separated data rows, and type no smaller than the card's readable label size.
 - Price transition: use two dated price states joined by one directional cue, then place the practical cost rule below them. Do not show a price change as three unrelated equal-width cells.
 - Accessibility: every value and relationship is live HTML in reading order. Color is supportive only; labels and values carry the meaning.
 - Restraint: narrative or caveat-heavy cards may remain prose. Do not force a diagram where it would hide uncertainty or imply a false comparison.
 - Dense-card rule: a 4:5 card must not compress a long title, miniature table, body copy, and closing label into a shallow box at the top. When four related items are the story, use a large 2×2 milestone or focus grid, one 100-point allocation strip, or four open comparison rows. Let the paper field occupy roughly four-fifths of the sheet, keep the smallest live copy at the readable body tier, and leave only supporting context for the detail panel.
+- Illustrated explainer rule: when a long article uses a small set of subject illustrations, keep roughly the lower quarter of the sheet open so the illustration remains recognizable. Use a slightly more transparent paper field and move long context to the adjacent detail panel instead of covering the full sheet.
 - Model-article comfort rule: the six-card model articles use a `roomy` paper field of roughly three-quarters of the sheet. Covers and explanation cards keep the closing label near the lower edge of that field, and metric, flow, comparison, bar, and risk diagrams move up one readable type tier. This is intentionally shorter than the roundup's `spacious` field so the model-specific watercolor remains part of the explanation.
 - Rhythm rule: do not place more than one conventional table in succession. Alternate tables with open rows, bars, timelines, or a short prose card so the reader can see the relationship before reading every cell.
+- Long-series rhythm: in an article longer than ten cards, do not repeat the same box grid, orbit, or table grammar on adjacent cards. A repeated primitive is allowed only when the cards explain the same kind of relationship and are separated in the sequence. Use at least six relationship-specific primitives and at least five subject-specific watercolor scenes. A table is reserved for repeated fields that readers genuinely need to scan by row and column.
 - Evidence rule: cited leaderboard screenshots belong in the detail/source context when their axis labels become microtext at card size. The card itself must redraw the relevant values as live HTML and state the scope in text.
 
 ### Model Profile

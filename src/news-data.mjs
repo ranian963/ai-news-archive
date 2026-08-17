@@ -1960,6 +1960,569 @@ newsItems.push({
   ]
 });
 
+newsItems.push({
+  id: "rag-2026-landscape",
+  type: "brief",
+  path: "news/brief/rag-2026-landscape/",
+  identity: { brand: "RAG", title: "2026년 8월 현황" },
+  cardVariants: ["rag-balanced"],
+  published: "2026-08-17",
+  title: "2026년 RAG, 검색부터 평가까지 함께 설계합니다",
+  summary: "RAG는 외부 자료를 찾아 LLM의 답변에 근거를 붙이는 방법입니다. 2020년의 단순 검색 결합에서 하이브리드 검색, 재정렬, GraphRAG, Agentic Retrieval로 발전한 이유와 기업 환경에서 자주 실패하는 지점, 평가와 보안, LightRAG, RAGFlow, PageIndex 같은 오픈소스 선택 기준을 정리했습니다.",
+  tags: ["짧막 뉴스", "RAG", "검색", "GraphRAG", "Agentic Retrieval", "평가", "보안", "오픈소스"],
+  cardCount: 21,
+  imageStem: "rag-2026-landscape",
+  readerMode: "editorial",
+  coverAlt: "질문에서 근거 문서를 찾아 답변으로 이어지는 RAG 흐름을 수채화로 표현한 카드뉴스 표지",
+  articleIntro: {
+    eyebrow: "RAG LANDSCAPE | 2026.08.17",
+    title: "RAG는 검색 기능 하나가 아니라 데이터와 운영을 포함한 시스템입니다",
+    body: [
+      "RAG는 사용자의 질문과 관련된 외부 자료를 찾아 LLM의 입력에 넣고, 그 자료를 바탕으로 답하게 하는 방법입니다. 모델을 다시 학습하지 않아도 최신 정보와 사내 문서, 전문 자료를 연결하고 출처를 제시할 수 있습니다.",
+      "구현은 간단해 보여도 실제 품질은 문서 파싱, 청킹, 검색, 재정렬, 권한, 버전 관리, 답변 생성 가운데 가장 약한 단계에서 떨어집니다. 긴 컨텍스트 모델이 널리 쓰이는 2026년에도 최신성, 접근 권한, 근거 추적 때문에 RAG가 필요한 이유입니다.",
+      "이 글은 2020년 원 논문부터 GraphRAG와 Agentic Retrieval까지의 변화를 따라가고, 운영 중 자주 만나는 실패와 평가 방법을 설명합니다. 마지막에는 LightRAG, RAGFlow, PageIndex, Microsoft GraphRAG의 차이를 비교합니다."
+    ],
+    facts: [
+      ["시작", "2020년 RAG 논문"],
+      ["현재 흐름", "Hybrid, Graph, Agentic Retrieval"],
+      ["운영 과제", "데이터, 권한, 평가, 보안"],
+      ["오픈소스", "LightRAG, RAGFlow, PageIndex, GraphRAG"]
+    ]
+  },
+  cardDetails: {
+    1: {
+      background: "rag-pipeline-v2.webp",
+      category: "RAG | 정의",
+      theme: "sky",
+      variant: ["cover", "roomy", "diagram-large", "explainer"],
+      eyebrow: "RETRIEVAL-AUGMENTED GENERATION",
+      title: "질문에 맞는 자료를 찾아 답변에 넣는 방법입니다",
+      visual: { type: "retrieval-scene", items: ["사용자 질문", "관련 자료 검색", "근거 선택", "답변과 출처"] },
+      cardBody: [
+        "RAG는 LLM과 별도의 검색 시스템을 연결해 외부 지식을 답변에 사용합니다.",
+        "모델을 다시 학습하지 않아도 최신 정보와 사내 자료를 반영할 수 있습니다."
+      ],
+      highlight: "2026년 8월 17일 기준 | 검색, 근거, 답변",
+      panelTitle: "RAG를 가장 짧게 설명하면",
+      summary: [
+        "NIST는 RAG를 생성형 AI 모델과 별도의 정보 검색 시스템 또는 지식 저장소를 결합한 시스템으로 정의합니다. 사용자의 질문과 관련된 정보를 찾아 모델의 입력에 넣고, 모델은 그 근거를 참고해 답합니다.",
+        "모델 내부 지식을 다시 학습하지 않고도 최신 문서와 비공개 자료를 바꿀 수 있다는 점이 장점입니다. 다만 검색 결과가 틀리면 답변도 틀릴 수 있으므로 RAG 자체가 사실성을 보장하지는 않습니다."
+      ],
+      points: [
+        ["필요한 이유", "최신성, 사내 지식, 전문 자료, 출처 확인을 모델 학습과 분리해서 관리할 수 있습니다."],
+        ["주의", "검색된 자료가 정확하고 현재 유효하며 사용자에게 허용된 문서인지 별도로 확인해야 합니다."]
+      ],
+      sources: [["공식", "NIST RAG 정의", "https://csrc.nist.gov/glossary/term/retrieval_augmented_generation"], ["논문", "RAG 원 논문", "https://arxiv.org/abs/2005.11401"], ["참고", "Alvin Blackshear의 RAG 설명", "https://www.linkedin.com/pulse/what-rag-alvin-blackshear-svpde"]]
+    },
+    2: {
+      background: "rag-chunking-v3.webp",
+      category: "기본 구조",
+      theme: "coral",
+      variant: ["roomy", "diagram-large", "explainer"],
+      eyebrow: "THE BASIC PIPELINE",
+      title: "문서를 넣는 단계와 질문을 처리하는 단계가 나뉩니다",
+      visual: { type: "lanes", lanes: [["문서 준비", ["파싱", "청킹", "색인"]], ["질문 처리", ["검색", "재정렬", "답변"]]] },
+      cardBody: [
+        "문서는 먼저 읽을 수 있는 형태로 바꾸고 작은 단위로 나눠 색인합니다.",
+        "질문이 오면 관련 자료를 찾고 순서를 다시 매긴 뒤 LLM에 함께 보냅니다."
+      ],
+      highlight: "수집 → 파싱 → 청킹 → 검색 → 재정렬 → 답변",
+      panelTitle: "RAG가 실제로 처리하는 두 가지 흐름",
+      summary: [
+        "준비 단계에서는 PDF와 웹 문서, 데이터베이스를 읽고 문단과 표, 제목 같은 구조를 보존해 나눕니다. 각 조각에는 문서 ID, 버전, 작성일, 권한 같은 메타데이터를 붙이고 키워드 색인이나 임베딩을 만듭니다.",
+        "질문 단계에서는 질의를 해석하고 후보 자료를 찾은 뒤 재정렬합니다. 선택한 근거와 출처 정보를 컨텍스트에 넣어 답변을 만들고, 검색과 생성 과정을 각각 기록합니다."
+      ],
+      points: [
+        ["오프라인", "문서 수집, 파싱, 청킹, 메타데이터, 색인을 준비합니다."],
+        ["온라인", "질문 분석, 검색, 재정렬, 컨텍스트 구성, 답변과 인용을 처리합니다."]
+      ],
+      sources: [["공식", "Azure AI Search의 RAG 개요", "https://learn.microsoft.com/en-us/azure/search/retrieval-augmented-generation-overview"], ["공식", "RAGFlow의 RAG 기본 설명", "https://github.com/infiniflow/ragflow/blob/main/docs/basics/rag.md"]]
+    },
+    3: {
+      background: "rag-pipeline-v2.webp",
+      category: "왜 필요한가",
+      theme: "mint",
+      variant: ["roomy", "diagram-large", "explainer"],
+      eyebrow: "WHY RAG STILL MATTERS",
+      title: "긴 컨텍스트가 있어도 검색은 남습니다",
+      visual: { type: "spotlight", sourceLabel: "전체 자료", sources: ["문서 A", "문서 B", "문서 C"], selected: "질문에 맞는 근거", destination: "권한과 최신성을 확인해 모델 입력에 추가" },
+      cardBody: [
+        "긴 문서를 통째로 넣는 방식은 비용과 지연이 크고 어떤 자료를 썼는지 추적하기 어렵습니다.",
+        "RAG는 필요한 자료만 고르고 권한과 버전을 함께 적용합니다."
+      ],
+      highlight: "긴 컨텍스트와 RAG는 경쟁 관계가 아니라 선택 문제",
+      panelTitle: "모델의 컨텍스트가 길어졌는데도 RAG를 쓰는 이유",
+      summary: [
+        "긴 컨텍스트 모델은 한 번에 많은 자료를 읽을 수 있지만, 매 질문마다 전체 문서를 넣으면 입력 비용과 응답 시간이 늘어납니다. 어떤 문서가 답변을 뒷받침했는지 찾기도 어렵습니다.",
+        "RAG는 질문마다 필요한 근거를 골라 최신 문서와 사용자 권한을 적용합니다. 문서 수가 적고 자주 바뀌지 않는 간단한 작업은 긴 컨텍스트만으로 충분할 수 있으므로, 모든 질문에 검색을 강제로 붙일 필요는 없습니다."
+      ],
+      points: [
+        ["RAG가 유리한 경우", "자료가 많거나 자주 바뀌고, 문서별 권한과 인용이 필요한 경우입니다."],
+        ["단순 입력이 나은 경우", "자료가 적고 한 번의 분석으로 끝나며 전체 맥락을 빠짐없이 읽어야 하는 경우입니다."]
+      ],
+      sources: [["공식", "NIST RAG 정의", "https://csrc.nist.gov/glossary/term/retrieval_augmented_generation"], ["공식", "Azure AI Search의 RAG 선택 기준", "https://learn.microsoft.com/en-us/azure/search/retrieval-augmented-generation-overview"]]
+    },
+    4: {
+      background: "rag-cover.webp",
+      category: "연대기 | 2020",
+      theme: "butter",
+      variant: ["roomy", "diagram-large", "explainer"],
+      eyebrow: "THE 2020 PAPER",
+      title: "모델의 기억과 외부 검색을 한 답변에서 결합했습니다",
+      visual: { type: "memory-pair", items: [["모델 내부", "Parametric memory"], ["외부 색인", "Non-parametric memory"]], result: "두 기억을 한 답변에서 결합" },
+      cardBody: [
+        "2020년 논문은 사전학습 모델과 Wikipedia의 dense vector index를 함께 사용했습니다.",
+        "지식을 갱신하고 답변의 근거를 보여주기 어려운 문제를 검색으로 보완했습니다."
+      ],
+      highlight: "2020년 5월 22일 공개 | RAG라는 이름의 출발",
+      panelTitle: "RAG라는 이름은 어디서 시작됐나",
+      summary: [
+        "Lewis와 동료 연구진은 2020년 5월 22일 RAG 논문을 공개했습니다. 사전학습 seq2seq 모델을 parametric memory로, Wikipedia의 dense vector index를 non-parametric memory로 사용했습니다.",
+        "모델이 학습 중 기억한 지식만 쓰지 않고 답변 시점에 외부 자료를 가져오게 한 설계입니다. 논문은 지식 갱신과 근거 제시 문제를 주요 배경으로 들었습니다."
+      ],
+      points: [
+        ["당시 구성", "질문과 가까운 Wikipedia 문단을 dense retriever로 찾고 생성 모델이 답했습니다."],
+        ["현재와의 차이", "오늘날에는 키워드 검색, 재정렬, 권한, 그래프, 에이전트 제어가 추가됐습니다."]
+      ],
+      sources: [["논문", "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks", "https://arxiv.org/abs/2005.11401"]]
+    },
+    5: {
+      background: "rag-cover.webp",
+      category: "연대기 | 2021–2023",
+      theme: "lilac",
+      variant: ["roomy", "diagram-large", "explainer"],
+      eyebrow: "NAIVE TO ADVANCED RAG",
+      title: "한 번 검색하는 구조에서 검색 품질을 다듬는 구조로 바뀌었습니다",
+      visual: { type: "timeline", items: [["Naive RAG", "질문 1개와 top-k"], ["Advanced RAG", "질의 변환과 재정렬"], ["Modular RAG", "단계별 조합과 교체"]] },
+      cardBody: [
+        "초기 RAG는 질문을 한 번 검색하고 상위 문서를 바로 모델에 넣는 구성이 많았습니다.",
+        "이후 질의 재작성, 하이브리드 검색, 재정렬과 근거 압축이 각 단계에 추가됐습니다."
+      ],
+      highlight: "Naive → Advanced → Modular RAG",
+      panelTitle: "RAG 파이프라인이 길어진 이유",
+      summary: [
+        "2023년 RAG 조사 논문은 발전 단계를 Naive, Advanced, Modular RAG로 정리했습니다. 단순 top-k 검색은 질문 표현이 문서와 다르거나 상위 결과에 잡음이 섞일 때 쉽게 흔들렸습니다.",
+        "질의를 여러 표현으로 바꾸고 키워드와 벡터 검색을 함께 쓰며, 재정렬과 근거 압축을 거쳐 컨텍스트를 만드는 방법이 늘었습니다. 모든 단계를 쓰는 것이 정답은 아니며 실제 자료와 질문으로 효과를 확인해야 합니다."
+      ],
+      points: [
+        ["Advanced RAG", "검색 전 질의를 고치고 검색 후 후보를 재정렬하거나 압축합니다."],
+        ["Modular RAG", "검색기, 라우터, 메모리, 평가기를 업무에 맞게 조합합니다."]
+      ],
+      sources: [["논문", "Retrieval-Augmented Generation for Large Language Models: A Survey", "https://arxiv.org/abs/2312.10997"], ["참고", "RAG 연대기와 Agentic Retrieval 정리", "https://velog.io/@qlgks1/RAG-is-dead-long-live-RAG-Agentic-Retrieval"]]
+    },
+    6: {
+      background: "rag-network-v2.webp",
+      category: "연대기 | 2023–2024",
+      theme: "coral",
+      variant: ["roomy", "diagram-large", "explainer"],
+      eyebrow: "SELF-CHECK AND CORRECTION",
+      title: "검색이 필요한지와 검색 결과가 쓸 만한지 확인하기 시작했습니다",
+      visual: { type: "feedback-loop", items: ["근거 검색", "품질 평가", "답변 생성"], returnLabel: "근거가 약하면 질의를 고쳐 다시 검색" },
+      cardBody: [
+        "Self-RAG는 모든 질문에 같은 수의 문서를 넣지 않고 필요할 때 검색하도록 학습했습니다.",
+        "CRAG는 검색 결과를 평가하고 부족하면 다른 검색과 필터링을 시도합니다."
+      ],
+      highlight: "검색 여부와 검색 품질을 파이프라인 안에서 판단",
+      panelTitle: "검색 결과를 그대로 믿지 않는 방법",
+      summary: [
+        "Self-RAG는 모델이 검색 필요 여부를 판단하고, 가져온 근거와 자신의 답변을 reflection token으로 점검하게 했습니다. 고정된 문서 수를 모든 질문에 넣는 문제를 줄이려는 접근입니다.",
+        "CRAG는 검색 결과를 평가하는 가벼운 모델을 두고, 결과가 약하면 웹 검색을 추가하거나 문서에서 필요한 부분만 다시 구성합니다. 두 연구 모두 검색 실패를 생성 모델이 그대로 이어받는 문제를 다룹니다."
+      ],
+      points: [
+        ["Self-RAG", "검색, 생성, 자기 점검을 한 모델의 동작으로 학습합니다."],
+        ["CRAG", "검색 결과의 신뢰도를 평가해 다른 검색이나 문서 정제를 선택합니다."]
+      ],
+      sources: [["논문", "Self-RAG", "https://arxiv.org/abs/2310.11511"], ["논문", "Corrective Retrieval Augmented Generation", "https://arxiv.org/abs/2401.15884"]]
+    },
+    7: {
+      background: "rag-network-v2.webp",
+      category: "연대기 | 2024",
+      theme: "mint",
+      variant: ["roomy", "diagram-large", "explainer"],
+      eyebrow: "CONTEXTUAL AND GRAPH RETRIEVAL",
+      title: "잘린 문단의 맥락과 문서 사이 관계를 다시 붙였습니다",
+      visual: { type: "context-graph", chunkLabel: "맥락을 붙인 청크", chunk: "문서의 위치, 시점, 주체", center: "질문", items: ["키워드", "벡터", "엔터티", "관계"] },
+      cardBody: [
+        "Contextual Retrieval은 각 청크가 원문에서 어떤 내용인지 짧은 설명을 붙여 검색합니다.",
+        "GraphRAG는 문서 속 엔터티와 관계를 연결해 자료 전체를 묻는 질문을 다룹니다."
+      ],
+      highlight: "청크의 앞뒤 맥락 | 관계 | 전체 자료 질문",
+      panelTitle: "문단만 검색하면 사라지는 정보를 보완합니다",
+      summary: [
+        "Anthropic의 Contextual Retrieval은 청크 앞에 문서 전체에서의 위치와 의미를 짧게 붙인 뒤 contextual embedding과 contextual BM25를 만듭니다. 잘린 문단만으로는 구분하기 어려운 제품명과 시점, 주체를 보존하려는 방법입니다.",
+        "Microsoft GraphRAG는 엔터티와 관계, 주장과 커뮤니티 요약을 만들고 local search와 global search를 나눕니다. 특정 엔터티 질문과 자료 전체의 주제를 묻는 질문이 서로 다른 검색을 필요로 한다는 판단입니다."
+      ],
+      points: [
+        ["Contextual Retrieval", "청크를 색인하기 전에 문서에서의 맥락을 덧붙입니다."],
+        ["GraphRAG", "관계 그래프와 커뮤니티 요약으로 자료 전체의 주제와 연결을 검색합니다."]
+      ],
+      sources: [["공식", "Anthropic Contextual Retrieval", "https://www.anthropic.com/engineering/contextual-retrieval"], ["공식", "Microsoft GraphRAG 저장소", "https://github.com/microsoft/graphrag"], ["공식", "GraphRAG query engine", "https://github.com/microsoft/graphrag/blob/main/docs/query/overview.md"]]
+    },
+    8: {
+      background: "rag-network-v2.webp",
+      category: "연대기 | 2025–2026",
+      theme: "sky",
+      variant: ["roomy", "diagram-large", "explainer"],
+      eyebrow: "AGENTIC RETRIEVAL",
+      title: "복잡한 질문은 계획을 세우고 여러 번 검색합니다",
+      visual: { type: "decision-tree", root: "복합 질문", branches: [["하위 질문 1", "사내 문서"], ["하위 질문 2", "데이터베이스"], ["하위 질문 3", "웹 자료"]], result: "근거를 비교하고 다음 검색 여부 결정" },
+      cardBody: [
+        "Agentic Retrieval은 LLM이 질문을 나누고 검색 경로와 출처를 고릅니다.",
+        "결과가 부족하면 질의를 고쳐 다시 찾지만 비용과 지연, 오류가 이어질 위험도 늘어납니다."
+      ],
+      highlight: "계획 → 병렬 검색 → 평가 → 필요하면 반복",
+      panelTitle: "Agentic Retrieval이 추가한 제어 단계",
+      summary: [
+        "Microsoft Azure AI Search의 agentic retrieval은 질문과 대화 기록을 보고 하위 질문을 만들고, 여러 지식 출처에서 키워드, 벡터, 하이브리드 검색을 병렬로 실행한 뒤 결과를 다시 정렬합니다.",
+        "한 번의 검색으로 답하기 어려운 복합 질문에 유리하지만 LLM이 검색 계획에 참여하므로 비용과 시간이 늘어납니다. 2026년 SoK 논문은 반복 검색에서 잘못된 근거와 환각, 오염된 메모리, 도구 오류가 이어질 수 있다고 지적합니다."
+      ],
+      points: [
+        ["잘 맞는 질문", "여러 조건과 출처를 함께 확인하거나 대화의 앞 문맥을 반영해야 하는 질문입니다."],
+        ["운영 부담", "검색 계획과 반복 횟수, 비용, 지연, 중단 조건, 실행 기록을 함께 관리해야 합니다."]
+      ],
+      sources: [["공식", "Azure AI Search agentic retrieval", "https://learn.microsoft.com/en-us/azure/search/search-agentic-retrieval-concept"], ["논문", "SoK: Agentic RAG", "https://arxiv.org/abs/2603.07379"], ["참고", "RAG 연대기와 Agentic Retrieval", "https://velog.io/@qlgks1/RAG-is-dead-long-live-RAG-Agentic-Retrieval"]]
+    },
+    9: {
+      background: "rag-permission-v3.webp",
+      category: "기업 RAG | 실패",
+      theme: "coral",
+      variant: ["roomy", "diagram-large", "explainer"],
+      eyebrow: "FIVE QUIET FAILURES",
+      title: "틀린 답보다 틀린 근거가 더 조용히 지나갑니다",
+      visual: { type: "failure-path", items: [["검색", "정답 문서 누락"], ["청킹", "규칙과 예외 분리"], ["버전", "폐기 문서 선택"], ["권한", "허용 밖 자료 노출"]] },
+      cardBody: [
+        "기업 RAG는 문서를 못 찾거나 잘못 자르고, 오래된 버전이나 권한 밖 자료를 가져올 수 있습니다.",
+        "LLM은 잘못 받은 근거도 매끄럽게 요약하므로 오류가 늦게 발견됩니다."
+      ],
+      highlight: "찾기, 자르기, 버전, 조합, 권한을 따로 점검",
+      panelTitle: "기업 RAG가 조용히 실패하는 다섯 가지 경우",
+      summary: [
+        "정답 문서가 검색되지 않거나 규칙과 예외가 다른 청크로 나뉘고, 폐기된 문서가 최신 문서보다 먼저 나올 수 있습니다. 답이 여러 시스템에 흩어져 있으면 top-k 조각만 모아서는 관계를 이해하기 어렵습니다.",
+        "권한 밖 문서를 정확하게 찾아 답하는 경우는 내용상 정답이어도 보안 사고입니다. 생성 모델을 바꾸기 전에 검색 결과와 버전, 권한, 컨텍스트 조립을 확인해야 합니다."
+      ],
+      points: [
+        ["오류 위치", "수집, 파싱, 청킹, 색인, 검색, 재정렬, 컨텍스트 조립 가운데 어디서 틀렸는지 분리합니다."],
+        ["권한", "모델에 넣은 뒤 가리는 대신 검색 단계에서 허용되지 않은 문서를 제외해야 합니다."]
+      ],
+      sources: [["분석", "Why Enterprise RAG Quietly Fails", "https://www.linkedin.com/pulse/why-enterprise-rag-quietly-fails-miguel-minoldo-aj44e"], ["공식", "Azure AI Search의 RAG 과제", "https://learn.microsoft.com/en-us/azure/search/retrieval-augmented-generation-overview"]]
+    },
+    10: {
+      background: "rag-chunking-v3.webp",
+      category: "데이터",
+      theme: "butter",
+      variant: ["roomy", "diagram-large", "explainer"],
+      eyebrow: "DOCUMENTS BEFORE EMBEDDINGS",
+      title: "검색 품질은 문서를 읽는 단계에서 이미 결정됩니다",
+      visual: { type: "document-anatomy", items: [["구조", "제목, 본문, 표"], ["맥락", "앞뒤 절과 페이지"], ["메타", "버전, 날짜, 소유자"], ["권한", "사용자별 접근 범위"]] },
+      cardBody: [
+        "스캔 PDF, 표, 각주, 머리글을 잘못 읽으면 좋은 임베딩 모델도 원문을 복구하지 못합니다.",
+        "최신 버전과 작성일, 문서 소유자, 권한을 색인과 함께 관리해야 합니다."
+      ],
+      highlight: "문서 구조와 메타데이터가 검색 후보를 정함",
+      panelTitle: "RAG에서 데이터 작업이 먼저인 이유",
+      summary: [
+        "기업 문서는 텍스트만 있는 파일보다 스캔 PDF와 표, 슬라이드, 이미지, 각주가 많습니다. 파서가 표의 행과 열, 제목과 본문, 문서 페이지를 잘못 연결하면 이후 검색은 틀린 텍스트에서 출발합니다.",
+        "문서 ID, 버전, 유효 기간, 소유자, 권한, 출처 위치를 함께 저장하고 원본이 바뀌면 해당 청크와 임베딩을 다시 만들어야 합니다. 삭제된 문서도 색인과 캐시에서 함께 지워야 합니다."
+      ],
+      points: [
+        ["권위와 최신성", "문서가 비슷한지뿐 아니라 현재 유효한 공식 문서인지 판단할 메타데이터가 필요합니다."],
+        ["추적", "답변의 각 문장이 원문 어느 파일과 페이지에서 왔는지 다시 열 수 있어야 합니다."]
+      ],
+      sources: [["분석", "기업 RAG의 데이터와 버전 문제", "https://www.linkedin.com/pulse/why-enterprise-rag-quietly-fails-miguel-minoldo-aj44e"], ["참고", "eDiscovery에서 가져온 RAG 신뢰성 원칙", "https://www.linkedin.com/pulse/lessons-from-ediscovery-rag-building-trustworthy-alvin-blackshear-kuiae"], ["공식", "RAGFlow 문서 처리 개요", "https://github.com/infiniflow/ragflow/blob/main/docs/basics/rag.md"]]
+    },
+    11: {
+      background: "rag-chunking-v3.webp",
+      category: "청킹",
+      theme: "lilac",
+      variant: ["roomy", "diagram-large", "explainer"],
+      eyebrow: "CHUNKING CHANGES MEANING",
+      title: "작게 자르면 정확해지고, 너무 작으면 조건을 잃습니다",
+      visual: { type: "balance", left: ["작은 청크", "주제는 정확하지만 맥락 손실"], right: ["큰 청크", "문맥은 남지만 검색 잡음"], center: "질문과 문서 구조에 맞춰 크기 결정" },
+      cardBody: [
+        "고정 길이 청킹은 쉽지만 제목, 예외, 표와 본문을 서로 떼어놓을 수 있습니다.",
+        "문서 구조와 질문 유형에 따라 재귀, 의미, 부모-자식 청킹을 시험해야 합니다."
+      ],
+      highlight: "청크 크기는 설정값이 아니라 평가할 설계 선택",
+      panelTitle: "청킹에는 하나의 정답이 없습니다",
+      summary: [
+        "작은 청크는 질문과 가까운 문장을 찾기 쉽지만 규칙과 예외, 표와 설명을 떨어뜨릴 수 있습니다. 큰 청크는 문맥을 보존하지만 여러 주제가 섞여 임베딩과 재정렬이 흐려지고 입력 토큰도 늘어납니다.",
+        "고정 길이, 문단과 제목을 따르는 재귀 청킹, 의미 변화에 맞춘 청킹, 작은 청크를 찾고 큰 부모 문단을 돌려주는 방법을 실제 질문 세트로 비교해야 합니다."
+      ],
+      points: [
+        ["보존할 단위", "제목, 표, 목록, 코드, 규칙과 예외처럼 함께 읽어야 하는 부분을 먼저 정합니다."],
+        ["확인 방법", "정답 근거가 하나의 청크에 들어오는지와 불필요한 문장이 얼마나 섞이는지 봅니다."]
+      ],
+      sources: [["참고", "Chunking strategies", "https://www.linkedin.com/pulse/rag-2-chunking-strategies-right-way-split-your-documents-hoq-qghuc"], ["공식", "RAGFlow의 청킹 설명", "https://github.com/infiniflow/ragflow/blob/main/docs/basics/rag.md"], ["분석", "RAG 설계 실험 기록", "https://www.linkedin.com/pulse/rag-every-design-choice-had-earn-its-place-sundar-b-ysohc"]]
+    },
+    12: {
+      background: "rag-pipeline-v2.webp",
+      category: "검색과 재정렬",
+      theme: "sky",
+      variant: ["roomy", "diagram-large", "explainer"],
+      eyebrow: "HYBRID RETRIEVAL",
+      title: "키워드와 의미 검색을 섞고 마지막 후보를 다시 고릅니다",
+      visual: { type: "funnel", items: ["BM25와 Dense 후보", "두 결과 합치기", "Reranker로 재정렬", "상위 근거"] },
+      cardBody: [
+        "키워드 검색은 고유명사와 정확한 표현에 강하고 벡터 검색은 다른 표현의 의미를 찾습니다.",
+        "두 결과를 합친 뒤 reranker가 질문에 답할 수 있는 근거를 다시 골라냅니다."
+      ],
+      highlight: "Hybrid search와 reranking은 자료별로 다시 측정",
+      panelTitle: "검색기를 하나만 고르지 않는 이유",
+      summary: [
+        "BM25 같은 키워드 검색은 제품명과 조항 번호, 오류 코드처럼 정확한 단어에 강합니다. Dense retrieval은 표현이 달라도 의미가 비슷한 문서를 찾는 데 유리합니다. 하이브리드 검색은 두 후보군을 합쳐 검색 누락을 줄입니다.",
+        "Reranker는 상위 후보를 질문과 함께 다시 읽어 순서를 매깁니다. Sundar B의 한 프로젝트에서는 하이브리드 검색이 hit rate 62%를 기록했고 재정렬은 목표 지표를 오히려 낮췄습니다. 이 수치는 해당 자료와 평가셋의 결과이므로 보편적인 우열로 해석하면 안 됩니다."
+      ],
+      points: [
+        ["검색 평가", "정답 근거가 후보군에 들어왔는지 recall과 precision, nDCG로 확인합니다."],
+        ["재정렬 평가", "상위 몇 개 안에 정답 근거가 올라오는지와 지연, 비용을 함께 봅니다."]
+      ],
+      sources: [["공식", "Azure AI Search의 hybrid search 권고", "https://learn.microsoft.com/en-us/azure/search/retrieval-augmented-generation-overview"], ["공식", "Anthropic Contextual Retrieval", "https://www.anthropic.com/engineering/contextual-retrieval"], ["분석", "RAG 설계 실험 기록", "https://www.linkedin.com/pulse/rag-every-design-choice-had-earn-its-place-sundar-b-ysohc"]]
+    },
+    13: {
+      background: "rag-graph.webp",
+      category: "GraphRAG",
+      theme: "mint",
+      variant: ["roomy", "diagram-large", "explainer"],
+      eyebrow: "LOCAL AND GLOBAL QUESTIONS",
+      title: "문서 전체의 관계를 물을 때 그래프가 도움이 됩니다",
+      visual: { type: "graph-network", center: "관계 그래프", items: ["Local, 특정 대상", "Global, 전체 주제", "DRIFT, 범위 연결", "커뮤니티 요약"] },
+      cardBody: [
+        "GraphRAG는 엔터티와 관계를 추출하고 비슷한 관계를 커뮤니티로 묶어 요약합니다.",
+        "특정 대상을 묻는 질문과 자료 전체의 경향을 묻는 질문을 다른 방식으로 처리합니다."
+      ],
+      highlight: "관계가 중요한 질문에 사용 | 색인 비용 확인",
+      panelTitle: "GraphRAG가 일반 벡터 검색과 다른 점",
+      summary: [
+        "일반 벡터 검색은 질문과 가까운 청크를 잘 찾지만 자료 전체의 주요 주제나 여러 문서에 흩어진 관계를 모으는 질문에는 약할 수 있습니다. GraphRAG는 엔터티와 관계를 추출하고 커뮤니티별 요약을 만듭니다.",
+        "Microsoft GraphRAG는 특정 엔터티와 관련 청크를 조합하는 local search, 자료 전체의 커뮤니티 요약을 map-reduce로 읽는 global search, 두 범위를 잇는 DRIFT search를 제공합니다. 색인 때 많은 LLM 호출이 필요할 수 있으므로 모든 문서에 쓰기보다 질문 유형을 먼저 확인해야 합니다."
+      ],
+      points: [
+        ["잘 맞는 경우", "조직과 사건의 연결, 자료 전체의 주제, 여러 문서의 관계를 묻는 경우입니다."],
+        ["주의", "관계 추출과 커뮤니티 요약이 틀릴 수 있고 초기 색인 비용이 큽니다."]
+      ],
+      sources: [["공식", "Microsoft GraphRAG 저장소", "https://github.com/microsoft/graphrag"], ["공식", "GraphRAG query engine", "https://github.com/microsoft/graphrag/blob/main/docs/query/overview.md"], ["공식", "GraphRAG global search", "https://github.com/microsoft/graphrag/blob/main/docs/query/global_search.md"]]
+    },
+    14: {
+      background: "rag-permission-v3.webp",
+      category: "권한과 보안",
+      theme: "coral",
+      variant: ["roomy", "diagram-large", "explainer"],
+      eyebrow: "RETRIEVE ONLY WHAT IS ALLOWED",
+      title: "정답 문서라도 볼 권한이 없으면 검색하면 안 됩니다",
+      visual: { type: "gate", input: "사용자와 질문", gate: "권한 검사", outputs: ["허용 문서 검색", "권한 밖 문서 차단"] },
+      cardBody: [
+        "검색 결과는 사용자의 문서 권한을 먼저 적용해야 합니다.",
+        "외부 문서의 악성 지시와 오염된 임베딩이 모델 입력으로 들어오는 위험도 따로 막아야 합니다."
+      ],
+      highlight: "권한 필터 | 문서 오염 | 간접 프롬프트 인젝션",
+      panelTitle: "RAG가 정확해도 안전하지 않을 수 있습니다",
+      summary: [
+        "급여와 의료 기록처럼 사용자가 볼 수 없는 문서를 검색한 뒤 답변 단계에서 가리면 이미 민감정보가 모델 입력에 들어갑니다. 사용자 신원과 문서 ACL을 검색 후보를 만들기 전에 적용해야 합니다.",
+        "OWASP는 문서 오염, embedding manipulation, unauthorized access, 간접 프롬프트 인젝션을 RAG의 주요 위험으로 다룹니다. 수집 경로를 제한하고 문서를 검사하며 검색된 내용을 명령이 아니라 신뢰하지 않는 데이터로 처리해야 합니다."
+      ],
+      points: [
+        ["접근 제어", "문서 권한 메타데이터와 사용자 신원을 검색 필터에 적용합니다."],
+        ["입력 방어", "검색 문서의 숨은 지시와 비정상 임베딩, 악성 링크를 검사하고 실행 권한을 제한합니다."]
+      ],
+      sources: [["공식", "OWASP RAG Security Cheat Sheet", "https://cheatsheetseries.owasp.org/cheatsheets/RAG_Security_Cheat_Sheet.html"], ["공식", "OWASP Vector and Embedding Weaknesses", "https://genai.owasp.org/llmrisk/llm082025-vector-and-embedding-weaknesses/"], ["공식", "Azure AI Search의 RAG 보안", "https://learn.microsoft.com/en-us/azure/search/retrieval-augmented-generation-overview"]]
+    },
+    15: {
+      background: "rag-review-v3.webp",
+      category: "운영",
+      theme: "butter",
+      variant: ["roomy", "diagram-large", "explainer"],
+      eyebrow: "RAG NEEDS A RELEASE PIPELINE",
+      title: "문서와 모델이 바뀔 때마다 다시 시험할 수 있어야 합니다",
+      visual: { type: "timeline", items: [["수집", "변경 감지"], ["빌드", "파싱과 색인"], ["검증", "평가셋과 보안 검사"], ["배포", "점진 전환과 되돌리기"]] },
+      cardBody: [
+        "파서와 청킹, embedding, reranker, prompt가 바뀌면 같은 질문의 검색 결과가 달라집니다.",
+        "색인 버전과 설정을 기록하고 평가를 통과한 조합만 점진적으로 배포해야 합니다."
+      ],
+      highlight: "색인도 코드처럼 버전, 테스트, 배포, 되돌리기",
+      panelTitle: "RAG 운영에서 CI/CD가 필요한 이유",
+      summary: [
+        "RAG는 코드만 배포하는 서비스가 아닙니다. 문서 추가와 삭제, 파서 버전, 청킹 규칙, embedding 모델, reranker, prompt가 답변을 바꿉니다. 어떤 조합으로 색인을 만들었는지 재현할 수 있어야 합니다.",
+        "문서 변경을 감지해 필요한 부분만 다시 색인하고, 검색과 생성 평가, 권한과 주입 공격 검사를 통과한 뒤 점진적으로 전환합니다. 질의별 검색 결과와 지연, 토큰 비용을 기록해야 문제를 다시 찾을 수 있습니다."
+      ],
+      points: [
+        ["관찰 항목", "검색 후보, 순위, 사용한 문서 버전, 생성 근거, 지연, 비용, 실패 원인을 남깁니다."],
+        ["배포", "새 색인과 이전 색인을 함께 두고 일부 트래픽으로 비교한 뒤 필요하면 되돌립니다."]
+      ],
+      sources: [["참고", "RAG Pipeline: CI/CD, Security and Scale", "https://www.linkedin.com/pulse/rag-pipeline-nobody-talks-cicd-security-scale-uma-shanker-tiwari-oicbc"], ["참고", "RAG 설계 실험 기록", "https://www.linkedin.com/pulse/rag-every-design-choice-had-earn-its-place-sundar-b-ysohc"]]
+    },
+    16: {
+      background: "rag-review-v3.webp",
+      category: "평가",
+      theme: "lilac",
+      variant: ["roomy", "diagram-large", "explainer"],
+      eyebrow: "EVALUATE RETRIEVAL AND GENERATION",
+      title: "검색과 답변을 따로 측정해야 고칠 곳을 찾습니다",
+      visual: { type: "scorecard", groups: [["검색 평가", ["필요한 근거를 찾았나", "불필요한 근거가 적나"]], ["답변 평가", ["근거대로 답했나", "문장과 출처가 맞나"]]] },
+      cardBody: [
+        "최종 답변만 채점하면 검색이 틀렸는지 모델이 근거를 잘못 썼는지 알 수 없습니다.",
+        "질문, 정답, 기대 문서, 유효 버전, 사용자 권한이 포함된 평가셋이 필요합니다."
+      ],
+      highlight: "Retrieval | Generation | Citation | End-to-end task",
+      panelTitle: "RAG 평가를 한 점수로 끝내면 안 되는 이유",
+      summary: [
+        "검색 평가는 필요한 근거를 얼마나 찾았는지와 상위 결과에 잡음이 얼마나 적은지 봅니다. 생성 평가는 답변이 근거와 일치하는지, 질문에 답했는지, 인용이 실제 문장을 뒷받침하는지 확인합니다.",
+        "RAGAS는 context precision, context recall, faithfulness, answer relevancy 같은 지표를 제공합니다. NIST TREC RAG는 passage retrieval, augmented generation, 전체 RAG를 나눠 평가하며 문장별 인용과 근거 지원도 다룹니다."
+      ],
+      points: [
+        ["평가셋", "실제 사용자의 질문과 정답, 기대 문서, 유효 버전, 허용 권한을 함께 기록합니다."],
+        ["운영 지표", "정확도 외에 지연, 비용, 무응답, 인용 클릭과 사용자의 수정도 봅니다."]
+      ],
+      sources: [["논문", "RAGAS", "https://arxiv.org/abs/2309.15217"], ["공식", "Ragas evaluation metrics", "https://docs.ragas.io/en/v0.1.21/getstarted/evaluation.html"], ["공식", "NIST TREC RAG 2025", "https://pages.nist.gov/trec-browser/trec34/rag/overview/"]]
+    },
+    17: {
+      background: "rag-tools.webp",
+      category: "오픈소스 선택",
+      theme: "sky",
+      variant: ["roomy", "diagram-large", "explainer"],
+      eyebrow: "OPEN-SOURCE LANDSCAPE",
+      title: "프로젝트마다 풀어야 할 문서 문제가 다릅니다",
+      visual: { type: "table", columns: ["도구", "잘하는 일", "라이선스"], rows: [["LightRAG", "가벼운 그래프 검색", "MIT"], ["RAGFlow", "복잡한 문서 처리", "Apache-2.0"], ["PageIndex", "긴 문서의 트리 탐색", "MIT"], ["GraphRAG", "관계와 전체 질문", "MIT"]] },
+      cardBody: [
+        "도구 이름보다 문서 형식과 질문 유형, 운영 인력과 권한 요구를 먼저 확인해야 합니다."
+      ],
+      highlight: "문서와 질문에 맞춰 선택 | 하나로 통일할 필요 없음",
+      panelTitle: "대표 오픈소스 네 가지를 고르는 기준",
+      summary: [
+        "LightRAG와 Microsoft GraphRAG는 관계를 이용하지만 색인 방식과 비용 구조가 다릅니다. RAGFlow는 문서 파싱과 데이터셋 운영, 검색과 에이전트 흐름을 한 제품에서 다룹니다. PageIndex는 긴 문서의 제목과 절 구조를 트리로 만들어 LLM이 탐색합니다.",
+        "실제 서비스에서는 하나만 고집하지 않고 문서 종류와 질문에 따라 조합할 수 있습니다. 예를 들어 여러 문서의 후보를 먼저 찾고, 선택한 긴 PDF 안에서는 PageIndex 방식으로 절을 탐색할 수 있습니다."
+      ],
+      points: [
+        ["먼저 볼 것", "문서 형식, 질문 범위, 업데이트 빈도, 권한, 지연과 비용을 적습니다."],
+        ["검증", "각 프로젝트가 공개한 장점은 동일한 평가셋과 인프라에서 다시 확인해야 합니다."]
+      ],
+      sources: [["저장소", "LightRAG", "https://github.com/HKUDS/LightRAG"], ["저장소", "RAGFlow", "https://github.com/infiniflow/ragflow"], ["저장소", "PageIndex", "https://github.com/VectifyAI/PageIndex"], ["저장소", "Microsoft GraphRAG", "https://github.com/microsoft/graphrag"]]
+    },
+    18: {
+      background: "rag-graph.webp",
+      category: "LightRAG",
+      theme: "mint",
+      variant: ["roomy", "diagram-large", "explainer"],
+      eyebrow: "LIGHTWEIGHT GRAPH RAG",
+      title: "세부 사실과 전체 개념을 그래프에서 함께 찾습니다",
+      visual: { type: "dual-search", left: ["Low-level", "세부 사실과 엔터티"], right: ["High-level", "주제와 관계"], result: "그래프와 벡터 저장소에서 함께 검색" },
+      cardBody: [
+        "LightRAG는 지식 그래프와 벡터 검색을 함께 쓰는 MIT 오픈소스입니다.",
+        "세부 사실과 넓은 주제를 나눠 찾고 문서의 증분 추가와 선택 삭제를 지원합니다."
+      ],
+      highlight: "MIT | 그래프와 벡터 | 증분 업데이트",
+      panelTitle: "LightRAG가 가볍다고 부르는 부분",
+      summary: [
+        "LightRAG는 엔터티와 관계를 그래프로 만들고 low-level, high-level retrieval을 나눠 세부 사실과 추상적인 주제를 함께 찾습니다. Microsoft GraphRAG의 community report와 여러 단계 추론을 줄여 색인과 질의 비용을 낮추는 방향을 택했습니다.",
+        "문서 추가와 선택 삭제, 다양한 graph와 vector storage, RAGAS와 Langfuse 연동을 지원합니다. 멀티모달 문서는 RAG-Anything, MinerU, Docling과 연결합니다. 프로젝트가 제시한 품질과 비용 주장은 자체 환경에서 다시 확인해야 합니다."
+      ],
+      points: [
+        ["잘 맞는 경우", "관계가 있는 자료를 자주 추가하거나 삭제하면서 그래프 검색을 비교적 간단하게 시작하려는 경우입니다."],
+        ["확인할 점", "엔터티 추출 품질, 그래프 저장소, 색인 LLM 비용, 삭제 뒤 재구성 시간을 측정합니다."]
+      ],
+      sources: [["저장소", "LightRAG 공식 GitHub", "https://github.com/HKUDS/LightRAG"], ["참고", "LightRAG Threads 소개", "https://www.threads.com/share/BAVOZkLG8e/"]]
+    },
+    19: {
+      background: "rag-tools.webp",
+      category: "RAGFlow",
+      theme: "coral",
+      variant: ["roomy", "diagram-large", "explainer"],
+      eyebrow: "DOCUMENT-CENTRIC RAG ENGINE",
+      title: "복잡한 문서를 읽고 검색 과정을 화면에서 관리합니다",
+      visual: { type: "workflow-canvas", intakeLabel: "문서 준비", intake: ["PDF와 Office 파싱", "문서별 청킹", "색인"], queryLabel: "질문 처리", query: ["검색", "재정렬", "인용"], result: "화면에서 흐름과 결과를 함께 관리" },
+      cardBody: [
+        "RAGFlow는 문서 파싱, 데이터셋, 검색, 인용, 에이전트 흐름을 묶은 Apache-2.0 프로젝트입니다.",
+        "다양한 파일과 청킹 템플릿을 지원하지만 자체 운영에 필요한 자원이 큰 편입니다."
+      ],
+      highlight: "Apache-2.0 | 문서 처리 UI | 검색과 Agent",
+      panelTitle: "RAGFlow가 문서 처리에 집중하는 이유",
+      summary: [
+        "RAGFlow는 PDF와 DOCX, 표, 이미지, 슬라이드를 데이터셋으로 만들고 문서 형식에 맞는 청킹 템플릿을 선택하게 합니다. 파싱 결과를 화면에서 확인하고 수정할 수 있으며 여러 검색 결과와 재정렬을 합쳐 출처가 있는 답변을 만듭니다.",
+        "Agent workflow와 MCP, 여러 모델 공급자도 연결합니다. 공식 quickstart는 자체 호스팅에 CPU 4코어, RAM 16GB, 디스크 50GB 이상과 Docker, x86 CPU를 권장하므로 가벼운 라이브러리보다 운영 범위가 큽니다."
+      ],
+      points: [
+        ["잘 맞는 경우", "형식이 다양한 문서를 사람이 확인하면서 파싱하고 검색, 대화, 에이전트까지 한 화면에서 운영하려는 경우입니다."],
+        ["확인할 점", "파서별 품질, 인프라 요구량, 저장소와 모델 공급자 구성, 업그레이드 절차를 살핍니다."]
+      ],
+      sources: [["저장소", "RAGFlow 공식 GitHub", "https://github.com/infiniflow/ragflow"], ["공식", "RAGFlow quickstart", "https://github.com/infiniflow/ragflow/blob/main/docs/quickstart.mdx"], ["참고", "RAGFlow Threads 소개", "https://www.threads.com/share/BAVOLHUd8o/"]]
+    },
+    20: {
+      background: "rag-chunking-v3.webp",
+      category: "PageIndex",
+      theme: "butter",
+      variant: ["roomy", "diagram-large", "explainer"],
+      eyebrow: "VECTORLESS TREE RETRIEVAL",
+      title: "긴 문서를 차례와 절 구조로 탐색합니다",
+      visual: { type: "hierarchy", items: [["문서", "PDF 구조 분석"], ["절", "제목과 하위 절 트리"], ["탐색", "LLM이 관련 노드 선택"], ["근거", "원문 페이지에서 답변"]] },
+      cardBody: [
+        "PageIndex는 문서를 임의 길이로 자르는 대신 제목과 절을 계층형 트리로 만듭니다.",
+        "LLM이 질문을 보고 트리를 따라가 관련 절과 페이지를 찾습니다."
+      ],
+      highlight: "MIT | Vectorless | 긴 문서와 정확한 페이지",
+      panelTitle: "PageIndex의 vectorless retrieval은 무엇인가",
+      summary: [
+        "PageIndex는 긴 PDF와 Markdown을 제목, 절, 하위 절의 트리로 만들고 각 노드에 요약과 페이지 범위를 붙입니다. 질문을 받은 LLM이 트리의 제목과 요약을 읽고 관련 노드를 선택하므로 vector embedding과 vector database 없이도 문서 안을 탐색할 수 있습니다.",
+        "문서 구조와 페이지를 보존하는 장점이 있지만 트리 생성과 질의에 LLM 호출이 필요합니다. 많은 문서 가운데 어떤 문서를 볼지 먼저 고르는 문제에는 다른 검색을 함께 써야 할 수 있습니다."
+      ],
+      points: [
+        ["잘 맞는 경우", "재무 보고서, 규정, 교재처럼 구조가 분명한 긴 문서 안에서 정확한 절을 찾는 경우입니다."],
+        ["확인할 점", "문서 수가 많을 때 후보 문서를 고르는 방법, 트리 생성 시간과 질의 비용을 측정합니다."]
+      ],
+      sources: [["저장소", "PageIndex 공식 GitHub", "https://github.com/VectifyAI/PageIndex"], ["저장소", "PageIndex MCP", "https://github.com/VectifyAI/pageindex-mcp"], ["참고", "PageIndex 소개 토론", "https://github.com/run-llama/llama_index/discussions/18360"]]
+    },
+    21: {
+      background: "rag-review-v3.webp",
+      category: "도입 순서",
+      theme: "lilac",
+      variant: ["roomy", "diagram-large", "explainer"],
+      eyebrow: "BUILD FROM REAL QUESTIONS",
+      title: "도구보다 질문과 정답 문서를 먼저 모읍니다",
+      visual: { type: "milestones", items: [["1", "실제 질문과 권한"], ["2", "기대 문서와 정답"], ["3", "단순 검색 기준선"], ["4", "필요한 기능만 추가"]] },
+      cardBody: [
+        "실제 질문과 기대 문서, 유효 버전, 사용자 권한을 먼저 모아 평가셋을 만듭니다.",
+        "키워드와 벡터 검색의 단순한 기준선부터 시작해 필요한 단계만 추가하는 편이 문제를 찾기 쉽습니다."
+      ],
+      highlight: "질문 → 기대 근거 → 기준선 → 한 번에 하나씩 개선",
+      panelTitle: "2026년에 RAG를 시작하는 현실적인 순서",
+      summary: [
+        "먼저 사용자가 실제로 묻는 질문을 모으고, 각 질문의 정답과 근거 문서, 현재 유효한 버전, 볼 수 있는 사용자 범위를 기록합니다. 이 자료가 없으면 검색과 생성 중 어디가 좋아졌는지 비교할 수 없습니다.",
+        "간단한 파서와 hybrid search, 명시적인 인용으로 기준선을 만들고 실패 사례를 봅니다. 청킹 변경, reranker, GraphRAG, Agentic Retrieval은 실패 원인이 분명할 때 하나씩 추가해야 비용과 효과를 설명할 수 있습니다."
+      ],
+      points: [
+        ["첫 기준선", "검색 결과와 원문 링크를 먼저 보여주고 답변 생성은 그다음에 붙여도 됩니다."],
+        ["도입 판단", "정확도뿐 아니라 권한, 지연, 비용, 재현, 삭제와 감사 요구를 함께 확인합니다."]
+      ],
+      sources: [["분석", "기업 RAG 평가 제안", "https://www.linkedin.com/pulse/why-enterprise-rag-quietly-fails-miguel-minoldo-aj44e"], ["참고", "eDiscovery에서 가져온 신뢰성 기준", "https://www.linkedin.com/pulse/lessons-from-ediscovery-rag-building-trustworthy-alvin-blackshear-kuiae"], ["참고", "공유된 RAG 자료", "https://lnkd.in/p/gnKdYN5z"]]
+    }
+  },
+  sources: [
+    ["NIST RAG 정의", "https://csrc.nist.gov/glossary/term/retrieval_augmented_generation"],
+    ["RAG 원 논문", "https://arxiv.org/abs/2005.11401"],
+    ["RAG 조사 논문", "https://arxiv.org/abs/2312.10997"],
+    ["Self-RAG", "https://arxiv.org/abs/2310.11511"],
+    ["Corrective RAG", "https://arxiv.org/abs/2401.15884"],
+    ["Anthropic Contextual Retrieval", "https://www.anthropic.com/engineering/contextual-retrieval"],
+    ["Microsoft GraphRAG", "https://github.com/microsoft/graphrag"],
+    ["Azure AI Search agentic retrieval", "https://learn.microsoft.com/en-us/azure/search/search-agentic-retrieval-concept"],
+    ["SoK: Agentic RAG", "https://arxiv.org/abs/2603.07379"],
+    ["RAGAS", "https://arxiv.org/abs/2309.15217"],
+    ["NIST TREC RAG 2025", "https://pages.nist.gov/trec-browser/trec34/rag/overview/"],
+    ["OWASP RAG Security Cheat Sheet", "https://cheatsheetseries.owasp.org/cheatsheets/RAG_Security_Cheat_Sheet.html"],
+    ["LightRAG", "https://github.com/HKUDS/LightRAG"],
+    ["RAGFlow", "https://github.com/infiniflow/ragflow"],
+    ["PageIndex", "https://github.com/VectifyAI/PageIndex"],
+    ["What is RAG?", "https://www.linkedin.com/pulse/what-rag-alvin-blackshear-svpde"],
+    ["Why Enterprise RAG Quietly Fails", "https://www.linkedin.com/pulse/why-enterprise-rag-quietly-fails-miguel-minoldo-aj44e"],
+    ["RAG design choices", "https://www.linkedin.com/pulse/rag-every-design-choice-had-earn-its-place-sundar-b-ysohc"],
+    ["Lessons from eDiscovery for RAG", "https://www.linkedin.com/pulse/lessons-from-ediscovery-rag-building-trustworthy-alvin-blackshear-kuiae"],
+    ["Chunking strategies", "https://www.linkedin.com/pulse/rag-2-chunking-strategies-right-way-split-your-documents-hoq-qghuc"],
+    ["RAG pipeline, CI/CD, security and scale", "https://www.linkedin.com/pulse/rag-pipeline-nobody-talks-cicd-security-scale-uma-shanker-tiwari-oicbc"],
+    ["RAG 연대기와 Agentic Retrieval", "https://velog.io/@qlgks1/RAG-is-dead-long-live-RAG-Agentic-Retrieval"],
+    ["LightRAG Threads 소개", "https://www.threads.com/share/BAVOZkLG8e/"],
+    ["RAGFlow Threads 소개", "https://www.threads.com/share/BAVOLHUd8o/"],
+    ["공유된 RAG 자료", "https://lnkd.in/p/gnKdYN5z"]
+  ]
+});
+
 for (const item of newsItems.filter((newsItem) => newsItem.type === "model")) {
   const profile = modelProfiles[item.id];
   const cover = item.cardDetails?.[1];

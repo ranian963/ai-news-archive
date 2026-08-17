@@ -70,6 +70,9 @@ const keepInlinePhrases = [
   "긴 문서 과제",
   "한국어 실무 과제",
   "SWE-bench Pro",
+  "End-to-end task",
+  "검색 과정",
+  "절 구조",
   "화면 작업",
   "기본 설정"
 ];
@@ -203,6 +206,63 @@ function cardVisualContent(visual) {
   if (visual.type === "timeline") {
     return `<ol class="card-visual card-visual--timeline" aria-label="주요 흐름">${simpleItems.map(([time, label]) => `<li><strong>${inlineText(time)}</strong><span>${inlineText(label)}</span></li>`).join("")}</ol>`;
   }
+  if (visual.type === "hierarchy") {
+    return `<ol class="card-visual card-visual--hierarchy" aria-label="문서 계층">${simpleItems.map(([level, label]) => `<li><small>${inlineText(level)}</small><strong>${inlineText(label)}</strong></li>`).join("")}</ol>`;
+  }
+  if (visual.type === "lanes") {
+    return `<div class="card-visual card-visual--lanes" aria-label="두 처리 과정">${visual.lanes.map(([label, steps]) => `<section><strong>${inlineText(label)}</strong><ol>${steps.map((step) => `<li>${inlineText(step)}</li>`).join("")}</ol></section>`).join("")}</div>`;
+  }
+  if (visual.type === "orbit") {
+    return `<div class="card-visual card-visual--orbit" data-mode="${escapeHtml(visual.mode ?? "network")}" aria-label="${escapeHtml(visual.label ?? "연결 구조")}"><strong class="card-visual__orbit-center">${inlineText(visual.center)}</strong><ol>${simpleItems.map((item) => `<li>${inlineText(item)}</li>`).join("")}</ol></div>`;
+  }
+  if (visual.type === "layers") {
+    return `<ol class="card-visual card-visual--layers" aria-label="단계별 구성">${simpleItems.map(([label, value]) => `<li><strong>${inlineText(label)}</strong><span>${inlineText(value)}</span></li>`).join("")}</ol>`;
+  }
+  if (visual.type === "funnel") {
+    return `<ol class="card-visual card-visual--funnel" aria-label="후보를 좁히는 과정">${simpleItems.map((item) => `<li>${inlineText(item)}</li>`).join("")}</ol>`;
+  }
+  if (visual.type === "gate") {
+    return `<div class="card-visual card-visual--gate" aria-label="권한 검사 결과"><span>${inlineText(visual.input)}</span><strong>${inlineText(visual.gate)}</strong><div>${visual.outputs.map((output) => `<b>${inlineText(output)}</b>`).join("")}</div></div>`;
+  }
+  if (visual.type === "retrieval-scene") {
+    return `<ol class="card-visual card-visual--retrieval-scene" aria-label="질문에서 근거가 있는 답변까지">${simpleItems.map((item, index) => `<li data-stage="${index + 1}"><span aria-hidden="true"></span><strong>${inlineText(item)}</strong></li>`).join("")}</ol>`;
+  }
+  if (visual.type === "spotlight") {
+    return `<div class="card-visual card-visual--spotlight" aria-label="전체 자료에서 필요한 근거 선택"><section><small>${inlineText(visual.sourceLabel)}</small><div>${visual.sources.map((source) => `<span>${inlineText(source)}</span>`).join("")}</div></section><i aria-hidden="true"></i><strong>${inlineText(visual.selected)}</strong><p>${inlineText(visual.destination)}</p></div>`;
+  }
+  if (visual.type === "memory-pair") {
+    return `<div class="card-visual card-visual--memory-pair" aria-label="모델 기억과 외부 검색의 결합"><div>${simpleItems.map(([label, value]) => `<section><small>${inlineText(label)}</small><strong>${inlineText(value)}</strong></section>`).join("")}</div><p>${inlineText(visual.result)}</p></div>`;
+  }
+  if (visual.type === "feedback-loop") {
+    return `<div class="card-visual card-visual--feedback-loop" aria-label="검색 결과를 점검하고 고치는 과정"><ol>${simpleItems.map((item) => `<li>${inlineText(item)}</li>`).join("")}</ol><p>${inlineText(visual.returnLabel)}</p></div>`;
+  }
+  if (visual.type === "context-graph") {
+    return `<div class="card-visual card-visual--context-graph" aria-label="청크 맥락과 문서 관계"><section><small>${inlineText(visual.chunkLabel)}</small><strong>${inlineText(visual.chunk)}</strong></section><div><b>${inlineText(visual.center)}</b>${visual.items.map((item) => `<span>${inlineText(item)}</span>`).join("")}</div></div>`;
+  }
+  if (visual.type === "decision-tree") {
+    return `<div class="card-visual card-visual--decision-tree" aria-label="질문을 나누고 검색하는 과정"><strong>${inlineText(visual.root)}</strong><div>${visual.branches.map(([question, source]) => `<section><b>${inlineText(question)}</b><span>${inlineText(source)}</span></section>`).join("")}</div><p>${inlineText(visual.result)}</p></div>`;
+  }
+  if (visual.type === "failure-path") {
+    return `<ol class="card-visual card-visual--failure-path" aria-label="RAG 파이프라인의 실패 지점">${simpleItems.map(([stage, failure]) => `<li><strong>${inlineText(stage)}</strong><span>${inlineText(failure)}</span></li>`).join("")}</ol>`;
+  }
+  if (visual.type === "document-anatomy") {
+    return `<div class="card-visual card-visual--document-anatomy" aria-label="검색 가능한 문서의 구성"><div aria-hidden="true"><i></i><i></i><i></i><i></i></div><ol>${simpleItems.map(([label, value]) => `<li><strong>${inlineText(label)}</strong><span>${inlineText(value)}</span></li>`).join("")}</ol></div>`;
+  }
+  if (visual.type === "balance") {
+    return `<div class="card-visual card-visual--balance" aria-label="청크 크기의 장단점"><section><small>${inlineText(visual.left[0])}</small><strong>${inlineText(visual.left[1])}</strong></section><div aria-hidden="true"><i></i></div><section><small>${inlineText(visual.right[0])}</small><strong>${inlineText(visual.right[1])}</strong></section><p>${inlineText(visual.center)}</p></div>`;
+  }
+  if (visual.type === "graph-network") {
+    return `<div class="card-visual card-visual--graph-network" aria-label="문서 관계 그래프"><strong>${inlineText(visual.center)}</strong><ol>${simpleItems.map((item) => `<li>${inlineText(item)}</li>`).join("")}</ol></div>`;
+  }
+  if (visual.type === "scorecard") {
+    return `<div class="card-visual card-visual--scorecard" aria-label="검색과 답변 평가 항목">${visual.groups.map(([label, items]) => `<section><strong>${inlineText(label)}</strong><ul>${items.map((item) => `<li>${inlineText(item)}</li>`).join("")}</ul></section>`).join("")}</div>`;
+  }
+  if (visual.type === "dual-search") {
+    return `<div class="card-visual card-visual--dual-search" aria-label="세부 사실과 전체 개념 검색"><section><small>${inlineText(visual.left[0])}</small><strong>${inlineText(visual.left[1])}</strong></section><section><small>${inlineText(visual.right[0])}</small><strong>${inlineText(visual.right[1])}</strong></section><p>${inlineText(visual.result)}</p></div>`;
+  }
+  if (visual.type === "workflow-canvas") {
+    return `<div class="card-visual card-visual--workflow-canvas" aria-label="문서 처리와 질문 처리 작업 흐름"><section><strong>${inlineText(visual.intakeLabel)}</strong>${visual.intake.map((item) => `<span>${inlineText(item)}</span>`).join("")}</section><section><strong>${inlineText(visual.queryLabel)}</strong>${visual.query.map((item) => `<span>${inlineText(item)}</span>`).join("")}</section><p>${inlineText(visual.result)}</p></div>`;
+  }
   if (visual.type === "milestones") {
     return `<ol class="card-visual card-visual--milestones" aria-label="주요 이정표">${simpleItems.map(([time, label]) => `<li><strong>${inlineText(time)}</strong><span>${inlineText(label)}</span></li>`).join("")}</ol>`;
   }
@@ -254,7 +314,7 @@ function cardOverlayContent(item, number, detail) {
   const authoredVariants = Array.isArray(detail.variant)
     ? detail.variant
     : String(detail.variant ?? "").split(/\s+/).filter(Boolean);
-  const variants = [...authoredVariants, (detail.cardBody?.join("").length ?? 0) > 210 ? "compact" : ""].filter(Boolean);
+  const variants = [...authoredVariants, ...(item.cardVariants ?? []), (detail.cardBody?.join("").length ?? 0) > 210 ? "compact" : ""].filter(Boolean);
   const variant = variants.map((name) => ` card-copy--${name}`).join("");
   const mainContent = detail.visual?.type === "model-profile" ? `${body}${visual}` : `${visual}${body}`;
   return `<article class="card-copy${variant}" data-theme="${escapeHtml(detail.theme ?? "coral")}" aria-labelledby="card-copy-title-${number}">
