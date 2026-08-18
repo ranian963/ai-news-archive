@@ -70,6 +70,10 @@
   --card-balanced-highlight-margin: 3.1cqw;
   --card-balanced-label-size: clamp(.76rem, 1.78cqw, 1rem);
   --card-balanced-table-padding: 1cqw .9cqw;
+  --weekly-cover-eyebrow-size: clamp(.78rem, 2.2cqw, 1.35rem);
+  --weekly-cover-scope-size: clamp(1.05rem, 4.1cqw, 2.5rem);
+  --weekly-cover-scope-leading: 1.42;
+  --weekly-cover-chip-size: clamp(1rem, 3.7cqw, 2.1rem);
   --diagram-gap: 1.4cqw;
   --diagram-rule-width: .35cqw;
   --diagram-node-height: 7.8cqw;
@@ -769,6 +773,17 @@ button { color: inherit; }
 .card-frame--watercolor-editorial .card-copy__highlight { margin-top: 4cqw; font-size: clamp(.7rem, 1.72cqw, .96rem); }
 .card-frame--watercolor-editorial .card-copy--cover .card-copy__panel { min-height: 66cqw; }
 .card-frame--watercolor-editorial .card-copy--cover h2 { max-width: 13ch; font-size: clamp(1.7rem, 6cqw, 3.55rem); }
+.card-frame--watercolor-editorial .card-copy--weekly-cover .card-copy__eyebrow {
+  font-size: var(--weekly-cover-eyebrow-size);
+}
+.card-frame--watercolor-editorial .card-copy--weekly-cover .card-copy__body p {
+  font-size: var(--weekly-cover-scope-size);
+  line-height: var(--weekly-cover-scope-leading);
+}
+.card-frame--watercolor-editorial .card-copy--weekly-cover .card-copy__highlight {
+  margin-top: auto;
+  font-size: var(--weekly-cover-chip-size);
+}
 .card-frame--watercolor-editorial .card-copy--compact .card-copy__panel { min-height: 67cqw; }
 .card-frame--watercolor-editorial .card-copy--compact h2 { font-size: clamp(1.28rem, 4.6cqw, 2.75rem); }
 .card-frame--watercolor-editorial .card-copy--compact .card-copy__body p { font-size: clamp(.8rem, 1.98cqw, 1.12rem); }

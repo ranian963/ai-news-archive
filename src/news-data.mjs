@@ -2560,18 +2560,16 @@ newsItems.push({
   cardDetails: {
     1: {
       background: editorialScenes.weekly,
-      category: "주간 뉴스 · 편집 순서",
+      category: "주간 요약",
       theme: "coral",
-      variant: ["cover", "roomy", "explainer"],
-      eyebrow: "WEEKLY AI GUIDE",
-      title: "이번 주 AI 뉴스는 분야별로 읽습니다",
-      visual: { type: "tile-grid", items: [["새 LLM 출시", "5건"], ["LLM 모델 관련", "2건"], ["LLM 외 모델", "1건"], ["도구와 기능", "2건"]] },
+      variant: ["cover", "weekly-cover"],
+      eyebrow: "WEEKLY AI BRIEF",
+      title: "이번 주 AI 뉴스",
       cardBody: [
-        "새 LLM 출시 소식을 먼저 보고",
-        "모델 관련 변화, LLM 외 모델, 하네스와 코딩 도구 순서로 이어갑니다.",
-        "겹치는 소식은 합치고 중요한 내용만 골랐습니다."
+        "새 LLM 5개부터",
+        "로봇·수학 연구·코딩 도구까지"
       ],
-      highlight: "새 LLM 5 · 모델 관련 2 · LLM 외 1 · 도구 2",
+      highlight: "8월 10–16일 · 주요 10건",
       panelTitle: "이번 주 소식을 어떤 순서로 골랐나",
       summary: [
         "영상과 Threads 요약, 공식 발표에서 후보를 모은 뒤 같은 사건을 다룬 내용은 하나로 합쳤습니다. 영상의 순서나 분량은 카드 순서에 반영하지 않았습니다.",
