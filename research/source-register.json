@@ -2368,5 +2368,291 @@
       8,
       11
     ]
+  },
+  {
+    "newsId": "weekly-2026-08-10-16",
+    "label": "Google Gemini 3.7 Flash 발표",
+    "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-3-7-flash/",
+    "kind": "official",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      3
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-10-16",
+    "label": "Cursor의 SuperGrok Heavy 연동 안내",
+    "url": "https://cursor.com/help/grok-bot/supergrok-heavy",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      10
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-10-16",
+    "label": "DeepSeek V4 Pro 0813 모델 카드",
+    "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813",
+    "kind": "repository-or-model-card",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      4
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-10-16",
+    "label": "Qwen3.8-27B 모델 카드",
+    "url": "https://huggingface.co/Qwen/Qwen3.8-27B",
+    "kind": "repository-or-model-card",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      5
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-10-16",
+    "label": "OpenAI Computer History 안내",
+    "url": "https://learn.chatgpt.com/docs/customization/computer-history",
+    "kind": "official",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      11
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-10-16",
+    "label": "GPT-5.6 Sol 미리보기",
+    "url": "https://openai.com/index/previewing-gpt-5-6-sol/",
+    "kind": "official",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      7
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-10-16",
+    "label": "Computer History 카드뉴스",
+    "url": "https://ranian963.github.io/ai-news-archive/news/brief/computer-history/",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      11
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-10-16",
+    "label": "DeepSeek V4 Pro 0813 카드뉴스",
+    "url": "https://ranian963.github.io/ai-news-archive/news/brief/deepseek-v4-pro-0813/",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      4
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-10-16",
+    "label": "Gemini 3.7 Flash 카드뉴스",
+    "url": "https://ranian963.github.io/ai-news-archive/news/brief/gemini-3-7-flash/",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      3
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-10-16",
+    "label": "Grok 4.6 상세 카드뉴스",
+    "url": "https://ranian963.github.io/ai-news-archive/news/brief/grok-4-6/",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      2
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-10-16",
+    "label": "Muse Glimmer 30B 카드뉴스",
+    "url": "https://ranian963.github.io/ai-news-archive/news/brief/muse-glimmer-30b/",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      6
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-10-16",
+    "label": "Qwen3.8-27B 카드뉴스",
+    "url": "https://ranian963.github.io/ai-news-archive/news/brief/qwen-3-8-27b/",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      5
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-10-16",
+    "label": "Meta Muse Glimmer 발표",
+    "url": "https://research.meta.ai/blog/introducing-muse-glimmer-open-agentic-model",
+    "kind": "official",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      6
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-10-16",
+    "label": "Dyna Robotics",
+    "url": "https://www.dynarobotics.ai/",
+    "kind": "reference",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      9
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-10-16",
+    "label": "Claude 수학 연구 소개",
+    "url": "https://www.threads.com/@choi.openai/post/Db4MKUqj67o",
+    "kind": "threads",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      8
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-10-16",
+    "label": "Dyna-2 소개",
+    "url": "https://www.threads.com/@choi.openai/post/Db5UxJ_inhE",
+    "kind": "threads",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      9
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-10-16",
+    "label": "Grok Bot 소개",
+    "url": "https://www.threads.com/@choi.openai/post/Db603t8jBiV",
+    "kind": "threads",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      10
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-10-16",
+    "label": "Ultrafast 데모 소개",
+    "url": "https://www.threads.com/@choi.openai/post/DcAB3L7ElhC",
+    "kind": "threads",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      7
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-10-16",
+    "label": "Threads 주간 요약 45건",
+    "url": "https://www.threads.com/share/BAiZg-4HBV/",
+    "kind": "threads",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      1
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-10-16",
+    "label": "조코딩 주간 AI 뉴스",
+    "url": "https://www.youtube.com/live/Hj1PPxRXJWM",
+    "kind": "video",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      1
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-10-16",
+    "label": "xAI Grok 4.6 발표",
+    "url": "https://x.ai/news/grok-4-6",
+    "kind": "official",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      2
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-10-16",
+    "label": "조코딩 영상 17분 40초",
+    "url": "https://youtu.be/Hj1PPxRXJWM?t=1060",
+    "kind": "video",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      11
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-10-16",
+    "label": "조코딩 영상 22분 10초",
+    "url": "https://youtu.be/Hj1PPxRXJWM?t=1330",
+    "kind": "video",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      7
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-10-16",
+    "label": "조코딩 영상 33분 18초",
+    "url": "https://youtu.be/Hj1PPxRXJWM?t=1998",
+    "kind": "video",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      8
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-10-16",
+    "label": "조코딩 영상 6분 34초",
+    "url": "https://youtu.be/Hj1PPxRXJWM?t=394",
+    "kind": "video",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      10
+    ]
+  },
+  {
+    "newsId": "weekly-2026-08-10-16",
+    "label": "조코딩 영상 1시간 45분 59초",
+    "url": "https://youtu.be/Hj1PPxRXJWM?t=6359",
+    "kind": "video",
+    "checkedAt": "2026-08-14",
+    "archiveStatus": "link-only",
+    "cards": [
+      9
+    ]
   }
 ]

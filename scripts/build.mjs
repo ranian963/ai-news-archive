@@ -499,7 +499,7 @@ function detailHtml(item) {
   const videoHtml = item.video?.youtubeId && /^[A-Za-z0-9_-]{6,20}$/.test(item.video.youtubeId)
     ? `<section class="detail-section article-video" aria-labelledby="article-video-title">
       <div class="article-video__copy">
-        <p class="eyebrow">OFFICIAL DEMO</p>
+        <p class="eyebrow">${escapeHtml(item.video.eyebrow ?? "OFFICIAL DEMO")}</p>
         <h2 id="article-video-title">${inlineText(item.video.title)}</h2>
         <p>${inlineText(item.video.description)}</p>
       </div>

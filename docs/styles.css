@@ -654,6 +654,34 @@ button { color: inherit; }
 .card-detail--dense .card-detail__sources { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .card-detail--dense .card-detail__sources a { grid-template-columns: 1fr; justify-items: center; gap: var(--space-1); text-align: center; }
 
+@media (min-width: 961px) {
+  .reader-stage--editorial .detail-header {
+    max-height: none;
+    padding: var(--space-3) 0 0 var(--space-6);
+    overflow-y: visible;
+  }
+  .card-detail__eyebrow,
+  .card-detail__category { margin-bottom: var(--space-2); }
+  .card-detail__title {
+    max-width: 22ch;
+    margin: var(--space-3) 0;
+    font-size: var(--type-lead);
+    line-height: 1.2;
+  }
+  .reader-stage--editorial .card-detail .detail-header__summary {
+    font-size: var(--type-small);
+    line-height: 1.5;
+  }
+  .detail-header__summary--stacked { gap: var(--space-2); }
+  .card-detail__section { margin-top: var(--space-3); padding-top: var(--space-2); }
+  .card-detail__section h2 { margin-bottom: var(--space-2); }
+  .card-detail__points { gap: var(--space-2); }
+  .card-detail__points li { gap: var(--space-1); }
+  .card-detail__points span { line-height: 1.35; }
+  .card-detail__sources { gap: var(--space-2); }
+  .card-detail__sources a { padding: var(--space-1); }
+}
+
 .carousel {
   min-width: 0;
   width: 100%;

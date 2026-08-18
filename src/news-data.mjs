@@ -2523,6 +2523,344 @@ newsItems.push({
   ]
 });
 
+newsItems.push({
+  id: "weekly-2026-08-10-16",
+  type: "weekly",
+  path: "news/weekly/2026-08-10-16/",
+  identity: { title: "2026.08.10–08.16" },
+  published: "2026-08-17",
+  title: "이번 주 AI 뉴스 | 8월 10–16일",
+  summary: "Grok 4.6과 Grok Bot, OpenAI Computer History와 Ultrafast, Gemini 3.7 Flash, DeepSeek와 Qwen의 새 모델, Claude 수학 연구와 Dyna-2 로봇까지 11장으로 정리했습니다.",
+  tags: ["주간 뉴스", "AI 모델", "에이전트", "생산성", "오픈웨이트", "수학", "로봇"],
+  cardCount: 11,
+  imageStem: "weekly-2026-08-10-16",
+  readerMode: "editorial",
+  coverAlt: "8월 10일부터 16일까지의 주요 AI 소식을 정리한 주간 AI 뉴스 표지",
+  articleIntro: {
+    eyebrow: "THIS WEEK IN AI",
+    title: "새 LLM부터 도구와 연구까지 분야별로 정리했습니다",
+    body: [
+      "이번 주에는 새 LLM 출시가 많았습니다. Grok 4.6, Gemini 3.7 Flash, DeepSeek V4 Pro 0813, Qwen3.8-27B와 Muse Glimmer 30B를 먼저 묶어 출시 상태, 가격과 가중치 공개 여부를 비교했습니다.",
+      "기존 LLM 관련 소식으로는 GPT-5.6 Sol을 최대 14배 빠르게 제공하는 Ultrafast와 Claude의 수학 연구를 골랐습니다. 둘 다 눈에 띄는 수치가 있지만 미리보기와 초기 연구라는 조건을 함께 봐야 합니다.",
+      "그 다음에는 로봇 모델 Dyna-2, 전용 컴퓨터에서 일하는 Grok Bot, 최근 작업을 기억하는 Computer History를 소개합니다. 영상과 Threads에서 겹친 내용은 하나로 합치고 중요한 수치는 각 회사의 공식 문서로 다시 확인했습니다."
+    ],
+    facts: [
+      ["새 LLM 출시", "5건"],
+      ["LLM 모델 관련", "2건"],
+      ["LLM 외 모델", "1건"],
+      ["하네스·코딩 도구·기능", "2건"]
+    ]
+  },
+  video: {
+    eyebrow: "WEEKLY AI NEWS VIDEO",
+    youtubeId: "Hj1PPxRXJWM",
+    title: "조코딩 주간 AI 뉴스 전체 영상",
+    description: "Grok 4.6부터 Computer History, Ultrafast, Gemini 3.7 Flash, DeepSeek와 오픈웨이트 모델, AI 수학 연구와 Dyna-2까지 1시간 51분 동안 살펴봅니다."
+  },
+  cardDetails: {
+    1: {
+      background: editorialScenes.weekly,
+      category: "주간 뉴스 · 편집 순서",
+      theme: "coral",
+      variant: ["cover", "roomy", "explainer"],
+      eyebrow: "WEEKLY AI GUIDE",
+      title: "이번 주 AI 뉴스는 분야별로 읽습니다",
+      visual: { type: "tile-grid", items: [["새 LLM 출시", "5건"], ["LLM 모델 관련", "2건"], ["LLM 외 모델", "1건"], ["도구와 기능", "2건"]] },
+      cardBody: [
+        "새 LLM 출시 소식을 먼저 보고",
+        "모델 관련 변화, LLM 외 모델, 하네스와 코딩 도구 순서로 이어갑니다.",
+        "겹치는 소식은 합치고 중요한 내용만 골랐습니다."
+      ],
+      highlight: "새 LLM 5 · 모델 관련 2 · LLM 외 1 · 도구 2",
+      panelTitle: "이번 주 소식을 어떤 순서로 골랐나",
+      summary: [
+        "영상과 Threads 요약, 공식 발표에서 후보를 모은 뒤 같은 사건을 다룬 내용은 하나로 합쳤습니다. 영상의 순서나 분량은 카드 순서에 반영하지 않았습니다.",
+        "이번 호는 새 LLM 출시, LLM 모델 관련, LLM 외 모델, 하네스와 코딩 도구 순으로 읽습니다. 카드마다 출시 상태와 수치의 출처, 확인할 점을 함께 적었습니다."
+      ],
+      points: [
+        ["새 LLM", "Grok, Gemini, DeepSeek, Qwen과 Meta의 새 모델을 먼저 비교합니다."],
+        ["다음 소식", "Ultrafast와 Claude 연구, Dyna-2 로봇 모델, Grok Bot과 Computer History 순서로 이어갑니다."]
+      ],
+      sources: [["정리", "Threads 주간 요약 45건", "https://www.threads.com/share/BAiZg-4HBV/"], ["영상", "조코딩 주간 AI 뉴스", "https://www.youtube.com/live/Hj1PPxRXJWM"]]
+    },
+    2: {
+      background: editorialScenes.longRunningCode,
+      category: "새 LLM 출시 · xAI",
+      theme: "lilac",
+      variant: ["roomy", "diagram-large"],
+      eyebrow: "NEW LLM · GROK",
+      title: "Grok 4.6이 상위 모델 경쟁에 합류했습니다",
+      visual: { type: "ranking", items: [["1", "Claude Opus 5 Max", "63"], ["2", "Claude Fable 5 Max", "62"], ["3", "Grok 4.6 High", "61"], ["3", "GPT-5.6 Sol Max", "61"]], note: "Artificial Analysis, 2026년 8월 14일 확인" },
+      cardBody: [
+        "xAI는 8월 12일 Grok 4.6을 출시했습니다.",
+        "500K Context Length와 이미지 입력을 지원하며 장시간 코딩과 지식 업무를 강화했습니다."
+      ],
+      highlight: "AA Index 61 · Input $2 · Output $6",
+      panelTitle: "Grok 4.6을 어떻게 봐야 하나",
+      summary: [
+        "Grok 4.6은 8월 12일 출시된 상용 모델입니다. Artificial Analysis Intelligence Index에서 high 설정 61점을 기록해 GPT-5.6 Sol Max와 같은 점수에 올랐습니다.",
+        "API 요금은 1M tokens 기준 입력 2달러, 출력 6달러지만 200K를 넘는 요청은 단가가 두 배로 바뀝니다. 순위는 확인 시점의 결과이며 실제 업무 성능을 대신하지 않습니다."
+      ],
+      points: [
+        ["지원 범위", "텍스트와 이미지 입력, 웹과 X 검색, 코드 실행과 함수 호출을 지원합니다."],
+        ["배포", "Grok Build, Cursor와 API에서 이용할 수 있으며 가중치는 공개하지 않았습니다."]
+      ],
+      sources: [["공식", "xAI Grok 4.6 발표", "https://x.ai/news/grok-4-6"], ["분석", "Grok 4.6 상세 카드뉴스", "https://ranian963.github.io/ai-news-archive/news/brief/grok-4-6/"]]
+    },
+    10: {
+      background: editorialScenes.harness,
+      category: "하네스·코딩 도구 · Grok Bot",
+      theme: "sky",
+      variant: ["roomy", "diagram-large"],
+      eyebrow: "TOOLS · CODING AGENT",
+      title: "Grok Bot은 전용 컴퓨터에서 계속 일합니다",
+      visual: { type: "flow", items: ["업무를 맡김", "전용 Linux VM", "도구와 서비스 사용", "결과 보고와 판단 요청"] },
+      cardBody: [
+        "봇마다 Linux 가상 컴퓨터를 받고 브라우저와 터미널, 파일을 사용합니다.",
+        "여러 봇을 동시에 돌리거나 서로 일을 나누게 할 수 있는 초기 베타입니다."
+      ],
+      highlight: "Early beta · 장기 실행 · 여러 봇 협업",
+      panelTitle: "채팅창이 아니라 작업자를 겨냥한 제품",
+      summary: [
+        "Grok Bot은 사용자가 일을 맡기면 전용 Linux VM에서 브라우저와 터미널, 파일 관리자를 사용해 결과를 가져오는 클라우드 에이전트입니다. 일정에 맞춘 반복 업무와 여러 봇의 병렬 실행도 지원합니다.",
+        "현재는 SuperGrok Heavy, Cursor Ultra와 Cursor Teams Premium 가입자를 대상으로 한 초기 베타입니다. 외부 서비스에 로그인해 작업하는 만큼 연결 계정과 파일 권한, 되돌리기 어려운 행동의 승인 절차를 먼저 정해야 합니다."
+      ],
+      points: [
+        ["이용 대상", "초기 베타이며 요금제와 지역에 따라 접근 범위가 달라질 수 있습니다."],
+        ["운영 주의", "필요한 도구와 계정만 연결하고 민감한 파일과 최종 실행 권한을 분리해야 합니다."]
+      ],
+      sources: [["공식", "Cursor의 SuperGrok Heavy 연동 안내", "https://cursor.com/help/grok-bot/supergrok-heavy"], ["정리", "Grok Bot 소개", "https://www.threads.com/@choi.openai/post/Db603t8jBiV"], ["영상", "조코딩 영상 6분 34초", "https://youtu.be/Hj1PPxRXJWM?t=394"]]
+    },
+    11: {
+      background: editorialScenes.organization,
+      category: "하네스·코딩 기능 · OpenAI",
+      theme: "mint",
+      variant: ["roomy", "diagram-large"],
+      eyebrow: "TOOLS · WORK MEMORY",
+      title: "ChatGPT가 최근 작업을 기억하기 시작했습니다",
+      visual: { type: "timeline", items: [["허용", "앱과 웹사이트 선택"], ["기록", "최근 작업 타임라인"], ["기억", "로컬 Markdown 메모리"], ["활용", "ChatGPT와 Codex"]] },
+      cardBody: [
+        "Computer History는 허용한 앱과 웹사이트에서 일어난 최근 작업을 타임라인과 메모리로 정리합니다.",
+        "파일 이름을 다시 설명하지 않아도 ChatGPT와 Codex가 하던 일을 찾고 이어서 돕습니다."
+      ],
+      highlight: "macOS · 기본 꺼짐 · 앱별 허용과 삭제",
+      panelTitle: "무엇을 기억하고 어디까지 통제할 수 있나",
+      summary: [
+        "Computer History는 사용자가 허용한 앱과 웹사이트의 최근 작업을 기억하는 macOS 기능입니다. 날짜별 타임라인과 사용자가 확인할 수 있는 로컬 Markdown 메모리를 만들어 ChatGPT와 Codex가 참고합니다.",
+        "기본 상태는 꺼짐이며 앱과 사이트를 제외하거나 기록을 멈추고 삭제할 수 있습니다. 입력과 클릭에도 민감한 업무 맥락이 담길 수 있어 필요한 앱만 허용하는 편이 안전합니다."
+      ],
+      points: [
+        ["현재 대상", "macOS용 ChatGPT Pro, Business와 Enterprise에서 제공되며 조직 설정의 영향을 받을 수 있습니다."],
+        ["사용 예", "최근 문서를 찾아 이어 쓰거나 어제 하던 작업을 요약하고 반복 업무를 skill로 제안할 수 있습니다."]
+      ],
+      sources: [["공식", "OpenAI Computer History 안내", "https://learn.chatgpt.com/docs/customization/computer-history"], ["상세", "Computer History 카드뉴스", "https://ranian963.github.io/ai-news-archive/news/brief/computer-history/"], ["영상", "조코딩 영상 17분 40초", "https://youtu.be/Hj1PPxRXJWM?t=1060"]]
+    },
+    7: {
+      background: editorialScenes.tokens,
+      category: "LLM 모델 관련 · 추론",
+      theme: "butter",
+      variant: ["roomy", "diagram-large"],
+      eyebrow: "LLM · INFERENCE",
+      title: "GPT-5.6 Sol을 최대 14배 빠르게 돌립니다",
+      visual: { type: "metric", items: [["속도", "최대 14×"], ["출력", "최대 750 tokens/s"], ["상태", "일부 고객 미리보기"]] },
+      cardBody: [
+        "Ultrafast는 새 모델이 아니라 GPT-5.6 Sol을 Cerebras에서 빠르게 제공하는 API 처리 등급입니다.",
+        "이번 주에는 일반 처리와 나란히 비교한 실제 데모가 공개됐습니다."
+      ],
+      highlight: "응답 속도가 곧 제품 기능이 되는 구간",
+      panelTitle: "Ultrafast가 바꾸려는 것은 답변 대기 시간",
+      summary: [
+        "OpenAI는 GPT-5.6 Sol을 표준 처리보다 최대 14배 빠르게 실행하는 Ultrafast 미리보기를 공개했습니다. Cerebras 인프라에서 최대 초당 750 output tokens를 목표로 합니다.",
+        "음성 상담, 사고 대응과 코딩처럼 여러 번 도구를 호출하는 업무에서는 한 번의 답변보다 전체 작업 시간이 중요합니다. 아직 일부 API 고객 대상이며 일반 이용 가능 시점과 가격은 공개 범위를 더 확인해야 합니다."
+      ],
+      points: [
+        ["새 모델인가", "아닙니다. 같은 GPT-5.6 Sol을 더 빠른 처리 인프라에서 제공하는 서비스 등급입니다."],
+        ["남은 정보", "선별된 고객에게 먼저 제공되며 정식 가격과 넓은 이용 일정은 아직 제한적으로 안내됐습니다."]
+      ],
+      sources: [["공식", "GPT-5.6 Sol 미리보기", "https://openai.com/index/previewing-gpt-5-6-sol/"], ["정리", "Ultrafast 데모 소개", "https://www.threads.com/@choi.openai/post/DcAB3L7ElhC"], ["영상", "조코딩 영상 22분 10초", "https://youtu.be/Hj1PPxRXJWM?t=1330"]]
+    },
+    3: {
+      background: editorialScenes.model,
+      category: "새 LLM 출시 · Google",
+      theme: "coral",
+      variant: ["roomy", "diagram-large"],
+      eyebrow: "NEW LLM · GEMINI",
+      title: "Gemini 3.7 Flash는 올해 출시가와 내년 정가가 다릅니다",
+      visual: {
+        type: "price-shift",
+        items: [
+          ["2026 출시가", "2026.12.31까지", "입력 $0.75 | 출력 $3.75"],
+          ["2027 정가", "2027.01.01부터", "입력 $1.50 | 출력 $7.50"]
+        ],
+        change: "2027년부터 입력과 출력 단가가 각각 2배",
+        totalLabel: "가격 기준",
+        total: "1M tokens",
+        ariaLabel: "Gemini 3.7 Flash의 2026년 출시가와 2027년 정가 비교"
+      },
+      cardBody: [
+        "Google은 8월 13일 Gemini 3.7 Flash를 출시했습니다.",
+        "1M Context Length와 멀티모달 입력을 지원하고 Gemini Spark에도 적용됩니다."
+      ],
+      highlight: "DeepSWE 65.3% | FrontierCode 43.6%",
+      panelTitle: "낮은 출시 가격과 2027년 정가를 나눠 봐야 합니다",
+      summary: [
+        "Gemini 3.7 Flash는 텍스트와 이미지, 영상, 음성과 PDF를 입력받고 1M Context Length와 최대 65,536 tokens 출력을 지원하는 상용 모델입니다.",
+        "2026년 12월 31일까지 1M tokens 기준 입력 0.75달러, 출력 3.75달러가 적용됩니다. 2027년부터는 입력 1.50달러, 출력 7.50달러로 바뀌므로 장기 운영 비용은 정가로 계산해야 합니다."
+      ],
+      points: [
+        ["제조사 평가", "Google 표에서 DeepSWE 65.3%, FrontierCode 43.6%, AutomationBench 30.4%를 기록했습니다."],
+        ["가중치", "API와 제품으로 제공되는 상용 모델이며 가중치는 공개하지 않았습니다."]
+      ],
+      sources: [["공식", "Google Gemini 3.7 Flash 발표", "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-3-7-flash/"], ["상세", "Gemini 3.7 Flash 카드뉴스", "https://ranian963.github.io/ai-news-archive/news/brief/gemini-3-7-flash/"]]
+    },
+    4: {
+      background: editorialScenes.moe,
+      category: "새 LLM 출시 · DeepSeek",
+      theme: "sky",
+      variant: ["roomy", "diagram-large"],
+      eyebrow: "NEW LLM · OPEN WEIGHTS",
+      title: "DeepSeek V4 Pro 0813이 정식 가중치를 열었습니다",
+      visual: { type: "layers", items: [["전체 파라미터", "1.6T 저장"], ["MoE 라우팅", "일부 전문가 선택"], ["토큰별 활성", "49B 계산"]] },
+      cardBody: [
+        "8월 13일 공개된 정식 버전은 V4 Pro 프리뷰를 교체했습니다.",
+        "1M Context Length와 최대 384K 출력을 지원하며 API와 MIT 가중치를 함께 제공합니다."
+      ],
+      highlight: "Input $0.435 · Output $0.87 · Open weights",
+      panelTitle: "저렴한 API와 직접 운영은 서로 다른 문제입니다",
+      summary: [
+        "DeepSeek V4 Pro 0813은 총 1.6T 중 토큰마다 49B를 활성화하는 MoE 모델입니다. 1M Context Length와 최대 384K 출력을 지원하며 DeepSeek는 Terminal-Bench 2.1 87.9, DeepSWE 62.7을 공개했습니다.",
+        "API는 1M tokens 기준 일반 입력 0.435달러, 출력 0.87달러입니다. 가중치는 MIT로 공개됐지만 1.6T 전체를 저장하고 나눠 돌릴 장비가 필요해 일반 PC용 모델은 아닙니다."
+      ],
+      points: [
+        ["정식 버전", "버전명이 없는 프리뷰 결과와 0813 정식 체크포인트의 결과를 섞지 않아야 합니다."],
+        ["운영", "공식 vLLM 예시는 GB300 GPU 4장을 사용하며 긴 Context Length에는 추가 KV cache가 필요합니다."]
+      ],
+      sources: [["공식", "DeepSeek V4 Pro 0813 모델 카드", "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813"], ["상세", "DeepSeek V4 Pro 0813 카드뉴스", "https://ranian963.github.io/ai-news-archive/news/brief/deepseek-v4-pro-0813/"]]
+    },
+    5: {
+      background: editorialScenes.selfHosting,
+      category: "새 LLM 출시 · Qwen",
+      theme: "mint",
+      variant: ["roomy", "diagram-large"],
+      eyebrow: "NEW LLM · LOCAL AI",
+      title: "Qwen3.8-27B는 로컬 에이전트용 크기로 나왔습니다",
+      visual: {
+        type: "gate",
+        input: "27B Dense | 262K Context Length",
+        gate: "로컬 실행 전에 계산",
+        outputs: ["4-bit 메모리", "KV cache", "도구 하네스"]
+      },
+      cardBody: [
+        "한국 시간 8월 15일 공개된 27B Dense 멀티모달 모델입니다.",
+        "Apache 2.0 가중치를 받을 수 있지만 메모리와 KV cache, 도구 하네스는 따로 준비해야 합니다."
+      ],
+      highlight: "27B Dense · Apache 2.0 · 멀티모달 입력",
+      panelTitle: "작아진 크기와 전체 성능을 같은 말로 보면 안 됩니다",
+      summary: [
+        "Qwen3.8-27B는 27B 전체 파라미터를 사용하는 Dense 모델입니다. 기본 262,144 tokens Context Length와 이미지, 영상 입력을 지원하고 Apache 2.0 가중치를 내려받아 직접 배포할 수 있습니다.",
+        "Qwen 표에서 SWE-bench Pro 61.7, OSWorld-Verified 84.3을 기록했지만 Terminal-Bench 2.1은 비교한 Opus 4.6 Max보다 낮았습니다. 일부 높은 점수만으로 프런티어 모델 전체를 앞섰다고 단정하기 어렵습니다."
+      ],
+      points: [
+        ["실행 범위", "4-bit 양자화는 필요한 메모리를 줄이지만 KV cache와 런타임 여유 공간을 따로 계산해야 합니다."],
+        ["구조", "48개 Gated DeltaNet 층과 16개 전체 Attention 층을 섞어 긴 입력 효율을 노렸습니다."]
+      ],
+      sources: [["공식", "Qwen3.8-27B 모델 카드", "https://huggingface.co/Qwen/Qwen3.8-27B"], ["상세", "Qwen3.8-27B 카드뉴스", "https://ranian963.github.io/ai-news-archive/news/brief/qwen-3-8-27b/"]]
+    },
+    6: {
+      background: editorialScenes.openWeight,
+      category: "새 LLM 출시 · Meta",
+      theme: "butter",
+      variant: ["roomy", "diagram-large"],
+      eyebrow: "NEW LLM · ON-DEVICE",
+      title: "Muse Glimmer 30B는 기기 안에서 일하는 에이전트를 겨냥합니다",
+      visual: {
+        type: "lanes",
+        lanes: [
+          ["받는 정보", ["문서", "이미지", "화면"]],
+          ["기기 안 작업", ["코딩", "도구 사용", "화면 이해"]]
+        ]
+      },
+      cardBody: [
+        "Meta는 8월 10일 Muse Glimmer 30B를 공개했습니다.",
+        "약 29.6B Dense 구조와 128K Context Length를 지원하고 Apache 2.0 가중치를 내려받을 수 있습니다."
+      ],
+      highlight: "Open weights · 로컬 멀티모달 에이전트",
+      panelTitle: "로컬 실행은 가능하지만 행동 통제는 따로 필요합니다",
+      summary: [
+        "Muse Glimmer 30B는 약 29.6B Dense 구조와 128K Context Length를 지원하는 멀티모달 오픈웨이트 모델입니다. Meta는 전체 정밀도와 4-bit 체크포인트를 Apache 2.0으로 공개했습니다.",
+        "가중치를 기기 안에서 실행할 수 있다는 말이 곧 안전한 컴퓨터 사용을 뜻하지는 않습니다. 파일 수정과 외부 도구 실행에는 별도 하네스, 권한 제한과 되돌리기 어려운 행동의 사람 확인이 필요합니다."
+      ],
+      points: [
+        ["로컬 조건", "양자화본도 모델 가중치 외에 이미지 처리와 Context Length에 필요한 메모리를 고려해야 합니다."],
+        ["구분", "API 전용 Muse Spark 1.2와 오픈웨이트 Muse Glimmer 30B는 다른 모델입니다."]
+      ],
+      sources: [["공식", "Meta Muse Glimmer 발표", "https://research.meta.ai/blog/introducing-muse-glimmer-open-agentic-model"], ["상세", "Muse Glimmer 30B 카드뉴스", "https://ranian963.github.io/ai-news-archive/news/brief/muse-glimmer-30b/"]]
+    },
+    8: {
+      background: editorialScenes.math,
+      category: "LLM 모델 관련 · 수학 연구",
+      theme: "lilac",
+      variant: ["roomy", "diagram-large"],
+      eyebrow: "LLM · AI FOR MATH",
+      title: "Claude는 리만 가설을 풀지 못했지만 관련 기록을 높였습니다",
+      visual: { type: "bars", items: [["기존 하한", 41.6, "41.6%"], ["새 결과", 67.2, "67.2%"]], note: "리만 제타 함수의 임계선 위 영점 비율에 관한 하한" },
+      cardBody: [
+        "Anthropic의 미공개 연구용 Claude가 여러 하위 에이전트와 문헌을 탐색했습니다.",
+        "리만 가설 자체의 증명과는 다른 관련 수학 결과입니다."
+      ],
+      highlight: "41.6% → 67.2% · 가설의 67.2%를 푼 것이 아님",
+      panelTitle: "큰 숫자보다 무엇을 증명했는지 봐야 합니다",
+      summary: [
+        "Anthropic은 미공개 연구용 Claude에게 리만 가설을 시도하게 했습니다. 모델은 가설을 증명하지 못했지만, 관련 문헌을 조합해 임계선 위에 놓인다고 보장할 수 있는 제타 함수 영점의 하한을 41.6%에서 67.2%로 높였다고 발표했습니다.",
+        "이 수치는 리만 가설을 67.2% 해결했다는 뜻이 아닙니다. 초기 연구 발표이며 논문의 조건과 검증 과정을 수학계가 더 살펴봐야 합니다."
+      ],
+      points: [
+        ["무엇이 아닌가", "리만 가설은 모든 비자명 영점에 관한 명제이며 이번 결과는 관련 하한을 개선한 것입니다."],
+        ["확인할 점", "미공개 연구 모델의 재현 조건과 동료 심사를 거친 최종 논문을 기다려야 합니다."]
+      ],
+      sources: [["정리", "Claude 수학 연구 소개", "https://www.threads.com/@choi.openai/post/Db4MKUqj67o"], ["영상", "조코딩 영상 33분 18초", "https://youtu.be/Hj1PPxRXJWM?t=1998"]]
+    },
+    9: {
+      background: editorialScenes.robotics,
+      category: "LLM 외 모델 · 로보틱스",
+      theme: "coral",
+      variant: ["roomy", "diagram-large"],
+      eyebrow: "NON-LLM · ROBOTICS",
+      title: "Dyna-2는 100만 시간의 인간 영상을 로봇 학습에 썼습니다",
+      visual: { type: "milestones", items: [["1천 시간", "작은 학습 구간"], ["2만 시간", "기존 공개 데이터 규모"], ["100만 시간", "Dyna-2 사전학습"], ["현장", "낯선 장소에서 시험"]] },
+      cardBody: [
+        "Dyna Robotics는 사람이 물건을 다루는 영상으로 세계-행동 모델을 사전학습했습니다.",
+        "사람 영상에서 나타난 성능 증가 흐름이 처음 보는 로봇 데이터에도 이어졌다고 발표했습니다."
+      ],
+      highlight: "Human video 1M hours · 회사 발표 기준",
+      panelTitle: "사람의 영상을 많이 보면 로봇도 더 잘 움직일까",
+      summary: [
+        "Dyna Robotics는 Dyna-2를 100만 시간의 인간 행동 영상으로 사전학습했다고 발표했습니다. 1,000시간부터 100만 시간까지 데이터를 늘릴수록 성능이 일정한 흐름으로 좋아졌고, 한 번도 보지 못한 로봇 데이터에도 같은 경향이 나타났다고 설명했습니다.",
+        "회사는 명령 수행률이 35%에서 96%로 올랐고 낯선 현장에서 zero-shot 품질 87%를 기록했다고 밝혔습니다. 특정 회사의 초기 평가이므로 작업 종류와 하드웨어가 달라져도 같은 결과가 나오는지는 독립 검증이 필요합니다."
+      ],
+      points: [
+        ["학습 자료", "로봇 원격조작 데이터만 모으는 대신 사람이 물건을 다루는 대규모 영상을 활용했습니다."],
+        ["남은 질문", "복잡한 현장과 장시간 작업, 안전한 실패 처리까지 일반화되는지는 더 많은 외부 시험이 필요합니다."]
+      ],
+      sources: [["공식", "Dyna Robotics", "https://www.dynarobotics.ai/"], ["정리", "Dyna-2 소개", "https://www.threads.com/@choi.openai/post/Db5UxJ_inhE"], ["영상", "조코딩 영상 1시간 45분 59초", "https://youtu.be/Hj1PPxRXJWM?t=6359"]]
+    }
+  },
+  sources: [
+    ["조코딩 주간 AI 뉴스", "https://www.youtube.com/live/Hj1PPxRXJWM"],
+    ["최고의 프롬프트 주간 요약 45건", "https://www.threads.com/share/BAiZg-4HBV/"],
+    ["xAI Grok 4.6 발표", "https://x.ai/news/grok-4-6"],
+    ["Cursor Grok Bot 연동 안내", "https://cursor.com/help/grok-bot/supergrok-heavy"],
+    ["OpenAI Computer History 안내", "https://learn.chatgpt.com/docs/customization/computer-history"],
+    ["OpenAI GPT-5.6 Sol 미리보기", "https://openai.com/index/previewing-gpt-5-6-sol/"],
+    ["Google Gemini 3.7 Flash 발표", "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-3-7-flash/"],
+    ["DeepSeek V4 Pro 0813 모델 카드", "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813"],
+    ["Qwen3.8-27B 모델 카드", "https://huggingface.co/Qwen/Qwen3.8-27B"],
+    ["Meta Muse Glimmer 발표", "https://research.meta.ai/blog/introducing-muse-glimmer-open-agentic-model"],
+    ["Claude 수학 연구 Threads 정리", "https://www.threads.com/@choi.openai/post/Db4MKUqj67o"],
+    ["Dyna-2 Threads 정리", "https://www.threads.com/@choi.openai/post/Db5UxJ_inhE"]
+  ]
+});
+
 for (const item of newsItems.filter((newsItem) => newsItem.type === "model")) {
   const profile = modelProfiles[item.id];
   const cover = item.cardDetails?.[1];
